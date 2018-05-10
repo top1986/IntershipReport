@@ -10,6 +10,15 @@
 \usepackage{wrapfig}
 \usepackage[figurename=Fig.]{caption}
 \usepackage{subfig}
+
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
 \begin{document}
 \renewcommand{\labelitemi}{$\bullet$}
 	\begin{titlepage}
@@ -83,9 +92,12 @@
 		\vfill % Fill the rest of the page with whitespace
 		
 	\end{titlepage}
-	
-	\section*{Remerciements}
-	Je veux commencer d'abord par remercier le Grand Dieu Tout-Puissant, le Créateur de l'univers, des cieux et de la terre qui m'a donné la vie, la santé, les opportunités et tout ce dont j'avais besoin pour faire cette grande et belle étude à l'université de Montréal. Il a rendu toutes choses possibles en ma faveur, moi qui suis pécheur et désobéissant; immérité de toutes ces grâces. Il m'accompagnait toujours dans les moments les plus difficiles de ma vie, Il ne m'a jamais laissé seul; surtout dans les moments où je devais payer les frais de scolarité qui étaient si énormes et impossibles à payer de mon propre compte. A un Dieu si merveilleux et si bon, je Lui dois beaucoup de reconnaissance.  \\
+		
+\tableofcontents
+\newpage	
+\addcontentsline{toc}{section}{Remerciements}
+\section*{Remerciements}
+Je veux commencer d'abord par remercier le Grand Dieu Tout-Puissant, le Créateur de l'univers, des cieux et de la terre qui m'a donné la vie, la santé, les opportunités et tout ce dont j'avais besoin pour faire cette grande et belle étude à l'université de Montréal. Il a rendu toutes choses possibles en ma faveur, moi qui suis pécheur et désobéissant; immérité de toutes ces grâces. Il m'accompagnait toujours dans les moments les plus difficiles de ma vie, Il ne m'a jamais laissé seul; surtout dans les moments où je devais payer les frais de scolarité qui étaient si énormes et impossibles à payer de mon propre compte. A un Dieu si merveilleux et si bon, je Lui dois beaucoup de reconnaissance.  \\
 	
 	Je remercie aussi ma femme qui m'a beaucoup supporté pendant plus de deux années d'études. Elle n'a jamais murmuré, ni découragé quand nous devions passer par des moments difficiles de notre vie conjugale à cause de ces études. Elle a mis toutes ses ressources disponibles pour entretenir la famille et payer mes études quand j’étais moi-même dans l’impossibilité de travailler. Vraiment, ma femme est une bénédiction dans ma vie, un cadeau venant de Dieu. Je t’aime ma chérie. \\
 	
@@ -98,8 +110,10 @@
 
 \listoffigures
 
+
 \newpage
-	
+
+\addcontentsline{toc}{section}{Résumé}
 \section*{Résumé}
 L'arthroplastie totale de la hanche et du genou réduit considérablement la douleur
 et améliore la fonction chez les personnes atteintes d'arthrose avancée. le
@@ -337,6 +351,8 @@ Dans notre projet nous avons opté pour la technique de SMOTE parce qu'elle perm
 \newpage
 
 \section{Aperçu}
+Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. 
+
 \subsection{Obtention des données}
 \subsection{Nettoyage des données}
 \subsection{Exploration des données}
