@@ -11,6 +11,8 @@
 \usepackage[figurename=Fig.]{caption}
 \usepackage{subfig}
 
+\usepackage[nottoc]{tocbibind}
+
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
 \hypersetup{
@@ -85,7 +87,7 @@
 		%	LOGO SECTION
 		%----------------------------------------------------------------------------------------
 		
-		\includegraphics[width=3cm, height=1cm]{logo.png} % Include a department/university logo - this will require the graphicx package
+		\includegraphics[width=3cm, height=1cm]{images/logo.png} % Include a department/university logo - this will require the graphicx package
 		
 		%----------------------------------------------------------------------------------------
 		
@@ -110,6 +112,9 @@ Je veux commencer d'abord par remercier le Grand Dieu Tout-Puissant, le Créateu
 
 \listoffigures
 
+\newpage
+
+\listoftables
 
 \newpage
 
@@ -172,7 +177,7 @@ Le cycle de travail du data scientist comprend notamment:
 \end{itemize}
 L'image ci-dessous donne une vue générale du travail d'un data scientist. Étant stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet du data scientist. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans la section "Aperçu", comment nous implémentons ce cycle au sein de notre projet. \\ \\
 \begin{figure}[h]
-\includegraphics[]{workflow_datascientis.png}
+\includegraphics[]{images/workflow_datascientis.png}
 \caption{work cycle of data scientist}
 \end{figure}
 Deux composantes sont nécessaires pour pouvoir commencer à se demander si la data science peut, oui ou non, apporter de la valeur et aider à la résolution d'un problème : des \textbf{données} et une \textbf{problématique} bien définie.
@@ -188,7 +193,7 @@ Au sein de ce cycle, le machine learning désigne l'ensemble des méthodes de mo
 Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. C'est la science qui consiste à apprendre les ordinateurs sans être explicitement programmés. \\
 Le machine learning constitue une manière de modéliser des phénomènes, dans le but de prendre des décisions stratégiques. Les algorithmes utilisés permettent, dans une certaine mesure, à un système piloté par ordinateur (un robot éventuellement), ou assisté par ordinateur, d'adapter ses analyses et ses comportements en réponse, en se fondant sur l'analyse de données empiriques provenant d'une base de données ou de capteurs. La difficulté réside dans le fait que l'ensemble de tous les comportements possibles compte tenu de toutes les entrées possibles devient rapidement trop complexe à décrire \textbf{(on parle d'explosion combinatoire)}. On confie donc à des programmes le soin d'ajuster un modèle pour simplifier cette complexité et de l'utiliser de manière opérationnelle. Idéalement, l'apprentissage visera à être non supervisé, c'est-à-dire que la nature des données d'entrainement n'est pas connue.
 \begin{figure}[h]
-\includegraphics[width=15cm, height=6cm]{machinelearning.png}
+\includegraphics[width=15cm, height=6cm]{images/machinelearning.png}
 \caption{Machine learning representation}
 \end{figure}
 
@@ -253,7 +258,7 @@ L'évaluation de la performance des méthodes d'apprentissage automatique est au
 
 Les metrics que vous choisissez pour évaluer votre modèle d'apprentissage automatique sont très importantes. Le choix des paramètres influence la façon dont la performance des algorithmes d'apprentissage automatique est mesurée et comparée. Pour ne pas perdre plus de temps, voyons ce que sont quelques metrics que nous avons utilisé dans notre projet.
 
-\subsubsection{Matrice de confusion.}
+\subsubsection{Matrice de confusion}
 La matrice de confusion \textbf{(Confusion Matrix en anglais)} est l'une des mesures les plus intuitives et les plus faciles (à moins bien sûr, vous n'êtes pas confus) utilisées pour trouver l'exactitude et la précision du modèle. Il est utilisé pour les problèmes de classification où la sortie peut être de deux types ou plus de classes.\\
 
 La figure 3 est une représentation de la matrice de confusion. La valeur actuelle (Actual value) représente la vraie valeur de l'étiquette tandis que la valeur prédite (Predicted value) représente la valeur retournée par le modèle machine learning. 
@@ -268,7 +273,7 @@ Les faux négatifs sont les cas où la classe réelle du point de données étai
 
 
 \begin{figure}[h]
-\includegraphics[width=14cm, height=7cm]{confusionmatrix.png}
+\includegraphics[width=14cm, height=7cm]{images/confusionmatrix.png}
 \caption{Confusion Matrix representation}
 \end{figure}
 
@@ -354,9 +359,128 @@ Dans notre projet nous avons opté pour la technique de SMOTE parce qu'elle perm
 Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. 
 
 \subsection{Obtention des données}
-Nous avons obtenu nos données de la part de la compagnie dans laquelle nous faisons le stage. Les données proviennent d'un fichier d'extension csv. 
-\subsection{Nettoyage des données}
+Une fois que vous êtes décidé à attaquer un problème, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples que vous allez fournir à votre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
+Les données que nous utilisons dans ce projet proviennent de la compagnie pour laquelle nous faisons le stage. Cette dernière les avait obtenues de l'université Seattle, Washington, USA. Les données sont disponibles dans un fichier d'extension csv et hébergées sur le serveur de la compagnie. Par conséquent, nous avons un accès direct aux données sans avoir besoin de les télécharger à partir d'un dépôt de Machine Learning.
+
 \subsection{Exploration des données}
+
+Le but de l'analyse exploratoire est de «connaître» l'ensemble de données. Si vous le faites à l'avance, le reste du projet sera beaucoup plus fluide, de trois façons principales:
+\begin{enumerate}
+\item Vous obtiendrez des conseils précieux pour le nettoyage des données \textbf{(Data Cleaning en anglais)} qui peuvent faire ou défaire vos modèles.
+\item Vous penserez à des idées pour l'ingénierie des fonctionnalités \textbf{(Feature Engineering en anglais)} qui peuvent prendre vos modèles de bonne à grande.
+\item Vous obtiendrez une «idée» de l'ensemble de données, ce qui vous aidera à communiquer les résultats et à avoir un impact plus important.
+\end{enumerate}
+
+Pour l'analyse exploratoire de nos données, Tout d'abord, nous commençons par une analyse basique de l'ensemble de nos données \textbf{(dataset in english)}. La table \ref{tab:dataset} donne une description de notre dataset utilisé pour notre projet et la figure \ref{fig:samplesdataset} donne une vue de notre ensemble de données, leur représentation, et leurs valeurs possibles. Voyons une brève description de chaque composante du dataset après une analyse basique de notre exploration:
+
+\paragraph{Number of Features :} Représente le nombre de caractéristiques ou colonnes de notre dataset. Les features sont importants pour un modèle de machine learning puisque le modèle les utilise pour prédire des événements. 
+
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+Number of Features & 92 \\
+\hline
+Number of Observations & 2718\\
+\hline
+Number of Numerical Features & 87\\
+\hline
+Number of Categorical Features & 5\\
+\hline
+Target value & Discharge\\
+\hline
+
+\end{tabular}
+\caption{Gives a description of our dataset}
+\label{tab:dataset}
+\end{table}
+
+\begin{figure}[h]
+\includegraphics{images/examplesfeatures.png}
+\caption{An overview of raw data from our dataset}
+\label{fig:samplesdataset}
+\end{figure}
+
+
+\paragraph{Number of Observations :} Représente le nombre d'échantillons \textbf{(samples or rows en anglais)} de notre ensemble de données. 
+
+\paragraph{ Numerical Features :} Ce sont les caractéristiques numériques de notre dataset. Les valeurs continues de notre dataset.
+
+\paragraph{ Categorical Features :} Ce sont les features qui viennent sous forme de texte. Plus loin dans la section de la transformation, nous convertirons ces features en données numériques car la plupart des algorithmes de machine learning ne reconnaissent pas les données discrètes ou textuelles.
+
+\paragraph{ Target value :} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. 
+
+La table \ref{tab:features} donne une description de quelques features de notre dataset. Le nombre total des features est 92 mais nous considérons un échantillon de 12 features qui sont les plus corrélés au target. La colonne \textit{datatype} représente le type de données et les colonnes. Et les colonnes non-null et null représentent le nombre d'échantillons non-nulls et le nombre d'échantillons nulls.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+Feature name & datatype & number of non-null & number of null \\
+\hline
+Side & Categorical & 2718 & 0  & \\
+RawDx & Categorical & 2718 & 0\\
+AGE\_AT\_ADMIT & Numercial & 2718 & 0 \\
+ASA\_SCORE & Numercial & 2716 & 2\\
+Female & Boolean & 2718 & 0\\
+Height & Numercial & 2293 & 425  \\
+Weight & Numercial & 2301 & 417 \\
+BMI & Numercial & 2283 & 435 \\
+PreOpHgb & Numercial & 272 &  2446\\
+PreOpCr & Numercial & 255 & 2463 \\
+PreOpGlucose & Numercial & 253 & 2465  \\
+Warfarin & Numercial & 2482 &  236\\
+\hline
+\end{tabular}
+\caption{Some features of our dataset}
+\label{tab:features}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+Target's name & Discharge \\
+\hline
+Positive classes & 2421\\
+\hline
+Negative classes & 297\\
+\hline
+Total classes & 2718\\
+\hline
+\end{tabular}
+\caption{Important details about target value}
+\label{tab:target}
+\end{table}
+
+La table \ref{tab:target}, quant à elle, c'est la représentation de notre variable target value. Dans le dataset, elle s'appelle \textit{Discharge}. On peut remarquer que les classes positives sont significativement plus nombreuses que les classes négatives, ce qui produit un déséquilibre au niveau du dataset. Nous avons déjà discuté dans la section\textit{ "Classes déséquilibrées"}, les différentes techniques pour équilibrer les classes déséquilibrées.
+
+\subsubsection{Correlation entre les données}
+Nous terminons la section d'exploration de données avec les corrélations. Les corrélations nous permettent d'examiner les relations entre les entités numériques et d'autres entités numériques \textbf{(Numerical features en anglais)}. La corrélation est une valeur comprise entre -1 et 1 qui représente à quel point deux entités se déplacent à l'unisson. \\
+
+Une corrélation positive signifie que lorsqu'une caractéristique augmente, l'autre augmente. Par exemple. Le BMI d'un patient et son poids\textbf{ (Weight dans le dataset)}.\\
+
+La corrélation négative signifie que lorsqu'une caractéristique augmente, l'autre diminue. Par exemple. heures consacrées à l'étude et nombre de participants. Les corrélations proches de -1 ou 1 indiquent une relation forte. Les plus proches de 0 indiquent une relation faible. 0 indique aucune relation.
+
+\begin{figure}[h]
+\includegraphics[width=17.5cm, height =7cm]{images/correlation.png}
+\caption{General view of the correlation between some features of our dataset}
+\label{fig:correlation}
+\end{figure}
+
+La figure \ref{fig:correlation} nous donne une idée comment nos variables sont corrélées entre elles. Par exemple, le poids \textbf{ (Weight dans le dataset)} et le BMI ont une correlation de 0.81 très proche de 1. On peut déduire que les patients qui ont leur BMI plus élevé sont les plus pesants. L'objectif de la correlation est de gagner en intuition sur les données, ce qui nous aidera tout au long du flux de travail.   
+
+\subsection{Nettoyage des données}
+Le nettoyage des données est l'une de ces choses que tout le monde fait mais dont personne ne parle vraiment. Bien sûr, ce n'est pas la partie la plus intéressante de l'apprentissage automatique. Et non, il n'y a pas de trucs cachés et de secrets à découvrir.
+
+Cependant, un nettoyage correct des données peut faire ou défaire notre projet. Les spécialistes des données professionnelles consacrent généralement une très grande partie de leur temps à cette étape. En fait, si vous avez un jeu de données correctement nettoyé, même des algorithmes simples peuvent apprendre des informations impressionnantes à partir des données!
+
+\subsubsection{Observations indésirables} La première étape du nettoyage des données consiste à supprimer les observations indésirables de votre jeu de données. Cela inclut des observations en double \textbf{(Duplicate observations)} ou non pertinentes \textbf{(Irrelevant observations)}.
+
+
+
 \subsection{Modélisation des données}
 \subsection{Déploiement de modèle}
 \subsubsection{Construction d'un API}
