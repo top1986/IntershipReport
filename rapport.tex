@@ -175,10 +175,11 @@ Le cycle de travail du data scientist comprend notamment:
 \item l'évaluation et interprétation des résultats;
 \item  la conclusion de l'étude : prise de décision ou déploiement en production du modèle.
 \end{itemize}
-L'image ci-dessous donne une vue générale du travail d'un data scientist. Étant stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet du data scientist. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans la section "Aperçu", comment nous implémentons ce cycle au sein de notre projet. \\ \\
+La figure \ref{workflow_datascientis} nous donne une vue générale du travail d'un data scientist. Étant stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet du data scientist. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans la section "Aperçu", comment nous implémentons ce cycle au sein de notre projet. \\ \\
 \begin{figure}[h]
 \includegraphics[]{images/workflow_datascientis.png}
 \caption{work cycle of data scientist}
+\label{workflow_datascientis}
 \end{figure}
 Deux composantes sont nécessaires pour pouvoir commencer à se demander si la data science peut, oui ou non, apporter de la valeur et aider à la résolution d'un problème : des \textbf{données} et une \textbf{problématique} bien définie.
 \paragraph{Données.}
@@ -190,11 +191,13 @@ Au sein de ce cycle, le machine learning désigne l'ensemble des méthodes de mo
 
 \subsection{Vue d'ensemble sur Machine Learning}
 
-Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. C'est la science qui consiste à apprendre les ordinateurs sans être explicitement programmés. \\
+Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. C'est la science qui consiste à apprendre les ordinateurs sans être explicitement programmés. La figure \ref{machinelearning} nous montre en grosso modo les techniques du machine learning, à un très haut d'abstraction. \\
+
 Le machine learning constitue une manière de modéliser des phénomènes, dans le but de prendre des décisions stratégiques. Les algorithmes utilisés permettent, dans une certaine mesure, à un système piloté par ordinateur (un robot éventuellement), ou assisté par ordinateur, d'adapter ses analyses et ses comportements en réponse, en se fondant sur l'analyse de données empiriques provenant d'une base de données ou de capteurs. La difficulté réside dans le fait que l'ensemble de tous les comportements possibles compte tenu de toutes les entrées possibles devient rapidement trop complexe à décrire \textbf{(on parle d'explosion combinatoire)}. On confie donc à des programmes le soin d'ajuster un modèle pour simplifier cette complexité et de l'utiliser de manière opérationnelle. Idéalement, l'apprentissage visera à être non supervisé, c'est-à-dire que la nature des données d'entrainement n'est pas connue.
 \begin{figure}[h]
 \includegraphics[width=15cm, height=6cm]{images/machinelearning.png}
 \caption{Machine learning representation}
+\label{machinelearning}
 \end{figure}
 
 Les algorithmes d'apprentissage peuvent se catégoriser selon le mode d'apprentissage qu'ils emploient :
@@ -261,21 +264,24 @@ Les metrics que vous choisissez pour évaluer votre modèle d'apprentissage auto
 \subsubsection{Matrice de confusion}
 La matrice de confusion \textbf{(Confusion Matrix en anglais)} est l'une des mesures les plus intuitives et les plus faciles (à moins bien sûr, vous n'êtes pas confus) utilisées pour trouver l'exactitude et la précision du modèle. Il est utilisé pour les problèmes de classification où la sortie peut être de deux types ou plus de classes.\\
 
-La figure 3 est une représentation de la matrice de confusion. La valeur actuelle (Actual value) représente la vraie valeur de l'étiquette tandis que la valeur prédite (Predicted value) représente la valeur retournée par le modèle machine learning. 
+La figure \ref{confusionmatrix} est une représentation de la matrice de confusion. La valeur actuelle (Actual value) représente la vraie valeur de l'étiquette tandis que la valeur prédite (Predicted value) représente la valeur retournée par le modèle machine learning. 
 \paragraph{True Positives (TP):}
 Les vrais positifs sont les cas où la classe réelle du point de données était 1 (Vrai) et la prédiction est également 1 (Vrai)
 \paragraph{True Negatives (TN):}
 Les vrais négatifs sont les cas où la classe réelle du point de données était 0 (Faux) et la prédiction est également 0 (Faux)
+
+\begin{figure}[h]
+\includegraphics[width=14cm, height=7cm]{images/confusionmatrix.png}
+\caption{Confusion Matrix representation}
+\label{confusionmatrix}
+\end{figure}
+
 \paragraph{False Positives (FP):}
 Les faux positifs sont les cas où la classe réelle du point de données était 0 (Faux) et la prédiction est 1 (Vrai). Faux parce que le modèle a prédit incorrectement et positivement parce que la classe prédite était positive. (1)
 \paragraph{False Negatives (FN):}
 Les faux négatifs sont les cas où la classe réelle du point de données était 1 (Vrai) et la prédiction est 0 (Faux). Faux parce que le modèle a prédit incorrectement et négativement parce que la classe prédite était négative. (0)
 
 
-\begin{figure}[h]
-\includegraphics[width=14cm, height=7cm]{images/confusionmatrix.png}
-\caption{Confusion Matrix representation}
-\end{figure}
 
 \subsubsection{Calcul de certains metrics de classification à partir de la matrice confusion}
 
@@ -292,7 +298,7 @@ $\textnormal{Precision} = \frac{TP}{TP+ FP} $
 
 \item \textbf{Recall or Sensitivity:}
 Le rappel permet de répondre à la question suivante : Quelle proportion de résultats positifs réels a été identifiée correctement ?
-$\textnormal{Precision} = \frac{TP}{TP+ FN} $
+$\textnormal{Recall} = \frac{TP}{TP+ FN} $
  
  \item \textbf{F1-score:}
  Nous ne voulons pas vraiment avoir à la fois la précision et le rappel dans nos poches chaque fois que nous faisons un modèle pour résoudre un problème de classification. Donc, il est préférable que nous puissions obtenir un seul score qui représente à la fois la précision (P) et le rappel (R)
@@ -473,13 +479,35 @@ La corrélation négative signifie que lorsqu'une caractéristique augmente, l'a
 La figure \ref{fig:correlation} nous donne une idée comment nos variables sont corrélées entre elles. Par exemple, le poids \textbf{ (Weight dans le dataset)} et le BMI ont une correlation de 0.81 très proche de 1. On peut déduire que les patients qui ont leur BMI plus élevé sont les plus pesants. L'objectif de la correlation est de gagner en intuition sur les données, ce qui nous aidera tout au long du flux de travail.   
 
 \subsection{Nettoyage des données}
-Le nettoyage des données est l'une de ces choses que tout le monde fait mais dont personne ne parle vraiment. Bien sûr, ce n'est pas la partie la plus intéressante de l'apprentissage automatique. Et non, il n'y a pas de trucs cachés et de secrets à découvrir.
+Le nettoyage des données \textbf{(Data cleaning en anglais)} est l'une de ces choses que tout le monde fait mais dont personne ne parle vraiment. Bien sûr, ce n'est pas la partie la plus intéressante de l'apprentissage automatique. Et non, il n'y a pas de trucs cachés et de secrets à découvrir.
 
 Cependant, un nettoyage correct des données peut faire ou défaire notre projet. Les spécialistes des données professionnelles consacrent généralement une très grande partie de leur temps à cette étape. En fait, si vous avez un jeu de données correctement nettoyé, même des algorithmes simples peuvent apprendre des informations impressionnantes à partir des données!
 
 \subsubsection{Observations indésirables} La première étape du nettoyage des données consiste à supprimer les observations indésirables de votre jeu de données. Cela inclut des observations en double \textbf{(Duplicate observations)} ou non pertinentes \textbf{(Irrelevant observations)}.
 
+\paragraph{Duplicate observations :} Les observations en double surviennent le plus souvent lors de la collecte de données, notamment lorsque vous combinez des ensembles de données provenant de plusieurs endroits, capturez les données et recevez des données de clients / autres départements.
 
+\paragraph{Irrelevant observations :} Les observations non pertinentes sont celles qui ne correspondent pas vraiment au problème spécifique que vous essayez de résoudre. \\
+
+Dans notre projet, nous avons trouvé beaucoup de données impertinentes. Par exemple. pendant la phase d'exploration nous avons trouvé que le "\textbf{Weight}" est une donnée impertinente car elle très corrélée avec le "\textbf{BMI}". On a décidé de sauvegarder le BMI et de laisser tomber le \textbf{"Weight"}.  De même que nous nous sommes rendu compte que le \textbf{"RawDX"} et \textbf{"GHOA}" étaient les mêmes données sauvegardées dans d'autres formes. Et on a maintenu le \textbf{"RawDX"} et laisser tomber le \textbf{"GHOA"}
+
+\subsubsection{Données manquantes}
+Les données manquantes \textbf{(Missing data en anglais)} sont un problème trompeur dans l'apprentissage automatique appliqué. Tout d'abord, juste pour être clair, vous ne pouvez pas simplement ignorer les valeurs manquantes dans un ensemble de données. Vous devez les gérer d'une manière ou d'une autre pour la raison très pratique que la plupart des algorithmes n'acceptent pas les valeurs manquantes.\\
+
+Les deux stratégies les plus couramment recommandées pour traiter les données manquantes sont les suivantes :
+\begin{enumerate}
+\item Suppression des observations qui ont des valeurs manquantes \textbf{(Dropping en anglais)}
+\item Imputation des valeurs manquantes en fonction d'autres observations \textbf{(Imputing en anglais)}
+\end{enumerate}
+
+Après avoir essayé les deux recommendations, nous avons constaté que le \textbf{"imputing"} nous donne de meilleurs résultats. Pour arriver à cette affirmation, nous avons essayé plusieurs modèles avec leurs différentes évaluations. Il faut souligner que notre dataset a de beaucoup de valeurs nulles. C'est la deuxième difficulté du projet après le déséquilibre au niveau du dataset. \\
+
+Il est important de préciser que dans le  \textbf{"imputing"}, il y a plusieurs méthodes de remplissage. On peut remplir avec la valeur "\textbf{zéro (0})", la valeur moyenne "\textbf{mean}" ou la valeur moyenne "\textbf{median}". Encore, nous avons opté de remplir avec la valeur moyenne "\textbf{mean}", car elle nous a donné de meilleurs résultats. 
+
+
+\subsection{Feature Engineering}
+
+L'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)} consiste à créer de nouvelles entités en entrée à partir de celles qui existent déjà. En général, vous pouvez considérer le nettoyage des données comme un processus de soustraction et l'ingénierie des fonctionnalités comme un processus d'ajout. 
 
 \subsection{Modélisation des données}
 \subsection{Déploiement de modèle}
