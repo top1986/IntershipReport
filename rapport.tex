@@ -507,7 +507,25 @@ Il est important de préciser que dans le  \textbf{"imputing"}, il y a plusieurs
 
 \subsection{Feature Engineering}
 
-L'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)} consiste à créer de nouvelles entités en entrée à partir de celles qui existent déjà. En général, vous pouvez considérer le nettoyage des données comme un processus de soustraction et l'ingénierie des fonctionnalités comme un processus d'ajout. 
+L'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)} consiste à créer de nouvelles entités en entrée à partir de celles qui existent déjà. En général, vous pouvez considérer le nettoyage des données comme un processus de soustraction et l'ingénierie des fonctionnalités comme un processus d'ajout. C'est souvent l'une des tâches les plus précieuses qu'un data scientist puisse faire pour améliorer les performances du modèle, et ce, pour trois grandes raisons:
+
+\begin{enumerate}
+\item Vous pouvez isoler et mettre en évidence les informations clés, ce qui aide vos algorithmes à se concentrer sur ce qui est important.
+\item Vous pouvez apporter votre propre expertise de domaine.
+\item Plus important encore, une fois que vous comprenez le «vocabulaire» de l'ingénierie des caractéristiques, vous pouvez apporter l'expertise de domaine d'autres personnes!
+\end{enumerate}
+
+Le feature engineering est l'étape qui précède la modélisation. Il prend en entrée le jeux de données brutes et produit en sortie un jeux de données préparé pour l'étape de la modélisation. Le modèle prend en entrée le jeux de données produit par le processus du feature engineering. \\ 
+
+Nous avons fait notre feature engineering en deux étapes: 
+\begin{enumerate}
+\item Premièrement, nous avons considéré les features \textbf{Dx1, Dx2, Dx3 } qui sont déjà existé dans notre dataset pour créer un nouveau feature appelé \textbf{degree\_dx} qui est le niveau général diagnostique du patient. Nous soulignons que  \textbf{Dx1, Dx2, Dx3} représentent respectivement: premier niveau diagnostique, deuxième niveau diagnostique et troisième niveau diagnostique du patient. En combinant ces trois diagnostiques, nous créons un niveau général  diagnostique du patient. 
+\item Deuxièment, nous créons un nouveau autre feature appelé \textbf{medcond} qui détermine les conditions médicales du patient. Nous nous basons sur l'ensemble de caractéristiques pré-opératoires du patient. Par exemple le niveau de glucose du patient, les quantités d'hémoglobine blanches et d'hémoglobines rouges. Ces features sont au nombre de 46 au total.
+\end{enumerate}
+
+
+ 
+
 
 \subsection{Modélisation des données}
 \subsection{Déploiement de modèle}
