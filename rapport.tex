@@ -127,14 +127,14 @@ et améliore la fonction chez les personnes atteintes d'arthrose avancée. le
 vieillissement de la génération du "baby boom", combiné au désir de
 maintenir un mode de vie actif et sans douleur, entraînera une augmentation
 du nombre annuel de chirurgies de remplacement articulaire pratiquées dans
-États Unis. L'Académie américaine des chirurgiens orthopédiques a
+États Unis \cite{key2}. L'Académie américaine des chirurgiens orthopédiques a
 projeté que d'ici 2030, les arthroplasties totales de la hanche et du genou
-augmentera à plus de 748 000 / an. 
+augmentera à plus de 748 000 / an \cite{key3}. 
 Avec l'augmentation continue du nombre de chirurgies de remplacement, il devient crucial aux administrateurs des hôpitaux de déterminer si les patients doivent rester à l'hôpital pour une réadaptation après leur 	chirurgie ou s'ils doivent être renvoyés à la maison puisque les coûts associés à une réadaptation doivent être pris en charge par les hôpitaux. Il est important de souligner que la majorité des compagnies d'assurance santé aux États Unis n'assument pas les coûts liés à la réadaptation des patients. Ces frais qui sont très élevés (entre 15-30,000 \$ par patient) doivent être assurés par les hôpitaux. Pour prendre la décision de retour ou non, les chirurgiens tiennent compte des antécédents médicaux du patient, ce qui est un travail difficile à effectuer manuellement. Dans notre projet de stage, nous développerons un model de machine learning qui aide à prendre cette décision de façon automatique.
    	
 \newpage
 \chapter{Introduction}	
-Le système de santé aux USA repose sur deux types de financement. Premièrement, sur le financement public qui englobe certains groupes de personnes de la population américaine uniquement. Il se concentre 	essentiellement sur deux programmes : le programme 		fédéral Medicare pour les plus de 65 ans et les personnes gravement handicapées (soit 15 \% de la population) et le programme Medicaid qui 			s’adresse aux familles pauvres avec enfants et touche 11 \% de la population. Deuxièmement, sur le financement privé qui touche tout le reste de la population, l’assurance est donc majoritairement privée aux 		Etats-Unis. Les Américains sont assurés en général via leurs employeurs ou sinon de manière individuelle lorsque leur employeur ne propose pas d’assurance ou qu’ils travaillent en indépendant. La composante « 	assurance médicale » dans le choix d’un emploi est donc un critère important.\\
+Le système de santé aux USA repose sur deux types de financement. Premièrement, sur le financement public qui englobe certains groupes de personnes de la population américaine uniquement. Il se concentre 	essentiellement sur deux programmes : le programme 		fédéral Medicare pour les plus de 65 ans et les personnes gravement handicapées (soit 15 \% de la population) et le programme Medicaid qui 			s’adresse aux familles pauvres avec enfants et touche 11 \% de la population. Deuxièmement, sur le financement privé qui touche tout le reste de la population, l’assurance est donc majoritairement privée aux 		Etats-Unis \cite{key4}. Les Américains sont assurés en général via leurs employeurs ou sinon de manière individuelle lorsque leur employeur ne propose pas d’assurance ou qu’ils travaillent en indépendant. La composante « 	assurance médicale » dans le choix d’un emploi est donc un critère important.\\
 	
 Le système américain, libéral et fondé sur le marché, s’organise autour d’assurances privées souvent liées à l’emploi et d’une assurance maladie obligatoire, liée notamment à la vieillesse et aux faibles revenus.
 Cependant, ce système, qui n’est pas universel, échoue à couvrir l’intégralité de la population, dont une partie se retrouve sans assurance santé.\\
@@ -147,21 +147,21 @@ Il est un travail fastidieux pour les spécialistes orthopédistes de vérifier 
 
 Nous supposons qu'il existe déjà un jeu de données disponibles contenant toutes les informations touchant un grand nombre de patients et que chaque échantillon de ce jeu de données est un dossier patient. Nous supposons aussi que ce jeu de données possède des caractéristiques suffisantes pour décider si un patient doit être renvoyé ou non. Nous considérons aussi que ce jeu de données est composé de patients qui font l'objet d'une décision de retour. Si toutes ces conditions sont réunies, nous pouvons profiter des différentes technologies de la science de données en général et du marching learning en particulier pour développer un outil d'aide à la décision qui aide les orthopédistes à prendre la décision de retour automatiquement. \\
 
-La suite de ce rapport est composé de plusieurs sections et chaque section peut avoir des subsections. La section 2 donne un contexte théorique des différents éléments qui sont importants pour notre projet. La section 3 présente en détail une description technique des différentes étapes de notre projet. La section 4 fait une évaluation de notre outil crée. La section 5 présente les limitations et les travaux futurs. La section 6 détaille les travaux connexes et la section 7 est celle de la conclusion.
+La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a des sections, subsections etc. Le chapitre 2 donne un contexte théorique des différents éléments qui sont importants pour notre projet. Le chapitre 3 présente en détail la description technique des différentes étapes de notre projet. Le chapitre 4 fait une évaluation de notre outil crée. Le chapitre 5 présente les limitations et les travaux futurs. Le chapitre 6 détaille les travaux connexes et le chapitre 7 est celui de la conclusion.
 
 
 \newpage
 
 \chapter{Contexte théorique}
 
-Dans cette section nous voulons présenter une approche théorique des différents concepts que nous avons utilisés dans le cadre notre projet. Nous allons faire un résumé de chaque concept important que nous avons utilisé dans le cadre de l'implémentation de ce projet. Nous n'allons pas toucher tout ce qui a rapport aux concepts mais juste ce qui nous intéresse et util pour le projet. Il y aura des références pour ceux qui veulent approfondir les concepts. 
+Dans ce chapitre nous voulons présenter une approche théorique des différents concepts que nous avons utilisés dans le cadre notre projet. Nous allons faire un résumé de chaque concept important que nous avons utilisé dans le cadre de l'implémentation de ce projet. Nous n'allons pas toucher tout ce qui a rapport aux concepts mais juste ce qui nous intéresse et util pour le projet. Il y aura des références pour ceux qui veulent approfondir les concepts. 
 
 \section{Sciences des données}
 
-La science des données est un domaine interdisciplinaire de méthodes, processus, algorithmes et systèmes scientifiques permettant d'extraire des connaissances ou des informations à partir de données sous diverses formes, structurées ou non. Elle emploie des techniques et des théories tirées de plusieurs autres domaines plus larges des mathématiques, la statistique principalement, la théorie de l'information et la technologie de l'information, notamment le traitement de signal, des modèles probabilistes, l'apprentissage automatique, l'apprentissage statistique, la programmation informatique, l'ingénierie de données, la reconnaissance de formes et l'apprentissage, la visualisation, l'analytique prophétique, la modélisation d'incertitude, le stockage de données, la compression de données et le calcul à haute performance. Les méthodes qui s'adaptent aux données de masse sont particulièrement intéressantes dans la science des données, bien que la discipline ne soit généralement pas considérée comme limitée à ces données.\\
+La science des données est un domaine interdisciplinaire de méthodes, processus, algorithmes et systèmes scientifiques permettant d'extraire des connaissances ou des informations à partir de données sous diverses formes, structurées ou non \cite{key5}. Elle emploie des techniques et des théories tirées de plusieurs autres domaines plus larges des mathématiques, la statistique principalement, la théorie de l'information et la technologie de l'information, notamment le traitement de signal, des modèles probabilistes, l'apprentissage automatique, l'apprentissage statistique, la programmation informatique, l'ingénierie de données, la reconnaissance de formes et l'apprentissage, la visualisation, l'analytique prophétique, la modélisation d'incertitude, le stockage de données, la compression de données et le calcul à haute performance. Les méthodes qui s'adaptent aux données de masse sont particulièrement intéressantes dans la science des données, bien que la discipline ne soit généralement pas considérée comme limitée à ces données.\\
 	
 L'objectif du « data scientist » (expert en données massives) est de produire des méthodes (automatisées, autant que possible) de tri et d'analyse de données de masse et de sources plus ou moins complexes ou disjointes de données, afin d'en extraire des informations utiles ou potentiellement utiles. 
-Le métier de data scientist est apparu pour trois raisons principales :	
+Le métier de data scientist est apparu pour trois raisons principales \cite{key6} :	
 \begin{itemize}
 \item l'explosion de la quantité de données produites et collectées par les humains;
 \item 	l'amélioration et l'accessibilité plus grande des algorithmes de machine learning;
@@ -176,7 +176,7 @@ Le cycle de travail du data scientist comprend notamment:
 \item l'évaluation et interprétation des résultats;
 \item  la conclusion de l'étude : prise de décision ou déploiement en production du modèle.
 \end{itemize}
-La figure \ref{workflow_datascientis} nous donne une vue générale du travail d'un data scientist. Étant stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet du data scientist. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans la section "Aperçu", comment nous implémentons ce cycle au sein de notre projet. \\ \\
+La figure \ref{workflow_datascientis} \cite{key6} nous donne une vue générale du travail d'un data scientist. Étant stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet du data scientist. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans la section "Aperçu", comment nous implémentons ce cycle au sein de notre projet. \\ \\
 \begin{figure}[h]
 \includegraphics[]{images/workflow_datascientis.png}
 \caption{Work cycle of data scientist}
@@ -265,9 +265,9 @@ Les metrics que vous choisissez pour évaluer votre modèle d'apprentissage auto
 La matrice de confusion \textbf{(Confusion Matrix en anglais)} est l'une des mesures les plus intuitives et les plus faciles (à moins bien sûr, vous n'êtes pas confus) utilisées pour trouver l'exactitude et la précision du modèle. Il est utilisé pour les problèmes de classification où la sortie peut être de deux types ou plus de classes.\\
 
 La figure \ref{confusionmatrix} est une représentation de la matrice de confusion. La valeur actuelle (Actual value) représente la vraie valeur de l'étiquette tandis que la valeur prédite (Predicted value) représente la valeur retournée par le modèle machine learning. 
-\paragraph{True Positives (TP):}
+\paragraph*{True Positives (TP):}
 Les vrais positifs sont les cas où la classe réelle du point de données était 1 (Vrai) et la prédiction est également 1 (Vrai)
-\paragraph{True Negatives (TN):}
+\paragraph*{True Negatives (TN):}
 Les vrais négatifs sont les cas où la classe réelle du point de données était 0 (Faux) et la prédiction est également 0 (Faux)
 
 \begin{figure}[h]
@@ -276,9 +276,9 @@ Les vrais négatifs sont les cas où la classe réelle du point de données éta
 \label{confusionmatrix}
 \end{figure}
 
-\paragraph{False Positives (FP):}
+\paragraph*{False Positives (FP):}
 Les faux positifs sont les cas où la classe réelle du point de données était 0 (Faux) et la prédiction est 1 (Vrai). Faux parce que le modèle a prédit incorrectement et positivement parce que la classe prédite était positive. (1)
-\paragraph{False Negatives (FN):}
+\paragraph*{False Negatives (FN):}
 Les faux négatifs sont les cas où la classe réelle du point de données était 1 (Vrai) et la prédiction est 0 (Faux). Faux parce que le modèle a prédit incorrectement et négativement parce que la classe prédite était négative. (0)
 
 
@@ -379,7 +379,7 @@ Le but de l'analyse exploratoire est de «connaître» l'ensemble de données. S
 
 Pour l'analyse exploratoire de nos données, Tout d'abord, nous commençons par une analyse basique de l'ensemble de nos données \textbf{(dataset in english)}. La table \ref{tab:dataset} donne une description de notre dataset utilisé pour notre projet et la figure \ref{fig:samplesdataset} donne une vue de notre ensemble de données, leur représentation, et leurs valeurs possibles. Voyons une brève description de chaque composante du dataset après une analyse basique de notre exploration:
 
-\paragraph{Number of Features :} Représente le nombre de caractéristiques ou colonnes de notre dataset. Les features sont importants pour un modèle de machine learning puisque le modèle les utilise pour prédire des événements. 
+\paragraph*{Number of Features :} Représente le nombre de caractéristiques ou colonnes de notre dataset. Les features sont importants pour un modèle de machine learning puisque le modèle les utilise pour prédire des événements. 
 
 
 
@@ -410,13 +410,13 @@ Target value & Discharge\\
 \end{figure}
 
 
-\paragraph{Number of Observations :} Représente le nombre d'échantillons \textbf{(samples or rows en anglais)} de notre ensemble de données. 
+\paragraph*{Number of Observations :} Représente le nombre d'échantillons \textbf{(samples or rows en anglais)} de notre ensemble de données. 
 
-\paragraph{ Numerical Features :} Ce sont les caractéristiques numériques de notre dataset. Les valeurs continues de notre dataset.
+\paragraph*{ Numerical Features :} Ce sont les caractéristiques numériques de notre dataset. Les valeurs continues de notre dataset.
 
-\paragraph{ Categorical Features :} Ce sont les features qui viennent sous forme de texte. Plus loin dans la section de la transformation, nous convertirons ces features en données numériques car la plupart des algorithmes de machine learning ne reconnaissent pas les données discrètes ou textuelles.
+\paragraph*{ Categorical Features :} Ce sont les features qui viennent sous forme de texte. Plus loin dans la section de la transformation, nous convertirons ces features en données numériques car la plupart des algorithmes de machine learning ne reconnaissent pas les données discrètes ou textuelles.
 
-\paragraph{ Target value :} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. 
+\paragraph*{ Target value :} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. 
 
 La table \ref{tab:features} donne une description de quelques features de notre dataset. Le nombre total des features est 92 mais nous considérons un échantillon de 12 features qui sont les plus corrélés au target. La colonne \textit{datatype} représente le type de données et les colonnes. Et les colonnes non-null et null représentent le nombre d'échantillons non-nulls et le nombre d'échantillons nulls.
 
@@ -549,7 +549,7 @@ Dans le chapitre sur \textit{"Contexte théorique"} nous avons vu comment manipu
 
 \subsection{Méthodes d'ensemble}
 
-L'objectif principal de la méthodologie d'ensemble \textbf{(Ensemble methods en anglais)} est d'améliorer la performance des classifieurs uniques. L'approche consiste à construire plusieurs classifieurs à deux étapes à partir des données originales, puis à agréger leurs prédictions. Les méthodes d'ensemble sont nombreuses, mais nous allons brièvement définis les trois plus importantes. Bagging, Boosting et Random Forest. 
+L'objectif principal de la méthodologie d'ensemble \textbf{(Ensemble methods en anglais)} \cite{key1} est d'améliorer la performance des classifieurs uniques. L'approche consiste à construire plusieurs classifieurs à deux étapes à partir des données originales, puis à agréger leurs prédictions. Les méthodes d'ensemble sont nombreuses, mais nous allons brièvement définis les trois plus importantes. Bagging, Boosting et Random Forest. 
 
 \begin{figure}[h]
 	\includegraphics{images/ensemble.png}
@@ -581,10 +581,13 @@ La table \ref{tab:ensemble} présente une comparaison des différents résultats
 		RandomForestClassifier & 2 & 3 & 5 \\
 		\hline
 	\end{tabular}
-	\caption{Comparison of the algorithms of ensemble method used in our project}
+	\caption{Comparison of ensemble methods algorithms used in our project}
 	\label{tab:ensemble}
 \end{table}
 
+Nous tenons compte aussi des metrics "Precision and Recall".Ces derniers nous permettent de déterminer la performance de notre modèle à classifier les classes positives et celles qui sont négatives. Le but de notre projet était d'obtenir la précision en dessus de 90\%. Généralement, dans la pratique une telle précision est acceptable pour pouvoir fier le modèle.\\
+
+Après avoir déterminé le meilleur modèle à partir des processus automatisés. On a sérialisé le modèle pour son utilisation future. Parce qu'un modèle doit être capable de prédire de nouvelles données. La section qui vient expliquera en détail comment nous avons procédé pour déployer notre modèle c'est-à-dire le rendre accessible à des utilisateurs qui ne connaissent rien en machine learning.    
 
 
 %Les méthodes Sequentiels (Boosting) ou les paramètres sont itérativement adaptés à
@@ -613,5 +616,10 @@ La table \ref{tab:ensemble} présente une comparaison des différents résultats
 \newpage
 
 \chapter{Conclusion}
+
+\newpage
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bibliography} 
+\bibliographystyle{plain}
 	
 \end{document}
