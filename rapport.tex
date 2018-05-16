@@ -20,7 +20,7 @@
 \renewcommand\theadgape{\Gape[4pt]}
 \renewcommand\cellgape{\Gape[4pt]}
 
-%\usepackage[nottoc]{tocbibind}
+\usepackage[nottoc]{tocbibind}%Automatic approach to add \listoffigures and \listoftables in table of contents
 
 \usepackage{color}   %May be necessary if you want to color links
 \usepackage{hyperref}
@@ -119,6 +119,7 @@ Je veux commencer d'abord par remercier le Grand Dieu Tout-Puissant, le Créateu
 	
 \newpage
 
+
 \listoffigures
 
 \newpage
@@ -144,11 +145,11 @@ Avec l'augmentation continue du nombre de chirurgies de remplacement, il devient
 Le système de santé aux USA repose sur deux types de financement. Premièrement, sur le financement public qui englobe certains groupes de personnes de la population américaine uniquement. Il se concentre 	essentiellement sur deux programmes : le programme 		fédéral Medicare pour les plus de 65 ans et les personnes gravement handicapées (soit 15 \% de la population) et le programme Medicaid qui 			s’adresse aux familles pauvres avec enfants et touche 11 \% de la population. Deuxièmement, sur le financement privé qui touche tout le reste de la population, l’assurance est donc majoritairement privée aux 		Etats-Unis \cite{key4}. Les Américains sont assurés en général via leurs employeurs ou sinon de manière individuelle lorsque leur employeur ne propose pas d’assurance ou qu’ils travaillent en indépendant. La composante « 	assurance médicale » dans le choix d’un emploi est donc un critère important.\\
 	
 Le système américain, libéral et fondé sur le marché, s’organise autour d’assurances privées souvent liées à l’emploi et d’une assurance maladie obligatoire, liée notamment à la vieillesse et aux faibles revenus.
-Cependant, ce système, qui n’est pas universel, échoue à couvrir l’intégralité de la population, dont une partie se retrouve sans assurance santé.\\
+Cependant, ce système, qui n’est pas universel, échoue à couvrir l’intégralité de la population, dont une partie se retrouve sans assurance santé. \cite{key9} \\
 
-Les compagnies d'assurance privées ne couvrent pas les coûts associés à une réadaptation d'un patient après une arthroplastie (Opération ayant pour but de rétablir la forme et la mobilité d'une articulation abîmée ou bloquée.). Il revient à l'hôpital de couvrir ces coûts qui sont très élevés d'après le docteur orthopédiste Jonah Hebert-Davies qui a fait ses études de spécialité en Orthopédie à l'université de Seattle, Washington USA. Selon le docteur les coûts estimés sont entre 15 à 30,000 \$ par patient. Ce qui revient à une grande perte financière pour les hôpitaux.  La décision de maintenir ou de renvoyer un patient après une arthroplastie devient une question préoccupante dans la mesure où elle pourrait réduire le coût budgétaire des hôpitaux. Si la décision prise est de renvoyer le patient, l'hôpital est le gagnant sinon il est le perdant\\ 
+Les compagnies d'assurance privées ne couvrent pas les coûts associés à une réadaptation d'un patient après une arthroplastie (Opération ayant pour but de rétablir la forme et la mobilité d'une articulation abîmée ou bloquée.). Il revient à l'hôpital de couvrir ces coûts qui sont très élevés d'après le docteur orthopédiste Jonah Hebert-Davies qui a fait ses études de spécialité en Orthopédie à l'université de Seattle, Washington USA \cite{key10}. Selon le docteur les coûts estimés sont entre 15 à 30,000 \$ par patient. Ce qui revient à une grande perte financière pour les hôpitaux.  La décision de maintenir ou de renvoyer un patient après une arthroplastie devient une question préoccupante dans la mesure où elle pourrait réduire le coût budgétaire des hôpitaux. Si la décision prise est de renvoyer le patient, l'hôpital est le gagnant sinon il est le perdant. \\ 
 
-D'autres part, l'arthrose (maladie qui touche les articulations et caractérisée par la douleur et la difficulté à effectuer des mouvements articulaires) touche environ 27 millions d'adultes aux États-Unis.  Ce qui augmente considérablement le nombre d'arthroplastie dans les hôpitaux, et aussi le poids de travail des médecins à savoir quand est-ce qu'il ya une réadaptation ou non.\\
+D'autres part, l'arthrose (maladie qui touche les articulations et caractérisée par la douleur et la difficulté à effectuer des mouvements articulaires \cite{key12}) touche environ 27 millions d'adultes aux États-Unis \cite{key11}.  Ce qui augmente considérablement le nombre d'arthroplastie dans les hôpitaux, et aussi le poids de travail des médecins à savoir quand est-ce qu'il ya une réadaptation ou non.\\
 
 Il est un travail fastidieux pour les spécialistes orthopédistes de vérifier manuellement les données médicales d'un patient pour pouvoir décider s'il doit être renvoyé ou non. Ce travail consiste en ce que les données médicales d'un dossier patient sont très volumineuses. Créer un moyen d'automatiser ce processus est le but de notre projet.  \\
 
@@ -183,13 +184,13 @@ Le cycle de travail du data scientist comprend notamment:
 \item l'évaluation et interprétation des résultats;
 \item  la conclusion de l'étude : prise de décision ou déploiement en production du modèle.
 \end{itemize}
-La figure \ref{workflow_datascientis} \cite{key6} nous donne une vue générale du travail d'un data scientist. Étant stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet du data scientist. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans la section "Aperçu", comment nous implémentons ce cycle au sein de notre projet. \\ \\
+La figure \ref{workflow_datascientis}  nous donne une vue générale du travail d'un data scientist. Étant stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet du data scientist. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans la section "Aperçu", comment nous implémentons ce cycle au sein de notre projet. \\ \\
 \begin{figure}[h]
 \includegraphics[]{images/workflow_datascientis.png}
-\caption{Work cycle of data scientist}
+\caption{Work cycle of data scientist \cite{key6}}
 \label{workflow_datascientis}
 \end{figure}
-Deux composantes sont nécessaires pour pouvoir commencer à se demander si la data science peut, oui ou non, apporter de la valeur et aider à la résolution d'un problème : des \textbf{données} et une \textbf{problématique} bien définie.
+Deux composantes sont nécessaires pour pouvoir commencer à se demander si la data science peut, oui ou non, apporter de la valeur et aider à la résolution d'un problème : des \textbf{données} et une \textbf{problématique} bien définie \cite{key6}.
 \subsection{Données.}
  Les données constituent la ressource principale pour qu'un data scientist puisse effectuer son travail correctement. Nos données proviennent du département orthopédique de l'université de Seattle, Washington, États-Unis. Elles sont au nombre de 2718 files et 92 colonnes. Nous les utilisons comme données historiques (\textit{historical data, en anglais}) dans le cadre du développement de notre modèle de machine learning. 
 \subsection{Problématique.}
@@ -201,7 +202,7 @@ Au sein de ce cycle, le machine learning désigne l'ensemble des méthodes de mo
 
 Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. C'est la science qui consiste à apprendre les ordinateurs sans être explicitement programmés. La figure \ref{machinelearning} nous montre en grosso modo les techniques du machine learning, à un très haut d'abstraction. \\
 
-Le machine learning constitue une manière de modéliser des phénomènes, dans le but de prendre des décisions stratégiques. Les algorithmes utilisés permettent, dans une certaine mesure, à un système piloté par ordinateur (un robot éventuellement), ou assisté par ordinateur, d'adapter ses analyses et ses comportements en réponse, en se fondant sur l'analyse de données empiriques provenant d'une base de données ou de capteurs. La difficulté réside dans le fait que l'ensemble de tous les comportements possibles compte tenu de toutes les entrées possibles devient rapidement trop complexe à décrire \textbf{(on parle d'explosion combinatoire)}. On confie donc à des programmes le soin d'ajuster un modèle pour simplifier cette complexité et de l'utiliser de manière opérationnelle. Idéalement, l'apprentissage visera à être non supervisé, c'est-à-dire que la nature des données d'entrainement n'est pas connue.
+Le machine learning constitue une manière de modéliser des phénomènes, dans le but de prendre des décisions stratégiques. Les algorithmes utilisés permettent, dans une certaine mesure, à un système piloté par ordinateur (un robot éventuellement), ou assisté par ordinateur, d'adapter ses analyses et ses comportements en réponse, en se fondant sur l'analyse de données empiriques provenant d'une base de données ou de capteurs. La difficulté réside dans le fait que l'ensemble de tous les comportements possibles compte tenu de toutes les entrées possibles devient rapidement trop complexe à décrire \textbf{(on parle d'explosion combinatoire)}. On confie donc à des programmes le soin d'ajuster un modèle pour simplifier cette complexité et de l'utiliser de manière opérationnelle. Idéalement, l'apprentissage visera à être non supervisé, c'est-à-dire que la nature des données d'entrainement n'est pas connue \cite{key13}.
 \begin{figure}[h]
 \includegraphics[width=15cm, height=6cm]{images/machinelearning.png}
 \caption{Machine learning representation}
@@ -213,12 +214,12 @@ Les algorithmes d'apprentissage peuvent se catégoriser selon le mode d'apprenti
 \subsection{Apprentissage supervisé}
 L'apprentissage supervisé (supervised learning en anglais) est une technique d'apprentissage automatique où l'on cherche à produire automatiquement des règles à partir d'une base de données d'apprentissage contenant des « exemples » (en général des cas déjà traités et validés).\\
 Une base de données d'apprentissage (ou ensemble d'apprentissage) est un ensemble de couples entrée-sortie $(x_n, y_n)_{1 \leq n \leq N}$ avec $x_n \in X$ et $y_n \in Y $  , que l'on considère être tirées selon une loi sur $ X \times Y $ fixe et inconnue, par exemple $x_n$ suit une loi uniforme et $ y_n = f(x_n) + w_n$ où $w_n$ est un bruit centré. \\\\
-On distingue trois types de problèmes solubles avec une méthode d'apprentissage automatique supervisée :  
+On distingue trois types de problèmes solubles avec une méthode d'apprentissage automatique supervisée \cite{key14}:  
 
 \begin{itemize} 
 \item $Y \subset \mathbb{R}$  : lorsque la sortie que l'on cherche à estimer est une valeur dans un ensemble continu de réels, on parle d'un problème de régression. La fonction de prédiction est alors appelée un régresseur.
 \item $Y = \{ 1, \cdots, I \} $ lorsque l'ensemble des valeurs de sortie est fini, on parle d'un problème de classification, qui revient à attribuer une étiquette à chaque entrée. La fonction de prédiction est alors appelée un classifieur (ou classificateur).
-\item Lorsque  $Y$ est un ensemble de données structurées, on parle d'un problème de prédiction structurée, qui revient à attribuer une sortie complexe à chaque entrée. Par exemple, en bio-informatique le problème de prédiction de réseaux d’interactions entre gènes peut être considéré comme un problème de prédiction structurée dans laquelle l'ensemble possible des sorties structurées est l'ensemble de tous les graphes modélisant les interactions possibles.
+\item Lorsque  $Y$ est un ensemble de données structurées, on parle d'un problème de prédiction structurée, qui revient à attribuer une sortie complexe à chaque entrée. Par exemple, en bio-informatique le problème de prédiction de réseaux d’interactions entre gènes peut être considéré comme un problème de prédiction structurée dans laquelle l'ensemble possible des sorties structurées est l'ensemble de tous les graphes modélisant les interactions possibles \cite{key14}.
 \end{itemize}
 
 
@@ -232,21 +233,21 @@ On distingue trois types de problèmes solubles avec une méthode d'apprentissag
 Quand le système ou l'opérateur ne disposent que d'exemples, mais non d'étiquettes, et que le nombre de classes et leur nature n'ont pas été prédéterminés, on parle d'apprentissage non supervisé ou clustering. Aucun expert n'est requis. L'algorithme doit découvrir par lui-même la structure plus ou moins cachée des données. Le partitionnement de données, data clustering en anglais, est un algorithme d'apprentissage non supervisé.\\
 Le système doit ici — dans l'espace de description (la somme des données) — cibler les données selon leurs attributs disponibles, pour les classer en groupe homogènes d'exemples. La similarité est généralement calculée selon une fonction de distance entre paires d'exemples. C'est ensuite à l'opérateur d'associer ou déduire du sens pour chaque groupe et pour les motifs (patterns en anglais) d'apparition de groupes, ou de groupes de groupes, dans leur « espace ». Divers outils mathématiques et logiciels peuvent l'aider. On parle aussi d'analyse des données en régression (ajustement d'un modèle par une procédure de type moindres carrés ou autre optimisation d'une fonction de coût). Si l'approche est probabiliste (c'est-à-dire que chaque exemple, au lieu d'être classé dans une seule classe, est caractérisé par un jeu de probabilités d'appartenance à chacune des classes), on parle alors de « soft clustering » (par opposition au « hard clustering »).\\
 Cette méthode est souvent source de sérendipité(le fait de réaliser une découverte scientifique ou une invention technique de façon inattendue à la suite d'un concours de circonstances fortuit )\\
-ex. : Pour un épidémiologiste qui voudrait dans un ensemble assez large de victimes de cancer du foie tenter de faire émerger des hypothèses explicatives, l'ordinateur pourrait différencier différents groupes, que l'épidémiologiste chercherait ensuite à associer à divers facteurs explicatifs, origines géographique, génétique, habitudes ou pratiques de consommation, expositions à divers agents potentiellement ou effectivement toxiques (métaux lourds, toxines telle que l'aflatoxine, etc.).
+ex. : Pour un épidémiologiste qui voudrait dans un ensemble assez large de victimes de cancer du foie tenter de faire émerger des hypothèses explicatives, l'ordinateur pourrait différencier différents groupes, que l'épidémiologiste chercherait ensuite à associer à divers facteurs explicatifs, origines géographique, génétique, habitudes ou pratiques de consommation, expositions à divers agents potentiellement ou effectivement toxiques (métaux lourds, toxines telle que l'aflatoxine, etc.) \cite{key13}.
 
 \subsection{Apprentissage semi-supervisé}
 Effectué de manière probabiliste ou non, il vise à faire apparaître la distribution sous-jacente des exemples dans leur espace de description. Il est mis en œuvre quand des données (ou « étiquettes ») manquent… Le modèle doit utiliser des exemples non étiquetés pouvant néanmoins renseigner.
 Ex. : En médecine, il peut constituer une aide au diagnostic ou au choix des moyens les moins onéreux de tests de diagnostic.
 Apprentissage partiellement supervisé 
-probabiliste ou non, quand l'étiquetage des données est partiel3. C'est le cas quand un modèle énonce qu'une donnée n'appartient pas à une classe A, mais peut-être à une classe B ou C (A, B et C étant 3 maladies par exemple évoquées dans le cadre d'un diagnostic différentiel).
-\subsection{Apprentissage par renforcement}l'algorithme apprend un comportement étant donné une observation. L'action de l'algorithme sur l'environnement produit une valeur de retour qui guide l'algorithme d'apprentissage.
+probabiliste ou non, quand l'étiquetage des données est partiel3. C'est le cas quand un modèle énonce qu'une donnée n'appartient pas à une classe A, mais peut-être à une classe B ou C (A, B et C étant 3 maladies par exemple évoquées dans le cadre d'un diagnostic différentiel) \cite{key13}.
+\subsection{Apprentissage par renforcement}l'algorithme apprend un comportement étant donné une observation. L'action de l'algorithme sur l'environnement produit une valeur de retour qui guide l'algorithme d'apprentissage \cite{key13}.
 ex. : L'algorithme de Q-learning est un exemple classique.
 \subsection{Apprentissage par transfert}
-L’apprentissage par transfert peut être vu comme la capacité d’un système à reconnaître et appliquer des connaissances et des compétences, apprises à partir de tâches antérieures, sur de nouvelles tâches ou domaines partageant des similitudes. La question qui se pose est : comment identifier les similitudes entre la ou les tâche(s) cible(s) et la ou les tâche(s) source(s), puis comment transférer la connaissance de la ou des tâche(s) source(s) vers la ou les tâche(s) cible(s) ?
+L’apprentissage par transfert peut être vu comme la capacité d’un système à reconnaître et appliquer des connaissances et des compétences, apprises à partir de tâches antérieures, sur de nouvelles tâches ou domaines partageant des similitudes. La question qui se pose est : comment identifier les similitudes entre la ou les tâche(s) cible(s) et la ou les tâche(s) source(s), puis comment transférer la connaissance de la ou des tâche(s) source(s) vers la ou les tâche(s) cible(s) ? \cite{key13}
 \subsection{Notion de dataset}
-Le dataset est l'ensemble des données utilisé pour entraîner un modèle. Il existe deux types de jeux de données (dataset) généraux. Jeux étiqueté et jeux sans étiquette.
+Le dataset est l'ensemble des données utilisé pour entraîner un modèle. Il existe deux types de jeux de données (dataset) généraux. Jeux étiqueté et jeux sans étiquette \cite{key15}.
 \subsection{Training Set and Test Set}
-Dans l'apprentissage automatique, un jeu de données universel inconnu est supposé exister, qui contient toutes les paires de données possibles ainsi que leur distribution de probabilité d'apparition dans le monde réel. Alors que dans les applications réelles, ce que nous avons observé est seulement un sous-ensemble de l'ensemble de données universel en raison du manque de mémoire ou d'un autre inévitable les raisons. Cet ensemble de données acquises s'appelle l'ensemble d'apprentissage \textbf{(Training Set)} et est utilisé pour apprendre les propriétés et la connaissance de l'ensemble de données universel. Afin d'examiner la performance de l'apprentissage, un autre ensemble de données peut être réservé pour le test, appelé ensemble de test ou données de test \textbf{(Test Set)}.\\
+Dans l'apprentissage automatique, un jeu de données universel inconnu est supposé exister, qui contient toutes les paires de données possibles ainsi que leur distribution de probabilité d'apparition dans le monde réel. Alors que dans les applications réelles, ce que nous avons observé est seulement un sous-ensemble de l'ensemble de données universel en raison du manque de mémoire ou d'un autre inévitable les raisons. Cet ensemble de données acquises s'appelle l'ensemble d'apprentissage \textbf{(Training Set)} et est utilisé pour apprendre les propriétés et la connaissance de l'ensemble de données universel. Afin d'examiner la performance de l'apprentissage, un autre ensemble de données peut être réservé pour le test, appelé ensemble de test ou données de test \textbf{(Test Set)} \cite{key15}.\\
 %\begin{itemize}
 %\item Dataset étiqueté: $\mathbb{D}: X = \{x^{(n)} \in \mathbb{R}^ $ 
 %\end{itemize}
@@ -256,7 +257,7 @@ Le machine learning est un champ d'études vaste, c'est un domaine de recherche.
 
 \section{Problème de Classification}
 
-Dans l'apprentissage automatique et les statistiques, le problème de classification est le problème d'identifier lequel d'un ensemble de catégories (sous-population) appartient à une nouvelle observation, sur la base d'un ensemble de données contenant des observations (ou instances) dont la composition est connue.\\
+Dans l'apprentissage automatique et les statistiques, le problème de classification est le problème d'identifier lequel d'un ensemble de catégories (sous-population) appartient à une nouvelle observation, sur la base d'un ensemble de données contenant des observations (ou instances) dont la composition est connue \cite{key16}.\\
 
 Voici quelques exemples de problèmes de classification. Nous avons déjà parlé de la classification du spam par courrier électronique comme exemple de problème de classification. Un autre exemple serait le classement des transactions en ligne. Donc, si vous avez un site Web qui vend des trucs et si vous voulez savoir si une transaction particulière est frauduleuse ou non, si quelqu'un utilise une carte de crédit volée ou a volé le mot de passe de l'utilisateur. Si la transaction est frauduleuse, on retourne 1 comme valeur sinon l'algorithme retourne 0.\\
 0 est aussi appelé la classe négative, et 1 la classe positive, et ils sont parfois aussi désignés par les symboles "-" et "+".\\
@@ -264,12 +265,12 @@ Voici quelques exemples de problèmes de classification. Nous avons déjà parl�
 Dans notre projet, le problème est un problème de classification binaire parce qu'on doit décider si oui ou non le patient reste à l'hôpital après une intervention chirurgicale. Si le patient reste, la valeur de la classe est positive (c'est-à-dire 1), s'il ne reste pas ou il est renvoyé, la valeur de la classe est négative (c'est-à-dire 0).
 
 \subsection{Mesure de performance des algorithmes de classification}
-L'évaluation de la performance des méthodes d'apprentissage automatique est aussi cruciale que l'algorithme lui-même, car il identifie les forces et les faiblesses de chaque algorithme d'apprentissage. Différentes mesures de performance sont utilisées pour évaluer différents algorithmes d'apprentissage automatique. Pour l'instant, nous allons nous concentrer sur ceux utilisés pour les problèmes de classification. Quelques metrics que nous pouvons utiliser pour évaluer la performance des problèmes de classification sont Log-Loss, Accuracy, AUC(Area under Curve) etc. Ils font partie des plus communs mais nous pouvons créer des metrics personnalisés en fonction de nos besoins.\\
+L'évaluation de la performance des méthodes d'apprentissage automatique est aussi cruciale que l'algorithme lui-même, car il identifie les forces et les faiblesses de chaque algorithme d'apprentissage. Différentes mesures de performance sont utilisées pour évaluer différents algorithmes d'apprentissage automatique. Pour l'instant, nous allons nous concentrer sur ceux utilisés pour les problèmes de classification. Quelques metrics que nous pouvons utiliser pour évaluer la performance des problèmes de classification sont Log-Loss, Accuracy, AUC(Area under Curve) etc. Ils font partie des plus communs mais nous pouvons créer des metrics personnalisés en fonction de nos besoins \cite{key17}.\\
 
 Les metrics que vous choisissez pour évaluer votre modèle d'apprentissage automatique sont très importantes. Le choix des paramètres influence la façon dont la performance des algorithmes d'apprentissage automatique est mesurée et comparée. Pour ne pas perdre plus de temps, voyons ce que sont quelques metrics que nous avons utilisé dans notre projet.
 
 \subsection{Matrice de confusion}
-La matrice de confusion \textbf{(Confusion Matrix en anglais)} est l'une des mesures les plus intuitives et les plus faciles (à moins bien sûr, vous n'êtes pas confus) utilisées pour trouver l'exactitude et la précision du modèle. Il est utilisé pour les problèmes de classification où la sortie peut être de deux types ou plus de classes.\\
+La matrice de confusion \textbf{(Confusion Matrix en anglais)} est l'une des mesures les plus intuitives et les plus faciles (à moins bien sûr, vous n'êtes pas confus) utilisées pour trouver l'exactitude et la précision du modèle. Il est utilisé pour les problèmes de classification où la sortie peut être de deux types ou plus de classes \cite{key17}.\\
 
 La figure \ref{confusionmatrix} est une représentation de la matrice de confusion. La valeur actuelle (Actual value) représente la vraie valeur de l'étiquette tandis que la valeur prédite (Predicted value) représente la valeur retournée par le modèle machine learning. 
 \paragraph*{True Positives (TP):}
@@ -313,7 +314,7 @@ $\textnormal{Recall} = \frac{TP}{TP+ FN} $
  $ \textnormal{F1score} = \frac{ 2 }{\frac {1}{\textnormal{precision}} +  \frac {1}{\textnormal{recall}}  } = 2 \times \frac{\textnormal{precision} \times \textnormal{recall}} { \textnormal{precision} + \textnormal{recall} } = \frac{TP} {TP + \frac{FN+FP} {2} } $
  
  \item \textbf{ROC-AUC:}
-Une courbe ROC (receiver operating characteristic) est un graphique représentant les performances d'un modèle de classification pour tous les seuils de classification. Cette courbe trace le taux de vrais positifs \textbf{(True Positifs en anglais)} en fonction du taux de faux positifs \textbf{(False Positifs en anglais)}.
+Une courbe ROC (receiver operating characteristic) est un graphique représentant les performances d'un modèle de classification pour tous les seuils de classification. Cette courbe trace le taux de vrais positifs \textbf{(True Positifs en anglais)} en fonction du taux de faux positifs \textbf{(False Positifs en anglais)} \cite{key18}.
 \end{enumerate}
 
 \section{Classes déséquilibrées}
@@ -322,9 +323,9 @@ Nous terminerons le chapitre sur la classification en abordant un sujet très im
 
 Une distribution de classe déséquilibrée est un scénario où le nombre d'observations appartenant à une classe est significativement inférieur à celui des autres classes. 
 Ce problème prédomine dans les cas où la détection d'anomalies est cruciale comme le vol d'électricité, les transactions frauduleuses dans les banques, l'identification de maladies rares, etc. Dans ce cas, le modèle prédictif développé avec des algorithmes conventionnels pourrait être biaisé et inexact.\\
-Cela arrive parce que les algorithmes d'apprentissage automatique sont généralement conçus pour améliorer la précision en réduisant l'erreur. Ainsi, ils ne tiennent pas compte de la répartition / proportion des classes ou de l'équilibre des classes.\\
+Cela arrive parce que les algorithmes d'apprentissage automatique sont généralement conçus pour améliorer la précision en réduisant l'erreur. Ainsi, ils ne tiennent pas compte de la répartition / proportion des classes ou de l'équilibre des classes \cite{key19}.\\
 
-Plusieurs techniques ont été proposées pour manipuler les classes déséquilibrées. Voyons un bref résumé de quelques-unes d'entre elles:
+Plusieurs techniques ont été proposées pour manipuler les classes déséquilibrées. Voyons un bref résumé de quelques-unes d'entre elles  \cite{key19}:
 \subsection{Random Under-Sampling:}
 Le Random Under-Sampling vise à équilibrer la distribution des classes en éliminant de manière aléatoire les exemples de classes majoritaires. Ceci est fait jusqu'à ce que les instances de la majorité et de la classe minoritaire soient équilibrées.
 \subsection{Random Over-Sampling:}
@@ -377,7 +378,7 @@ Les données que nous utilisons dans ce projet proviennent de la compagnie pour 
 
 \section{Exploration des données}
 
-Le but de l'analyse exploratoire est de «connaître» l'ensemble de données. Si vous le faites à l'avance, le reste du projet sera beaucoup plus fluide, de trois façons principales:
+Le but de l'analyse exploratoire est de «connaître» l'ensemble de données. Si vous le faites à l'avance, le reste du projet sera beaucoup plus fluide, de trois façons principales \cite{key20}:
 \begin{enumerate}
 \item Vous obtiendrez des conseils précieux pour le nettoyage des données \textbf{(Data Cleaning en anglais)} qui peuvent faire ou défaire vos modèles.
 \item Vous penserez à des idées pour l'ingénierie des fonctionnalités \textbf{(Feature Engineering en anglais)} qui peuvent prendre vos modèles de bonne à grande.
@@ -471,7 +472,7 @@ Total classes & 2718\\
 La table \ref{tab:target}, quant à elle, c'est la représentation de notre variable target value. Dans le dataset, elle s'appelle \textit{Discharge}. On peut remarquer que les classes positives sont significativement plus nombreuses que les classes négatives, ce qui produit un déséquilibre au niveau du dataset. Nous avons déjà discuté dans la section\textit{ "Classes déséquilibrées"}, les différentes techniques pour équilibrer les classes déséquilibrées.
 
 \subsection{Correlation entre les données}
-Nous terminons la section d'exploration de données avec les corrélations. Les corrélations nous permettent d'examiner les relations entre les entités numériques et d'autres entités numériques \textbf{(Numerical features en anglais)}. La corrélation est une valeur comprise entre -1 et 1 qui représente à quel point deux entités se déplacent à l'unisson. \\
+Nous terminons la section d'exploration de données avec les corrélations. Les corrélations nous permettent d'examiner les relations entre les entités numériques et d'autres entités numériques \textbf{(Numerical features en anglais)}. La corrélation est une valeur comprise entre -1 et 1 qui représente à quel point deux entités se déplacent à l'unisson \cite{key20}. \\
 
 Une corrélation positive signifie que lorsqu'une caractéristique augmente, l'autre augmente. Par exemple. Le BMI d'un patient et son poids\textbf{ (Weight dans le dataset)}.\\
 
@@ -488,20 +489,20 @@ La figure \ref{fig:correlation} nous donne une idée comment nos variables sont 
 \section{Nettoyage des données}
 Le nettoyage des données \textbf{(Data cleaning en anglais)} est l'une de ces choses que tout le monde fait mais dont personne ne parle vraiment. Bien sûr, ce n'est pas la partie la plus intéressante de l'apprentissage automatique. Et non, il n'y a pas de trucs cachés et de secrets à découvrir.
 
-Cependant, un nettoyage correct des données peut faire ou défaire notre projet. Les spécialistes des données professionnelles consacrent généralement une très grande partie de leur temps à cette étape. En fait, si vous avez un jeu de données correctement nettoyé, même des algorithmes simples peuvent apprendre des informations impressionnantes à partir des données!
+Cependant, un nettoyage correct des données peut faire ou défaire notre projet. Les spécialistes des données professionnelles consacrent généralement une très grande partie de leur temps à cette étape. En fait, si vous avez un jeu de données correctement nettoyé, même des algorithmes simples peuvent apprendre des informations impressionnantes à partir des données! \cite{key21}.
 
-\subsection{Observations indésirables} La première étape du nettoyage des données consiste à supprimer les observations indésirables de votre jeu de données. Cela inclut des observations en double \textbf{(Duplicate observations)} ou non pertinentes \textbf{(Irrelevant observations)}.
+\subsection{Observations indésirables} La première étape du nettoyage des données consiste à supprimer les observations indésirables de votre jeu de données. Cela inclut des observations en double \textbf{(Duplicate observations)} ou non pertinentes \textbf{(Irrelevant observations)} \cite{key21}.
 
-\subsection{Duplicate observations :} Les observations en double surviennent le plus souvent lors de la collecte de données, notamment lorsque vous combinez des ensembles de données provenant de plusieurs endroits, capturez les données et recevez des données de clients / autres départements.
+\subsection{Duplicate observations :} Les observations en double surviennent le plus souvent lors de la collecte de données, notamment lorsque vous combinez des ensembles de données provenant de plusieurs endroits, capturez les données et recevez des données de clients / autres départements \cite{key21}.
 
-\subsection{Irrelevant observations :} Les observations non pertinentes sont celles qui ne correspondent pas vraiment au problème spécifique que vous essayez de résoudre. \\
+\subsection{Irrelevant observations :} Les observations non pertinentes sont celles qui ne correspondent pas vraiment au problème spécifique que vous essayez de résoudre \cite{key21}. \\
 
 Dans notre projet, nous avons trouvé beaucoup de données impertinentes. Par exemple. pendant la phase d'exploration nous avons trouvé que le "\textbf{Weight}" est une donnée impertinente car elle très corrélée avec le "\textbf{BMI}". On a décidé de sauvegarder le BMI et de laisser tomber le \textbf{"Weight"}.  De même que nous nous sommes rendu compte que le \textbf{"RawDX"} et \textbf{"GHOA}" étaient les mêmes données sauvegardées dans d'autres formes. Et on a maintenu le \textbf{"RawDX"} et laisser tomber le \textbf{"GHOA"}
 
 \subsection{Données manquantes}
 Les données manquantes \textbf{(Missing data en anglais)} sont un problème trompeur dans l'apprentissage automatique appliqué. Tout d'abord, juste pour être clair, vous ne pouvez pas simplement ignorer les valeurs manquantes dans un ensemble de données. Vous devez les gérer d'une manière ou d'une autre pour la raison très pratique que la plupart des algorithmes n'acceptent pas les valeurs manquantes.\\
 
-Les deux stratégies les plus couramment recommandées pour traiter les données manquantes sont les suivantes :
+Les deux stratégies les plus couramment recommandées pour traiter les données manquantes sont les suivantes \cite{key21}:
 \begin{enumerate}
 \item Suppression des observations qui ont des valeurs manquantes \textbf{(Dropping en anglais)}
 \item Imputation des valeurs manquantes en fonction d'autres observations \textbf{(Imputing en anglais)}
@@ -514,7 +515,7 @@ Il est important de préciser que dans le  \textbf{"imputing"}, il y a plusieurs
 
 \section{Feature Engineering}
 
-L'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)} consiste à créer de nouvelles entités en entrée à partir de celles qui existent déjà. En général, vous pouvez considérer le nettoyage des données comme un processus de soustraction et l'ingénierie des fonctionnalités comme un processus d'ajout. C'est souvent l'une des tâches les plus précieuses qu'un data scientist puisse faire pour améliorer les performances du modèle, et ce, pour trois grandes raisons:
+L'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)} consiste à créer de nouvelles entités en entrée à partir de celles qui existent déjà. En général, vous pouvez considérer le nettoyage des données comme un processus de soustraction et l'ingénierie des fonctionnalités comme un processus d'ajout. C'est souvent l'une des tâches les plus précieuses qu'un data scientist puisse faire pour améliorer les performances du modèle, et ce, pour trois grandes raisons \cite{key22}:
 
 \begin{enumerate}
 \item Vous pouvez isoler et mettre en évidence les informations clés, ce qui aide vos algorithmes à se concentrer sur ce qui est important.
@@ -569,11 +570,13 @@ Bagging (Bootstrap aggregating) est une approche de construction d'ensemble qui
 utilise différents sous-ensembles de données d’apprentissage avec une  méthode  de classification unique.  Étant  donné  un  ensemble  d’apprentissage  de  taille \textbf{t}, Bagging attire des instances aléatoires \textbf{t} de l'ensemble de données avec remplacement (à l'aide d'une distribution uniforme). Ces \textbf{t} instances sont apprises, et ce processus est répété plusieurs fois. Étant donné que le tirage au sort est effectué avec remplacement,les   instances   tirées   contiendront des   doublons   et   des   omissions   par   rapport   àl'ensemble  d'apprentissage initial.  Chaque  cycle  à  travers  le  processus  aboutit  à  un classifieur.  Après  la  construction  de  plusieurs  classifieurs,  les  sorties  de  chaque classifieur sont combinés pour produire la prédiction finale. 
 %Méthodes parallèles (ensachage, forêt aléatoire) dont le principe est de faire la moyenne de plusieurs prédictions dans l'espoir d'un meilleur résultat suite à la réduction de la variance de l'estimateur moyen.
 \subsubsection{Boosting}
-Une  autre  approche  appelée  «Boosting»  utilise  également une  méthode d'apprentissage  unique  avec  différents  sous-ensembles  de  données  d’apprentissage. Sa structure globale est similaire à celle de la méthode Bagging, à la différence qu’elle  conserve  la  trace  de  la  performance  de  l'algorithme  d'apprentissage  et  se concentre  sur  les  cas  qui  ne  sont  pas  correctement  appris.  Au  lieu  de  choisir  les instances \textbf{t} d’apprentissage à l'aide d'une distribution uniforme de manière aléatoire,les exemples d’apprentissage sont sélectionnés en favorisant les instances quine sont pas  bien  classées.  Après  plusieurs  cycles,  la  prédiction  est  réalisée  selon  un  vote pondéré des prédictions de chaque classifieur. Ainsi, les poids sont proportionnels à la précision de chaque classifieur sur son ensemble d'apprentissage. L’algorithme le plus connu de l’approche Boosting, appelée « AdaBoost ».
+Une  autre  approche  appelée  «Boosting»  utilise  également une  méthode d'apprentissage  unique  avec  différents  sous-ensembles  de  données  d’apprentissage. Sa structure globale est similaire à celle de la méthode Bagging, à la différence qu’elle  conserve  la  trace  de  la  performance  de  l'algorithme  d'apprentissage  et  se concentre  sur  les  cas  qui  ne  sont  pas  correctement  appris.  Au  lieu  de  choisir  les instances \textbf{t} d’apprentissage à l'aide d'une distribution uniforme de manière aléatoire, les exemples d’apprentissage sont sélectionnés en favorisant les instances quine sont pas  bien  classées.  Après  plusieurs  cycles,  la  prédiction  est  réalisée  selon  un  vote pondéré des prédictions de chaque classifieur. Ainsi, les poids sont proportionnels à la précision de chaque classifieur sur son ensemble d'apprentissage. L’algorithme le plus connu de l’approche Boosting, appelée « AdaBoost ».
+\subsubsection{Stacking}
+Le stacking est similaire au boosting: vous appliquez également plusieurs modèles à vos données d'origine. La différence ici est, cependant, que vous n'avez pas juste une formule empirique pour votre fonction de poids, plutôt que vous introduisez un méta-niveau et utilisez un autre modèle / approche pour estimer l'entrée avec les sorties de chaque modèle pour estimer les poids ou , en d'autres termes, pour déterminer quels modèles fonctionnent bien et ce qui est mal donné ces données d'entrée.
 \subsubsection{Random Forest}
 Les forêts aléatoires(plus connus sous \textbf{Random Forest}) sont une combinaison d'arbres  de  décision,  où  chaque  arbre  dépend  des  valeurs  d'un  vecteur  aléatoire indépendamment échantillonné et avec la même distribution pour tous les arbres de la forêt.L'erreur  de  généralisation  d'une  forêt  d'arbres  dépend  de  la  force  des  arbres individuels  dans  la  forêt  et  de  la  corrélation  entre  eux.  L'utilisation d'une  sélection aléatoire  de  caractéristiques  pour  diviser  chaque nœud donne des  taux  d'erreur  qui se comparent favorablement à AdaBoost.\\
 
-La table \ref{tab:ensemble} présente une comparaison des différents résultats obtenus en évaluant trois types d'algorithmes ensemblistes différents dans le cadre de notre projet. Normalement nous avons développé un processus automatique de choix du meilleur algorithme en nous basant sur les scores de chaque modèle. Le meilleur modèle va être celui du meilleur score obtenu.     
+Pour notre projet nous avons entrainé quatre algorithmes ensemblistes; deux d'entre eux sont des algorithmes de boosting, un algorithme stacking et le random forest. La table \ref{tab:ensemble} présente une comparaison des différents résultats obtenus en entrainant ces quatre types d'algorithmes ensemblistes différents. Pour sélectionner le meilleur algorithme, nous avons développé des processus automatiques en nous basant sur les scores de chaque modèle. Le meilleur modèle va être celui du meilleur score obtenu.     
 
 \begin{table}[h]
 	\centering
@@ -583,18 +586,22 @@ La table \ref{tab:ensemble} présente une comparaison des différents résultats
 		\hline
 		& \thead{Accurency score} & \thead{Precision} & \thead{Recall} \\
 		\hline
-		BaggingClassifier & 2 & 3 & 5 \\
-		BoostingClassifier & 2 & 3 & 5 \\
-		RandomForestClassifier & 2 & 3 & 5 \\
+		GradientBoostingClassifier & 0.83 & 0.93 & 0.89  \\
+		AdaBoostClassifier & 0.85 & 0.93 & 0.90 \\
+		StackingClassifier & 0.78 & 0.91 & 0.84 \\
+		RandomForestClassifier & 0.82 & 0.91 & 0.90 \\
 		\hline
 	\end{tabular}
 	\caption{Comparison of ensemble methods algorithms used in our project}
 	\label{tab:ensemble}
 \end{table}
 
-Nous tenons compte aussi des metrics "Precision and Recall".Ces derniers nous permettent de déterminer la performance de notre modèle à classifier les classes positives et celles qui sont négatives. Le but de notre projet était d'obtenir la précision en dessus de 90\%. Généralement, dans la pratique une telle précision est acceptable pour pouvoir fier le modèle.\\
+Nous tenons compte aussi des metrics d'évaluation comme "Precision and Recall".Ces derniers nous permettent de déterminer la performance de notre modèle à classifier les classes positives et celles qui sont négatives. Le but de notre projet était d'obtenir la précision en dessus de 90\%. Généralement, dans la pratique une telle précision est acceptable pour pouvoir fier le modèle.\\
 
-Après avoir déterminé le meilleur modèle à partir des processus automatisés. La dernière étape qui nous reste à faire est la sérialisation de notre modèle pour son utilisation future soit dans la phase de déploiement. Parce qu'un modèle doit être capable de prédire de nouvelles données. La section qui vient expliquera en détail comment nous avons procédé pour déployer notre modèle c'est-à-dire le rendre accessible à des utilisateurs qui ne connaissent rien en machine learning.    
+Vous pouvez constater à la table \ref{tab:ensemble} que nous obtenons des résultats différents pour chaque algorithme. Pour faire le choix du bon algorithme, notre API machine learning est capable d'évaluer chaque algorithme de façon indépendante et itérativement pour déterminer le meilleur modèle, tout en combinant les différents résultats de chaque metric. Dans ce cas, c'est l'\textbf{AdaBoostClassifier} qui serait le modèle estimé meilleur.  \\
+
+Après avoir déterminé le meilleur modèle à partir des processus automatiques. La dernière étape qui nous reste à faire est la sérialisation de notre modèle pour son utilisation future soit dans la phase de déploiement. Parce qu'un modèle doit être capable de prédire de nouvelles données (\textbf{online data}). La section qui vient expliquera en détail comment nous avons procédé pour déployer notre modèle c'est-à-dire le rendre accessible à des utilisateurs qui ne connaissent rien en machine learning.  \\ 
+
 
 
 %Les méthodes Sequentiels (Boosting) ou les paramètres sont itérativement adaptés à
@@ -620,13 +627,15 @@ Pour communiquer avec notre modèle, nous avons construit un API en Django frame
 	\label{django}
 \end{figure} 
 
-La table nous présente les détails de notre API
+\subsection{Présentation de notre API}
+
+La table \ref{tab:api} nous présente les détails de notre API. La colonne "\textbf{Attribute or Method}" désigne les différents attributs et les méthodes que constitue notre API. et "\textbf{Comments}" dit ce que fait chaque attribut ou méthode. On précise aussi les différents paramètres de chaque fonction et leur valeur de retour. 
 
 \begin{table}[h]
 	\centering
 	\begin{tabular}{|p{6cm}|p{10cm}|}
 		\hline
-		\thead{Varaible, Function or method} & \thead{Comments}\\
+		\thead{Attribute or Method} & \thead{Comments}\\
 		\hline
 		 model & Variable that allows to recover model saved during the training phase  \\
 		 \hline
@@ -643,11 +652,12 @@ La table nous présente les détails de notre API
 	\label{tab:api}
 \end{table}
 
+La construction de l'API est un travail d'ingénierie de logiciels, ce qui permet de combiner ensemble deux champs d'études de l'informatique (\textbf{Machine learning et Software Engineering}). Il faut relater que les modèles de machine learning ont besoin d'une couche d'ingénierie de logiciels pour leur rendre accessible aux utilisateurs qui ne comprennent rien en machine learning. Dans la vraie vie, ceux qui utilisent les modèles ne connaissent rien ni en machine learning ni en software engineering. C'est pourquoi dans tout lieu où il y a une équipe de data scientist qui travaillent, il y a aussi une équipe de développement de logiciels.
 
 \newpage
 
 \chapter{Évaluation}
-
+Nous abordons maintenant le chapitre qui concerne l'évaluation de notre modèle machine learning. Évaluer un projet de machine learning est différent d'évaluer les projets de génie logiciels traditionnels. Pour évaluer de tels projets, il faut tenir compte des différentes théories de machine learning permettant de faire des évaluations sur des modèles. 
 
 \newpage
 
@@ -664,7 +674,7 @@ La table nous présente les détails de notre API
 
 \newpage
 \addcontentsline{toc}{chapter}{Bibliography}
-\bibliography{bibliography} 
+
 \bibliographystyle{plain}
-	
+\bibliography{bibliography.bib} 	
 \end{document}
