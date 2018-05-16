@@ -13,7 +13,8 @@
 \usepackage[figurename=Fig.]{caption}
 \usepackage{subfig}
 
-\usepackage{makecell}
+\usepackage{hyperref}
+\usepackage{makecell}%using for thead
 
 \renewcommand\theadalign{bc}
 \renewcommand\theadfont{\bfseries}
@@ -657,12 +658,37 @@ La construction de l'API est un travail d'ingénierie de logiciels, ce qui perme
 \newpage
 
 \chapter{Évaluation}
-Nous abordons maintenant le chapitre qui concerne l'évaluation de notre modèle machine learning. Évaluer un projet de machine learning est différent d'évaluer les projets de génie logiciels traditionnels. Pour évaluer de tels projets, il faut tenir compte des différentes théories de machine learning permettant de faire des évaluations sur des modèles. 
+L'évaluation des algorithmes d'apprentissage automatique est une partie essentielle de tout projet. Le modèle peut nous donner des résultats satisfaisants lorsqu'il est évalué à l'aide d'une métrique, par exemple \textbf{precision\_score}, mais il peut donner de mauvais résultats lorsqu'il est évalué par rapport à d'autres mesures, telles que \textbf{logarithmic\_loss} ou toute autre mesure de ce type. Évaluer un projet de machine learning est différent d'évaluer les projets de génie logiciels traditionnels. La différence est que pour évaluer de tels projets, il faut tenir compte des différentes théories de machine learning permettant de faire des évaluations sur des modèles. Ce que nous avons déjà dans la sous-section 2.3.1 portant sur la "\textbf{Mesure de performance des algorithmes de classification}" au chapitre "\textbf{Contexte théorique}". \\
+
+Pour évaluer notre modèle, nous avons séparé notre ensemble de données en deux (Train Set et Test Set). Le train set a été utilisé pour construire le modèle et le test set pour faire l'évaluation du modèle. Nous avons séparé le jeu de données comme suit : 80\% pour le train set et 20\% pour le test set. Puisque notre jeu de données était déséquilibré, nous n'avons pas ré-échantillonné (resampling en anglais) notre ensemble de test, parce que les nouvelles données que le modèle va prédire se seront jamais ré-échantillonné. D'autres raisons de ce choix est que si nous ré-échantillonnons l'ensemble de test, il est fort probable que le modèle soit biaisé, ce qui provoquera de fausses prédictions. \\
+
+  \begin{table}[h]
+	\centering
+	\begin{tabular}{|p{6cm}|p{10cm}|}
+		\hline
+		 \thead{Model's name} & AdaBoostClassifier\\
+		\hline
+		  \thead{Precision score} & 0.9291845493562232 \\
+		 \hline
+		  \thead{Recall score} & 0.9002079002079002\\
+		 \hline
+		  \thead{Area under Curve} & 0.8511029411764706 \\ 
+		 \hline
+		  \thead{F1 score} & 0.914466737064414\\
+		\hline
+	\end{tabular}
+	\caption{Gives different results of our model evaluation}
+	\label{tab:eval}
+\end{table}
+
+La table \ref{tab:eval} donne les résultats de l'évaluation de notre modèle sélectionné comme le meilleur. On pourrait constater que cette table est ressemblée à la table de comparaison des différents algorithmes entrainés dans le projet (table \ref{tab:ensemble}). La raison est que pour comparer et sélectionner les différents algorithmes, il faut d'abord évaluer chaque algorithme. C'est comme une évaluation anticipée. Une interprétation sommaire de cette évaluation est que 8\% des prédictions faites par le modèle est erroné et 92\% sont correctement classées. Pour faire cette interpretation, nous nous tenons compte du '' \textbf{Precision score} '' de la table \ref{tab:eval}. 
 
 \newpage
 
 \chapter{Limitations et travaux futurs}
+Notre projet est loin d'être exhaustif, il reste beaucoup de choses à faire mais les parties essentielles du projet sont réalisées. Nous pouvons considérer tout ce que nous avons fait jusqu'à présent dans ce projet comme étant une première version du système. Pour le moment, on peut utiliser le système pour faire la prédiction et l'évaluation de notre modèle déployé. C'est-à-dire n'importe quel orthopédiste peut utiliser le système pour prédire si son patient doit rester à l'hôpital et s'il doit retourner chez lui après une arthroplastie. Pour que le médecin orthopédiste puisse faire ces prédictions, il doit, préalablement remplir un formulaire web qui contient les champs nécessaires pour compléter un dossier médical.   \\
 
+Comme travaux futurs, nous prévoyons inclure les modules qui gèrent le monitoring et management du modèle. Et aussi la gestion des sessions puisque tout le monde peut avoir accès au module de prédictions mais les modules monitoring et management sont réservés aux administrateurs du système.    
 \newpage
 
 \chapter{Travaux connexes}
@@ -675,6 +701,6 @@ Nous abordons maintenant le chapitre qui concerne l'évaluation de notre modèle
 \newpage
 \addcontentsline{toc}{chapter}{Bibliography}
 
-\bibliographystyle{plain}
+\bibliographystyle{humannat}
 \bibliography{bibliography.bib} 	
 \end{document}
