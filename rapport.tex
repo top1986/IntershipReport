@@ -13,6 +13,13 @@
 \usepackage[figurename=Fig.]{caption}
 \usepackage{subfig}
 
+\usepackage{makecell}
+
+\renewcommand\theadalign{bc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+
 %\usepackage[nottoc]{tocbibind}
 
 \usepackage{color}   %May be necessary if you want to color links
@@ -424,9 +431,9 @@ La table \ref{tab:features} donne une description de quelques features de notre 
 \centering
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
-Feature name & datatype & number of non-null & number of null \\
+\thead{Feature name} & \thead{datatype} & \thead{number of non-null} & \thead{number of null} \\
 \hline
-Side & Categorical & 2718 & 0  & \\
+Side & Categorical & 2718 & 0\\
 RawDx & Categorical & 2718 & 0\\
 AGE\_AT\_ADMIT & Numercial & 2718 & 0 \\
 ASA\_SCORE & Numercial & 2716 & 2\\
@@ -448,7 +455,7 @@ Warfarin & Numercial & 2482 &  236\\
 \centering
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
-Target's name & Discharge \\
+\thead{Target's name} & \thead{Discharge} \\
 \hline
 Positive classes & 2421\\
 \hline
@@ -572,9 +579,9 @@ La table \ref{tab:ensemble} présente une comparaison des différents résultats
 	\centering
 	\begin{tabular}{|l|c|c|c|c|c|}
 		\hline
-		Algorithm & \multicolumn{2}{c}{Metrics} &\\
+		\thead{Algorithm} & \multicolumn{2}{c}{\thead{Metrics}} &\\
 		\hline
-		& Accurency score & Precision & Recall \\
+		& \thead{Accurency score} & \thead{Precision} & \thead{Recall} \\
 		\hline
 		BaggingClassifier & 2 & 3 & 5 \\
 		BoostingClassifier & 2 & 3 & 5 \\
@@ -587,7 +594,7 @@ La table \ref{tab:ensemble} présente une comparaison des différents résultats
 
 Nous tenons compte aussi des metrics "Precision and Recall".Ces derniers nous permettent de déterminer la performance de notre modèle à classifier les classes positives et celles qui sont négatives. Le but de notre projet était d'obtenir la précision en dessus de 90\%. Généralement, dans la pratique une telle précision est acceptable pour pouvoir fier le modèle.\\
 
-Après avoir déterminé le meilleur modèle à partir des processus automatisés. On a sérialisé le modèle pour son utilisation future. Parce qu'un modèle doit être capable de prédire de nouvelles données. La section qui vient expliquera en détail comment nous avons procédé pour déployer notre modèle c'est-à-dire le rendre accessible à des utilisateurs qui ne connaissent rien en machine learning.    
+Après avoir déterminé le meilleur modèle à partir des processus automatisés. La dernière étape qui nous reste à faire est la sérialisation de notre modèle pour son utilisation future soit dans la phase de déploiement. Parce qu'un modèle doit être capable de prédire de nouvelles données. La section qui vient expliquera en détail comment nous avons procédé pour déployer notre modèle c'est-à-dire le rendre accessible à des utilisateurs qui ne connaissent rien en machine learning.    
 
 
 %Les méthodes Sequentiels (Boosting) ou les paramètres sont itérativement adaptés à
@@ -595,8 +602,46 @@ Après avoir déterminé le meilleur modèle à partir des processus automatisé
  
 
 \section{Déploiement de modèle}
-\subsection{Construction d'un API}
+Les systèmes modernes d'apprentissage automatique facilitent la construction d'un système de décision de base. Cette facilité, cependant, est un peu décevante. Construire et déployer un premier système de décision a tendance à bien fonctionner, et les résultats peuvent être assez impressionnants pour les bonnes applications. L'ajout d'un autre système se passe généralement aussi bien. Cependant, d'étranges interactions peuvent commencer à apparaître d'une manière qui serait impossible du point de vue de l'ingénierie logicielle. Changer une partie du système affecte une autre partie du système, même si des tests isolés peuvent suggérer que cela est impossible. \\
 
+Le problème est que les systèmes basés sur l'apprentissage automatique peuvent avoir des propriétés très subtiles qui sont très différentes des systèmes logiciels plus traditionnels. En partie, cette différence vient du fait que les sorties des systèmes d'apprentissage automatique ont des comportements beaucoup plus complexes que les composants logiciels typiques. Cela vient aussi en partie du fait de la nature probabiliste des jugements que de tels systèmes sont appelés à faire. \\
+
+Cette complexité et cette subtilité rendent la gestion de ces systèmes plus délicate que la gestion de systèmes logiques traditionnels, bien modularisés, basés sur des micro-services. Les systèmes complexes d'apprentissage profond peuvent évoluer pour montrer des comportements pathologiques «changer quoi que ce soit, tout changer», même s'ils apparaissent superficiellement comme des micro-services bien conçus avec de hauts degrés d'isolation \cite{key7}.\\
+
+Compte tenu de cette complexité qui existe au niveau des applications de machine learning, nous avons décidé de construire un API pour faire le déploiement de notre modèle, de telle sorte que s'il faut faire un changement dans la phase d'entrainement du modèle, cela n'affectera pas tout le système en général.  
+
+\subsection{Construction d'un API}
+Les API (Application Program Interfaces) sont des méthodes de communication logicielle développées sur une norme particulière. De nombreuses entreprises ont leurs propres API publics qui résolvent des problèmes spécifiques pour les développeurs. En transmettant à leur API un paramètre en entrée, l'utilisateur peut recevoir une sortie sans avoir besoin de savoir (ou de comprendre) comment la tâche sous-jacente est effectuée. Les API permettent une fonctionnalité multi-plateforme, rendue possible par une norme agnostique de plate-forme, telle que la spécification REST. La beauté des API est qu'elles sont super accessibles - que vous construisiez une application mobile, des appareils IoT, un serveur ou que vous souhaitiez simplement trouver un moyen de communiquer entre vos propres microservices, les API vous y aident \cite{key8}.\\
+
+Pour communiquer avec notre modèle, nous avons construit un API en Django framework web en suivant l'architecture présentée dans la figure \ref{django}. Dans cette architecture, le model peut être soit un fichier ou une base de données; mais dans notre cas, le model est notre model machine learning sérialisé depuis dans la phase d'entrainement. 
+\begin{figure}[h]
+	\includegraphics[width=15cm, height=6cm ]{images/ArchitectureDjango.png}
+	\caption{Django Framework web architecture }
+	\label{django}
+\end{figure} 
+
+La table nous présente les détails de notre API
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|p{6cm}|p{10cm}|}
+		\hline
+		\thead{Varaible, Function or method} & \thead{Comments}\\
+		\hline
+		 model & Variable that allows to recover model saved during the training phase  \\
+		 \hline
+		 preprocess\_request(form) & Method to prepare the data for transformation. Its loads the yaml file that contains the set of attributes wich are authorized and converts null values in NaN, Yes in 1 and No in 0. It returns a dcitionnary of attributes and values. \\
+		 \hline
+		 predict(form) & Function that allows prediction of new data. It takes a "form" input parameter and returns a decision message that says whether the patient should be fired or left. The "form" parameter is a django web form\\
+		 \hline
+		save\_prediction(form, y\_pred) & This function saves the new predictions in a database in order to analyze the behavior of the model in the future. It takes as input two parameters (form, y\_pred). The "form" parameter is always the same django form and "y\_pred" is the decision made by the model.\\
+		\hline
+		get\_predictions() & Returns all predictions\\
+		\hline
+	\end{tabular}
+	\caption{Presents details of our API}
+	\label{tab:api}
+\end{table}
 
 
 \newpage
