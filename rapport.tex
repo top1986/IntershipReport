@@ -13,6 +13,7 @@
 \usepackage[figurename=Fig.]{caption}
 \usepackage{subfig}
 
+\usepackage{longtable} 
 
 \usepackage{makecell}%using for thead
 
@@ -444,45 +445,26 @@ Target value & Discharge\\
 
 \paragraph*{ Categorical Features :} Ce sont les features qui viennent sous forme de texte. Plus loin dans la section de la transformation, nous convertirons ces features en données numériques car la plupart des algorithmes de machine learning ne reconnaissent pas les données discrètes ou textuelles.
 
-\paragraph*{ Target value :} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. 
+\paragraph*{ Target value :} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. \\
 
-La table \ref{tab:features} donne une description de quelques features de notre dataset. Le nombre total des features est 92 mais nous considérons un échantillon de 12 features qui sont les plus corrélés au target. La colonne \textit{datatype} représente le type de données et les colonnes. Et les colonnes non-null et null représentent le nombre d'échantillons non-nulls et le nombre d'échantillons nulls.
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|c|c|c|c|c|}
-\hline
-\thead{Feature name} & \thead{datatype} & \thead{number of non-null} & \thead{number of null} \\
-\hline
-Side & Categorical & 2718 & 0\\
-RawDx & Categorical & 2718 & 0\\
-AGE\_AT\_ADMIT & Numercial & 2718 & 0 \\
-ASA\_SCORE & Numercial & 2716 & 2\\
-Female & Boolean & 2718 & 0\\
-Height & Numercial & 2293 & 425  \\
-Weight & Numercial & 2301 & 417 \\
-BMI & Numercial & 2283 & 435 \\
-PreOpHgb & Numercial & 272 &  2446\\
-PreOpCr & Numercial & 255 & 2463 \\
-PreOpGlucose & Numercial & 253 & 2465  \\
-Warfarin & Numercial & 2482 &  236\\
-\hline
-\end{tabular}
-\caption{Some features of our dataset}
-\label{tab:features}
-\end{table}
+La table \ref{tab:dt} donne une description de tous les features de notre dataset. Le nombre total des features est 92.  La colonne \textbf{Feature name} représente le nom de chaque colonne. La colonne \textbf{datatype} représente le type de données et les colonnes. Et les colonnes \textbf{non-null} et \textbf{null} représentent respectivement le nombre d'échantillons non-nulls et le nombre d'échantillons nulls.
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|l|c|c|c|c|c|}
+\begin{tabular}{| l | c |}
 \hline
-\thead{Target's name} & \thead{Discharge} \\
+\textbf{Target's name} & Discharge \\
 \hline
-Positive classes & 2421\\
+\textbf{Total positive classes} & 2421 \\
 \hline
-Negative classes & 297\\
+\textbf{Percentage positive classes} & 89.072848 \% \\
 \hline
-Total classes & 2718\\
+\textbf{Negative classes} & 297 \\
+\hline
+\textbf{Percentage negative classes} & 10.927152 \% \\
+\hline
+\textbf{Total classes} & 2718 \\
+
 \hline
 \end{tabular}
 \caption{Important details about target value}
@@ -722,6 +704,123 @@ Philip K. Chan, Computer Science, Florida Institute of Technology \& Salvatore J
 \newpage
 
 \chapter{Conclusion générale}
+
+\newpage
+
+\appendix
+\chapter{Presentation of our whole dataset}
+
+%\begin{longtable}{| p{.20\textwidth} | p{.10\textwidth} | p{.10\textwidth} | p{.60\textwidth} |} 
+%\hline
+%Side & Categorical & 2718 & 0  \\ \hline 
+%Side & Categorical & 2718 & 0 \\ \hline
+%Side & Categorical & 2718 & 0  \\ \hline 
+%Side & Categorical & 2718 & 0 \\ \hline
+%\caption{Your caption here} % needs to go inside longtable environment
+%\label{tab:myfirstlongtable}
+%\end{longtable}
+%%\end{table} 
+
+\begin{longtable}{ | p{.25\textwidth} | p{.15\textwidth} | p{.10\textwidth}  | p{.10\textwidth} | p{.40\textwidth} |  } 
+\hline
+\textbf{Feature name} & \textbf{datatype} & \textbf{non-null }& \textbf{ null } & \textbf{Comments}\\ \hline
+
+Side & Categorical & 2718 & 0 & Détermine si c'est le côté gauche ou droite le patient a eu son arthroplastie\\ \hline 
+Procedure & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{Procedure} \\ \hline 
+RawDx & Categorical & 2718 & 0 & Diagnostique brute du patient  \\ \hline 
+PriorContralateral & Boolean & 2703 & 15& On veut savoir si oui ou non le patient est atteint de \textit{PriorContralateral} \\ \hline 
+TSA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{TSA} \\ \hline 
+RTSA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{RTSA} \\ \hline 
+Tendon Transfer & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{Tendon Transfer} \\ \hline 
+Dx1 & Categorical & 2718 & 0 & Représente diagnostique 1 \\ \hline 
+Dx2 & Categorical & 176 & 2542 & Représente diagnostique 2 \\ \hline 
+Dx3 & Categorical & 2 & 2716 & Représente diagnostique 3 \\ \hline 
+GHOA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{GHOA} \\ \hline 
+AVN & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{AVN} \\ \hline 
+RCT & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{RCT} \\ \hline 
+FailedRCR & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{FailedRCR} \\ \hline 
+ComboRCT & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{ComboRCT} \\ \hline 
+RCTA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{RCTA} \\ \hline 
+IA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{IA} \\ \hline 
+PTA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{PTA} \\ \hline 
+PHFx & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{PHFx} \\ \hline 
+PHFxSequelae & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{PHFxSequelae} \\ \hline 
+Other & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{Other} \\ \hline 
+AGE\_AT\_ADMIT & Numerical & 2718 & 0 & L'âge du patient \\ \hline 
+ASA\_SCORE & Numerical & 2716 & 2 & Les commentaires sont à venir \\ \hline 
+Gender & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est un \textit{Gender} \\ \hline 
+Female & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est un \textit{Female} \\ \hline 
+Discharge & Boolean & 2718 & 0& On veut savoir si oui ou non le patient doit retourner chez lui \\ \hline 
+Height & Numerical & 2293 & 425 & La hauteur du patient \\ \hline 
+Weight & Numerical & 2301 & 417 & Le poids du patient \\ \hline 
+BMI & Numerical & 2283 & 435 & L'indice de masse corporelle (IMC)- BMI en anglais \\ \hline 
+PreOpHgb & Numerical & 272 & 2446 & Hémoglobines blanches du patient \\ \hline 
+PreOpCr & Numerical & 255 & 2463 & Les commentaires sont à venir \\ \hline 
+PreOpALC & Numerical & 157 & 2561 & Les commentaires sont à venir \\ \hline 
+PreOpGlucose & Numerical & 253 & 2465 & Glucose du patient \\ \hline 
+arrhythmias & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{arrhythmias} \\ \hline 
+valvular & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{valvular} \\ \hline 
+pulm circ & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{pulm circ} \\ \hline 
+PVD & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{PVD} \\ \hline 
+HTNw/oCx & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{HTNw/oCx} \\ \hline 
+HTNw/Cx & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{HTNw/Cx} \\ \hline 
+Paralysis & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Paralysis} \\ \hline 
+other neuro & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{other neuro} \\ \hline 
+chronic pulm & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{chronic pulm} \\ \hline 
+DMw/oCx & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{DMw/oCx} \\ \hline 
+DMw/Cx & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{DMw/Cx} \\ \hline 
+hypothyroid & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{hypothyroid} \\ \hline 
+renal failure & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{renal failure} \\ \hline 
+liver failure & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{liver failure} \\ \hline 
+PUD & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{PUD} \\ \hline 
+AIDS & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{AIDS} \\ \hline 
+L0oma & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{L0oma} \\ \hline 
+Mets & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Mets} \\ \hline 
+solidCaw/oMets & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{solidCaw/oMets} \\ \hline 
+RA/CVD & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{RA/CVD} \\ \hline 
+coagulopathy & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{coagulopathy} \\ \hline 
+obesity & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{obesity} \\ \hline 
+weightLoss & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{weightLoss} \\ \hline 
+fluidElectrolyte & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{fluidElectrolyte} \\ \hline 
+bloodLossAnemia & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{bloodLossAnemia} \\ \hline 
+DeficiencyAnemia & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{DeficiencyAnemia} \\ \hline 
+EtOH & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{EtOH} \\ \hline 
+Drugs & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Drugs} \\ \hline 
+Psychosis & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Psychosis} \\ \hline 
+Depression & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Depression} \\ \hline 
+Plavix & Numerical & 2482 & 236 & Les commentaires sont à venir \\ \hline 
+Dabigatran & Boolean & 2482 & 236& On veut savoir si oui ou non le patient est atteint de \textit{Dabigatran} \\ \hline 
+Enoxaparin & Numerical & 2482 & 236 & Les commentaires sont à venir \\ \hline 
+Rivaroxaban & Numerical & 2482 & 236 & Les commentaires sont à venir \\ \hline 
+Warfarin & Numerical & 2482 & 236 & Les commentaires sont à venir \\ \hline 
+PreOpNarcotic & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpNarcotic} \\ \hline 
+PreOpBloodThinner & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpBloodThinner} \\ \hline 
+PreOpSteroids & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpSteroids} \\ \hline 
+PreOpInsulin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpInsulin} \\ \hline 
+PreOpDMMeds & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpDMMeds} \\ \hline 
+Oxycodone & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Oxycodone} \\ \hline 
+Hydrocodone & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Hydrocodone} \\ \hline 
+Vicodin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Vicodin} \\ \hline 
+percocet & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{percocet} \\ \hline 
+Oxycontin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Oxycontin} \\ \hline 
+Dilaudid & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Dilaudid} \\ \hline 
+Aspirin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Aspirin} \\ \hline 
+Warfarin.1 & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Warfarin.1} \\ \hline 
+Coumadin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Coumadin} \\ \hline 
+Plavix.1 & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Plavix.1} \\ \hline 
+Clopidogrel & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Clopidogrel} \\ \hline 
+Prednisone & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Prednisone} \\ \hline 
+insulin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{insulin} \\ \hline 
+humulin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{humulin} \\ \hline 
+lantus & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{lantus} \\ \hline 
+lispro & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{lispro} \\ \hline 
+aspart & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{aspart} \\ \hline 
+metformin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{metformin} \\ \hline 
+glipizide & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{glipizide} \\ \hline
+
+\caption{Our whole dataset}
+\label{tab:dt}
+\end{longtable}
 
 \newpage
 \addcontentsline{toc}{chapter}{Bibliography}
