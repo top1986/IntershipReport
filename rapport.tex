@@ -134,6 +134,12 @@ Je veux commencer d'abord par remercier le Grand Dieu Tout-Puissant, le Créateu
 	
 \newpage
 
+\chapter*{Préface}
+Nous développons ce rapport en vue d'achever notre étude de maîtrise en informatique faite à l'université de Montréal. Nous avons inscrit notre maîtrise avec option stage, ce qui exige la redaction d'un rapport au terme de ces études. Nous avons, d'abord réalisé le stage à l'entreprise ML+ située à l'adresse suivante: 338, rue St-Antoine est, Montréal. C'est une jeune entreprise dynamique et spécialisée en science de données. Elle développe des outils pour aider les entreprises à prendre leurs décisions stratégiques tout se basant sur des données historiques des entreprises. \\
+
+C'est une expérience enrichissante d'avoir eu l'opportunité de faire ce stage dans cette entreprise, j'ai pu apprendre beaucoup de choses tant sur machine learning que sur les sciences de données en général. Ces connaissances acquises m'ont ouvert  la porte pour pouvoir rédiger ce rapport. Ce dernier permet d'évaluer le risque d'un patient de retourner chez lui après une opération contre l'arthrose (douleur ressentie au niveau des os).  
+
+\newpage
 
 \listoffigures
 
@@ -700,33 +706,59 @@ Comme travaux futurs, nous prévoyons inclure les modules qui gèrent le monitor
 \chapter{Travaux connexes}
 Nous n'avons pas trouvé de travaux connexes directement liés à notre domaine c'est-à-dire aucun organisme n'a encore développé de systèmes liés au risque de retour des patients après une arthroplastie. Par contre nous avons trouvé des projets qui ont des points similaires par rapport à notre projet tels que les classes déséquilibrées. \\
 
-Philip K. Chan, Computer Science, Florida Institute of Technology \& Salvatore J. Stolfo, Department of Computer Science, Columbia University \cite{key23} ont travaillé sur un projet de détection de fraude par carte de crédit. Ils ont eu leur dataset déséquilibrés (distributions uniformes dans leur article), 20\% de cas étaient frauduleux contre 80\% non-frauduleux.  
+Philip K. Chan, Computer Science, Florida Institute of Technology \& Salvatore J. Stolfo, Department of Computer Science, Columbia University \cite{key23} ont travaillé sur un projet de détection de fraude par carte de crédit. Ils ont eu leur dataset déséquilibrés (distributions uniformes dans leur article), 20\% de cas étaient frauduleux contre 80\% non-frauduleux.  Pour rappel, la distribution de notre dataset est présentée à la table \ref{tab:target}, avec 11\% de classes négatives et 89\% de classe positives. Les auteurs ont utilisés juste un  algorithme stacking comme méthodes d'ensemble, tandis que nous, nous avons essayé quatre types d'algorithmes différents en vue de sélectionner le meilleur. Pour le resample(ré-échantillonnage), ils ont utilisé le random over-sampling comme méthode, cette méthode est trop basique pour ces genres de situation car elle ne permet pas de gérer le overfitting. Tandis que nous, nous avons opté pour la technique de boosting qui a beaucoup plus d'avantage, car elle permet de gérer la variance et le biais.\\
+
+Yuchun Tang et al. \cite{key29} ont travaillé sur un projet de detection d'emails spam et ceux qui sont non-spam. Dans leur projet, le dataset est hautement déséquilibré comme montré à la table \ref{tab:Tang}. C'est plus déséquilibré que notre dataset. Il est courant que dans n'importe quel serveur web que les emails spam sont hautement plus nombreux que ceux qui sont non-spam. Ce qui provoque un déséquilibre sérieux dans l'ensemble de données. \\
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{| p{5cm} |p{2cm} |  p{2cm}|}
+		\hline
+		 & \thead{spam} & \thead{non-spam} \\
+		\hline
+		  training data & 93.96\% & 6.04\% \\
+		 \hline
+		  validation data & 93.09\% & 6.91\% \\
+		 \hline
+		 testing data & 94.99\% & 5.01\%  \\ 
+		 \hline
+	\end{tabular}
+	\caption{Target value of Yuchun Tang et al. project}
+	\label{tab:Tang}
+\end{table}
+
+Comme technique de resampling, le \textbf{Granular Computing} et le \textbf{SVM (\textit{Support Vector Machines})} sont utilisés pour le sous-échantillonnage  (\textbf{\textit{under-sampling en anglais}}) en conservant des échantillons informatifs tout en éliminant les échantillons non pertinents, redondants ou même bruyants. Après le sous-échantillonnage, les données sont nettoyées et, par conséquent, un bon classificateur peut être modélisé pour la classification IP en termes d'efficacité et d'efficience. La technique utilisée dans ce projet a une désavantage très importante, c'est la perte d'informations. Il faut être prudent quand on utilise cette technique, puisqu'on peut perdre des informations pertinentes pour l'entraînement du modèle. Comme précisé dans leur article, les informations supprimées sont non-pertinentes pour le projet; mais généralement, c'est une technique à éviter ou à utiliser minutieusement. \\
+
+Comme algorithmes de classification, ils ont utilisés les quatre algorithmes suivants  \cite{key29}:
+\begin{enumerate}
+\item GSVM-BA algorithm for building a decision tree
+\item The NBTree algorithm for building a decision tree with naïve Bayes classifiers at the leaves
+\item The Logistic algorithm for building a multinomial logistic regression model with a ridge estimator
+\item The SVM algorithm for building a support vector machine
+\end{enumerate}
+
+Le meilleur algorithme obtenu après évaluation était GSVM-BA, avec le score 83\%  \cite{key29}. Tandis que dans notre projet, nous avons obtenu  92\% avec l'algorithme AdaBoostClassifier qui est un algorithme de boosting qui donne de meilleurs résultats que n'importe quel autre algorithme. Puisque ce projet a été développé depuis 2008, c'est sûr à cette époque on ne parlait pas encore des algorithmes de méthodes d'ensemble. \\
+
+Pour conclure le chapitre sur les travaux connexes, nous répétons ce que nous avons dit au commencement de ce chapitre qu'il n'y a pas de projets déjà réalisés sur l'évaluation du risque de retour. Mais comme notre dataset était déséquilibré, nous avons comparé notre projet avec deux autres projets qui ont eu, eux-aussi, leurs datasets déséquilibrés. Nous avons vu les différentes techniques de resampling et les différents algorithmes que les auteurs ont utilisés dans le cadre de leurs projets. Finalement, nous avons comparé leurs techniques avec les nôtres, aussi les différents résultats obtenus après évaluation.  
+
+
+
 \newpage
 
 \chapter{Conclusion générale}
+
 
 \newpage
 
 \appendix
 \chapter{Presentation of our whole dataset}
 
-%\begin{longtable}{| p{.20\textwidth} | p{.10\textwidth} | p{.10\textwidth} | p{.60\textwidth} |} 
-%\hline
-%Side & Categorical & 2718 & 0  \\ \hline 
-%Side & Categorical & 2718 & 0 \\ \hline
-%Side & Categorical & 2718 & 0  \\ \hline 
-%Side & Categorical & 2718 & 0 \\ \hline
-%\caption{Your caption here} % needs to go inside longtable environment
-%\label{tab:myfirstlongtable}
-%\end{longtable}
-%%\end{table} 
-
 \begin{longtable}{ | p{.25\textwidth} | p{.15\textwidth} | p{.10\textwidth}  | p{.10\textwidth} | p{.40\textwidth} |  } 
 \hline
 \textbf{Feature name} & \textbf{datatype} & \textbf{non-null }& \textbf{ null } & \textbf{Comments}\\ \hline
 
-Side & Categorical & 2718 & 0 & Détermine si c'est le côté gauche ou droite le patient a eu son arthroplastie\\ \hline 
-Procedure & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{Procedure} \\ \hline 
+Side & Categorical & 2718 & 0 & Détermine si c'est à gauche ou à droite du patient a eu son arthroplastie. Deux valeurs possibles : R (pour Right en anglais) et  L (Pour Left en anglais) \\ \hline 
+Procedure & Boolean & 2718 & 0& On veut savoir si oui ou non le patient a eu une procédure dans le passé \\ \hline 
 RawDx & Categorical & 2718 & 0 & Diagnostique brute du patient  \\ \hline 
 PriorContralateral & Boolean & 2703 & 15& On veut savoir si oui ou non le patient est atteint de \textit{PriorContralateral} \\ \hline 
 TSA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{TSA} \\ \hline 
@@ -755,8 +787,8 @@ Height & Numerical & 2293 & 425 & La hauteur du patient \\ \hline
 Weight & Numerical & 2301 & 417 & Le poids du patient \\ \hline 
 BMI & Numerical & 2283 & 435 & L'indice de masse corporelle (IMC)- BMI en anglais \\ \hline 
 PreOpHgb & Numerical & 272 & 2446 & Hémoglobines blanches du patient \\ \hline 
-PreOpCr & Numerical & 255 & 2463 & Les commentaires sont à venir \\ \hline 
-PreOpALC & Numerical & 157 & 2561 & Les commentaires sont à venir \\ \hline 
+PreOpCr & Numerical & 255 & 2463 & Conditions pré-opératoires du patient \\ \hline 
+PreOpALC & Numerical & 157 & 2561 &  Conditions pré-opératoires du patient \\ \hline 
 PreOpGlucose & Numerical & 253 & 2465 & Glucose du patient \\ \hline 
 arrhythmias & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{arrhythmias} \\ \hline 
 valvular & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{valvular} \\ \hline 
