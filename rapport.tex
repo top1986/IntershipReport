@@ -1,6 +1,6 @@
 \documentclass[12pt, french]{report}
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -13,7 +13,7 @@
 \usepackage[figurename=Fig.]{caption}
 \usepackage{subfig}
 
-\usepackage{hyperref}
+
 \usepackage{makecell}%using for thead
 
 \renewcommand\theadalign{bc}
@@ -24,12 +24,19 @@
 \usepackage[nottoc]{tocbibind}%Automatic approach to add \listoffigures and \listoftables in table of contents
 
 \usepackage{color}   %May be necessary if you want to color links
+
+\usepackage{url}
+
+\usepackage{natbib}
+
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true, %set true if you want colored links
     linktoc=all,     %set to all if you want both sections and subsections linked
     linkcolor=blue,  %choose some color if you want links to stand out
 }
+
+
 
 \begin{document}
 \renewcommand{\labelitemi}{$\bullet$}
@@ -206,7 +213,7 @@ Dans la section précédente, nous avons pu y voir plus clair sur le cycle globa
 Le machine learning constitue une manière de modéliser des phénomènes, dans le but de prendre des décisions stratégiques. Les algorithmes utilisés permettent, dans une certaine mesure, à un système piloté par ordinateur (un robot éventuellement), ou assisté par ordinateur, d'adapter ses analyses et ses comportements en réponse, en se fondant sur l'analyse de données empiriques provenant d'une base de données ou de capteurs. La difficulté réside dans le fait que l'ensemble de tous les comportements possibles compte tenu de toutes les entrées possibles devient rapidement trop complexe à décrire \textbf{(on parle d'explosion combinatoire)}. On confie donc à des programmes le soin d'ajuster un modèle pour simplifier cette complexité et de l'utiliser de manière opérationnelle. Idéalement, l'apprentissage visera à être non supervisé, c'est-à-dire que la nature des données d'entrainement n'est pas connue \cite{key13}.
 \begin{figure}[h]
 \includegraphics[width=15cm, height=6cm]{images/machinelearning.png}
-\caption{Machine learning representation}
+\caption{Machine learning representation \cite{key24}}
 \label{machinelearning}
 \end{figure}
 
@@ -281,7 +288,7 @@ Les vrais négatifs sont les cas où la classe réelle du point de données éta
 
 \begin{figure}[h]
 \includegraphics[width=14cm, height=7cm]{images/confusionmatrix.png}
-\caption{Confusion Matrix representation}
+\caption{Confusion Matrix representation \cite{key25}}
 \label{confusionmatrix}
 \end{figure}
 
@@ -294,7 +301,7 @@ Les faux négatifs sont les cas où la classe réelle du point de données étai
 
 \subsection{Calcul de certains metrics de classification à partir de la matrice confusion}
 
-La matrice de confusion en soi n'est pas une mesure de performance en tant que telle, mais presque toutes les métriques de performance sont basées sur la matrice de confusion et les nombres qui s'y trouvent. Nous allons voir comment utiliser la matrice de confusion pour calculer quelques metrics de classification.
+La matrice de confusion en soi n'est pas une mesure de performance en tant que telle, mais presque toutes les métriques de performance sont basées sur la matrice de confusion et les nombres qui s'y trouvent. Nous allons voir comment utiliser la matrice de confusion pour calculer quelques metrics de classification \cite{key17}.
 
 \begin{enumerate}
 \item \textbf{Accuracy:}
@@ -562,7 +569,7 @@ L'objectif principal de la méthodologie d'ensemble \textbf{(Ensemble methods en
 
 \begin{figure}[h]
 	\includegraphics{images/ensemble.png}
-	\caption{Approach to Ensemble based Methodologies }
+	\caption{Approach to Ensemble based Methodologies \cite{key19} }
 	\label{ensemble}
 \end{figure}
 
@@ -624,7 +631,7 @@ Les API (Application Program Interfaces) sont des méthodes de communication log
 Pour communiquer avec notre modèle, nous avons construit un API en Django framework web en suivant l'architecture présentée dans la figure \ref{django}. Dans cette architecture, le model peut être soit un fichier ou une base de données; mais dans notre cas, le model est notre model machine learning sérialisé depuis dans la phase d'entrainement. 
 \begin{figure}[h]
 	\includegraphics[width=15cm, height=6cm ]{images/ArchitectureDjango.png}
-	\caption{Django Framework web architecture }
+	\caption{Django Framework web architecture \cite{key26}}
 	\label{django}
 \end{figure} 
 
@@ -702,6 +709,6 @@ Philip K. Chan, Computer Science, Florida Institute of Technology \& Salvatore J
 \newpage
 \addcontentsline{toc}{chapter}{Bibliography}
 
-\bibliographystyle{humannat}
+\bibliographystyle{abbrv}
 \bibliography{bibliography.bib} 	
 \end{document}
