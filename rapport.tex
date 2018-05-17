@@ -390,7 +390,7 @@ Le chapitre 2 a présenté une vue générale sur les différents concepts utili
 
 \chapter{Description technique de notre projet}
 \section{Introduction}
-Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. 
+Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. Chaque section représente une étape du projet. Il peut y avoir de petites définitions pour éclairer certains thèmes que nous n'avons pa pu aborder dans le chapitre sur le \textbf{Contexte Théorique}.
 
 \section{Obtention des données}
 Une fois qu'on décide à attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
@@ -651,7 +651,7 @@ Pour communiquer avec notre modèle, nous avons construit un API en Django frame
 
 La table \ref{tab:api} nous présente les détails de notre API. La colonne "\textbf{Attribute or Method}" désigne les différents attributs et les méthodes que constitue notre API. et "\textbf{Comments}" dit ce que fait chaque attribut ou méthode. On précise aussi les différents paramètres de chaque fonction et leur valeur de retour. 
 
-\begin{table}[h]
+\begin{table}[t]
 	\centering
 	\begin{tabular}{|p{6cm}|p{10cm}|}
 		\hline
@@ -674,7 +674,10 @@ La table \ref{tab:api} nous présente les détails de notre API. La colonne "\te
 
 La construction de l'API est un travail d'ingénierie de logiciels, ce qui permet de combiner ensemble deux champs d'études de l'informatique (\textbf{Machine learning et Software Engineering}). Il faut relater que les modèles de machine learning ont besoin d'une couche d'ingénierie de logiciels pour leur rendre accessible aux utilisateurs qui ne comprennent rien en machine learning. Dans la vraie vie, ceux qui utilisent les modèles ne connaissent rien ni en machine learning ni en software engineering. C'est pourquoi dans tout lieu où il y a une équipe de data scientist qui travaillent, il y a aussi une équipe de développement de logiciels.
 
+\newpage
+
 \section{Conclusion}
+Ce chapitre a détaillé tout ce que nous avons fait dans notre projet. C'est la phase de développement de notre projet. Nous avons vu la phase rapportant sur le développement d'un modèle d'apprentissage profond et la phase rapportant sur le génie de logiciel. La phase phase 1 permet la construction et la sérialisation du modèle  et la phase permet d'appliquer les techniques d'ingénierie de logiciel sur le modèle sérialisé.  Le chapitre qui suit va expliquer comment nous avons fait pour évaluer notre modèle de machine learning pour savoir s'il est fiable et répond aux critères d'évaluation escomptés.
 
 \newpage
 
