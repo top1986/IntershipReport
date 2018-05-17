@@ -25,9 +25,15 @@
 
 \usepackage{color}   %May be necessary if you want to color links
 
-\usepackage{url}
-
 \usepackage{natbib}
+
+%Customize chapter format
+\usepackage{titlesec, blindtext}
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+%End customize chapter format
+
 
 \usepackage{hyperref}
 \hypersetup{
@@ -149,7 +155,7 @@ augmentera à plus de 748 000 / an \cite{key3}.
 Avec l'augmentation continue du nombre de chirurgies de remplacement, il devient crucial aux administrateurs des hôpitaux de déterminer si les patients doivent rester à l'hôpital pour une réadaptation après leur 	chirurgie ou s'ils doivent être renvoyés à la maison puisque les coûts associés à une réadaptation doivent être pris en charge par les hôpitaux. Il est important de souligner que la majorité des compagnies d'assurance santé aux États Unis n'assument pas les coûts liés à la réadaptation des patients. Ces frais qui sont très élevés (entre 15-30,000 \$ par patient) doivent être assurés par les hôpitaux. Pour prendre la décision de retour ou non, les chirurgiens tiennent compte des antécédents médicaux du patient, ce qui est un travail difficile à effectuer manuellement. Dans notre projet de stage, nous développerons un model de machine learning qui aide à prendre cette décision de façon automatique.
    	
 \newpage
-\chapter{Introduction}	
+\chapter{Introduction générale}	
 Le système de santé aux USA repose sur deux types de financement. Premièrement, sur le financement public qui englobe certains groupes de personnes de la population américaine uniquement. Il se concentre 	essentiellement sur deux programmes : le programme 		fédéral Medicare pour les plus de 65 ans et les personnes gravement handicapées (soit 15 \% de la population) et le programme Medicaid qui 			s’adresse aux familles pauvres avec enfants et touche 11 \% de la population. Deuxièmement, sur le financement privé qui touche tout le reste de la population, l’assurance est donc majoritairement privée aux 		Etats-Unis \cite{key4}. Les Américains sont assurés en général via leurs employeurs ou sinon de manière individuelle lorsque leur employeur ne propose pas d’assurance ou qu’ils travaillent en indépendant. La composante « 	assurance médicale » dans le choix d’un emploi est donc un critère important.\\
 	
 Le système américain, libéral et fondé sur le marché, s’organise autour d’assurances privées souvent liées à l’emploi et d’une assurance maladie obligatoire, liée notamment à la vieillesse et aux faibles revenus.
@@ -169,6 +175,7 @@ La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a 
 \newpage
 
 \chapter{Contexte théorique}
+\section{Introduction}
 
 Dans ce chapitre nous voulons présenter une approche théorique des différents concepts que nous avons utilisés dans le cadre notre projet. Nous allons faire un résumé de chaque concept important que nous avons utilisé dans le cadre de l'implémentation de ce projet. Nous n'allons pas toucher tout ce qui a rapport aux concepts mais juste ce qui nous intéresse et util pour le projet. Il y aura des références pour ceux qui veulent approfondir les concepts. 
 
@@ -226,7 +233,7 @@ On distingue trois types de problèmes solubles avec une méthode d'apprentissag
 
 \begin{itemize} 
 \item $Y \subset \mathbb{R}$  : lorsque la sortie que l'on cherche à estimer est une valeur dans un ensemble continu de réels, on parle d'un problème de régression. La fonction de prédiction est alors appelée un régresseur.
-\item $Y = \{ 1, \cdots, I \} $ lorsque l'ensemble des valeurs de sortie est fini, on parle d'un problème de classification, qui revient à attribuer une étiquette à chaque entrée. La fonction de prédiction est alors appelée un classifieur (ou classificateur).
+\item $Y = \{ 1, \cdots, I \} $ lorsque l'ensemble des valeurs de sortie est fini, on parle d'un problème de classification, qui revient à attribuer une étiquette à chaque entrée. La fonction de prédiction est alors appelée un classificateur (ou classificateur).
 \item Lorsque  $Y$ est un ensemble de données structurées, on parle d'un problème de prédiction structurée, qui revient à attribuer une sortie complexe à chaque entrée. Par exemple, en bio-informatique le problème de prédiction de réseaux d’interactions entre gènes peut être considéré comme un problème de prédiction structurée dans laquelle l'ensemble possible des sorties structurées est l'ensemble de tous les graphes modélisant les interactions possibles \cite{key14}.
 \end{itemize}
 
@@ -345,7 +352,11 @@ Cette technique est suivie pour éviter le surapprentissage qui se produit lorsq
 \subsection{Modified synthetic minority oversampling technique (MSMOTE):}
 C'est une version modifiée de SMOTE. SMOTE ne tient pas compte de la distribution sous-jacente de la classe minoritaire et des bruits latents dans l'ensemble de données. Pour améliorer les performances de SMOTE, une méthode modifiée MSMOTE est utilisée.\\
 
-Dans notre projet nous avons opté pour la technique de SMOTE parce qu'elle permet d'atténuer le problème de sur-adaptation \textbf{(overfitting en anglais)} causé par le sur-échantillonnage aléatoire \textbf{(random oversampling, en anglais)}
+Dans notre projet nous avons opté pour la technique de SMOTE parce qu'elle permet d'atténuer le problème de sur-adaptation \textbf{(overfitting en anglais)} causé par le sur-échantillonnage aléatoire \textbf{(random oversampling, en anglais)} \\
+
+\section{Conclusion}
+Le chapitre 2 a présenté une vue générale sur les différents concepts utilisés en sciences de données et en machine learning. On a donné une brève définition de chaque concept tout en essayant d'être le plus clair et précis possible. Nous avons vu un sous-ensemble de ces concepts car ces champs d'études sont très vastes et contiennent beaucoup de choses intéressantes, mais nous avons mis accent sur ce qui nous intéresse pour notre projet. Par exemple notre projet est un problème de classification en machine learning, pour cela nous avons dédié une section à l'étude brève de classification. Aussi notre dataset est déséquilibré, par conséquent nous avons eu une section qui montre comment manipuler les classes déséquilibrées et les différentes techniques de manipulation. Le chapitre 3 qui suit présentera les détails techniques de notre projet, le but est de faire sortir les différentes étapes que nous avons suivies pour arriver à un produit fini et utilisable.
+
  
 
 
@@ -377,11 +388,12 @@ Dans notre projet nous avons opté pour la technique de SMOTE parce qu'elle perm
 
 \newpage
 
-\chapter{Aperçu}
+\chapter{Description technique de notre projet}
+\section{Introduction}
 Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. 
 
 \section{Obtention des données}
-Une fois que vous êtes décidé à attaquer un problème, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples que vous allez fournir à votre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
+Une fois qu'on décide à attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
 Les données que nous utilisons dans ce projet proviennent de la compagnie pour laquelle nous faisons le stage. Cette dernière les avait obtenues de l'université Seattle, Washington, USA. Les données sont disponibles dans un fichier d'extension csv et hébergées sur le serveur de la compagnie. Par conséquent, nous avons un accès direct aux données sans avoir besoin de les télécharger à partir d'un dépôt de Machine Learning.
 
 \section{Exploration des données}
@@ -557,7 +569,7 @@ La modélisation est un processus d'entrainement de modèles. Il consiste à dé
 
 Toutes les étapes que nous venons de détailler dans les sections précédentes constituent des étapes préparatoires pour la modélisation. Dans l'étape d'exploration de données, nous nous sommes rendus compte que notre ensemble de données était déséquilibré. \\ 
 
-Puisque notre ensemble de données est déséquilibré, nous ne pouvons pas utiliser les algorithmes de classification simples tel que LogisticRegression, TreeDecisionClassifier, LinearClassifier etc. Nous avons utilisé l'approche des méthodes d'ensemble qui consiste à combiner plusieurs classifieurs simples pour donner un classifieur fort. L'image \ref{ensemble} donne une approche générale sur le fonctionnement et la construction des méthodes d'ensemble. \\
+Puisque notre ensemble de données est déséquilibré, nous ne pouvons pas utiliser les algorithmes de classification simples tel que LogisticRegression, TreeDecisionClassifier, LinearClassifier etc. Nous avons utilisé l'approche des méthodes d'ensemble qui consiste à combiner plusieurs classificateurs simples pour donner un classificateur fort. L'image \ref{ensemble} donne une approche générale sur le fonctionnement et la construction des méthodes d'ensemble. \\
 
 Dans le chapitre sur \textit{"Contexte théorique"} nous avons vu comment manipuler les données déséquilibrées en ré-échantillonnant \textbf{(resampling en anglais)} les données d'origine pour fournir des classes équilibrées. Nous avons vu toutes les avantages à utiliser les techniques SMOTE que les autres. Dans la sous-section qui suit sur la modélisation, nous allons brièvement examiner une autre approche, à savoir la modification des algorithmes de classification existants pour les rendre appropriés aux ensembles de données déséquilibrés. 
 
@@ -565,7 +577,7 @@ Dans le chapitre sur \textit{"Contexte théorique"} nous avons vu comment manipu
 
 \subsection{Méthodes d'ensemble}
 
-L'objectif principal de la méthodologie d'ensemble \textbf{(Ensemble methods en anglais)} \cite{key1} est d'améliorer la performance des classifieurs uniques. L'approche consiste à construire plusieurs classifieurs à deux étapes à partir des données originales, puis à agréger leurs prédictions. Les méthodes d'ensemble sont nombreuses, mais nous allons brièvement définis les trois plus importantes. Bagging, Boosting et Random Forest. 
+L'objectif principal de la méthodologie d'ensemble \textbf{(Ensemble methods en anglais)} est d'améliorer la performance des classificateurs uniques. L'approche consiste à construire plusieurs classificateurs à deux étapes à partir des données originales, puis à agréger leurs prédictions \cite{key1}. Les méthodes d'ensemble sont nombreuses, mais nous allons brièvement définis les trois plus importantes: Bagging, Boosting et Random Forest. 
 
 \begin{figure}[h]
 	\includegraphics{images/ensemble.png}
@@ -575,14 +587,14 @@ L'objectif principal de la méthodologie d'ensemble \textbf{(Ensemble methods en
 
 \subsubsection{Bagging}
 Bagging (Bootstrap aggregating) est une approche de construction d'ensemble qui 
-utilise différents sous-ensembles de données d’apprentissage avec une  méthode  de classification unique.  Étant  donné  un  ensemble  d’apprentissage  de  taille \textbf{t}, Bagging attire des instances aléatoires \textbf{t} de l'ensemble de données avec remplacement (à l'aide d'une distribution uniforme). Ces \textbf{t} instances sont apprises, et ce processus est répété plusieurs fois. Étant donné que le tirage au sort est effectué avec remplacement,les   instances   tirées   contiendront des   doublons   et   des   omissions   par   rapport   àl'ensemble  d'apprentissage initial.  Chaque  cycle  à  travers  le  processus  aboutit  à  un classifieur.  Après  la  construction  de  plusieurs  classifieurs,  les  sorties  de  chaque classifieur sont combinés pour produire la prédiction finale. 
+utilise différents sous-ensembles de données d’apprentissage avec une  méthode  de classification unique.  Étant  donné  un  ensemble  d’apprentissage  de  taille \textbf{t}, Bagging attire des instances aléatoires \textbf{t} de l'ensemble de données avec remplacement (à l'aide d'une distribution uniforme). Ces \textbf{t} instances sont apprises, et ce processus est répété plusieurs fois. Étant donné que le tirage au sort est effectué avec remplacement, les   instances   tirées   contiendront des   doublons   et   des   omissions   par   rapport   à l'ensemble  d'apprentissage initial.  Chaque  cycle  à  travers  le  processus  aboutit  à  un classificateur.  Après  la  construction  de  plusieurs  classificateurs,  les  sorties  de  chaque classificateur sont combinés pour produire la prédiction finale \cite{key27}. 
 %Méthodes parallèles (ensachage, forêt aléatoire) dont le principe est de faire la moyenne de plusieurs prédictions dans l'espoir d'un meilleur résultat suite à la réduction de la variance de l'estimateur moyen.
 \subsubsection{Boosting}
-Une  autre  approche  appelée  «Boosting»  utilise  également une  méthode d'apprentissage  unique  avec  différents  sous-ensembles  de  données  d’apprentissage. Sa structure globale est similaire à celle de la méthode Bagging, à la différence qu’elle  conserve  la  trace  de  la  performance  de  l'algorithme  d'apprentissage  et  se concentre  sur  les  cas  qui  ne  sont  pas  correctement  appris.  Au  lieu  de  choisir  les instances \textbf{t} d’apprentissage à l'aide d'une distribution uniforme de manière aléatoire, les exemples d’apprentissage sont sélectionnés en favorisant les instances quine sont pas  bien  classées.  Après  plusieurs  cycles,  la  prédiction  est  réalisée  selon  un  vote pondéré des prédictions de chaque classifieur. Ainsi, les poids sont proportionnels à la précision de chaque classifieur sur son ensemble d'apprentissage. L’algorithme le plus connu de l’approche Boosting, appelée « AdaBoost ».
+Une  autre  approche  appelée  «Boosting»  utilise  également une  méthode d'apprentissage  unique  avec  différents  sous-ensembles  de  données  d’apprentissage. Sa structure globale est similaire à celle de la méthode Bagging, à la différence qu’elle  conserve  la  trace  de  la  performance  de  l'algorithme  d'apprentissage  et  se concentre  sur  les  cas  qui  ne  sont  pas  correctement  appris.  Au  lieu  de  choisir  les instances \textbf{t} d’apprentissage à l'aide d'une distribution uniforme de manière aléatoire, les exemples d’apprentissage sont sélectionnés en favorisant les instances quine sont pas  bien  classées.  Après  plusieurs  cycles,  la  prédiction  est  réalisée  selon  un  vote pondéré des prédictions de chaque classificateur. Ainsi, les poids sont proportionnels à la précision de chaque classificateur sur son ensemble d'apprentissage. L’algorithme le plus connu de l’approche Boosting, appelée « AdaBoost » \cite{key27}.
 \subsubsection{Stacking}
-Le stacking est similaire au boosting: vous appliquez également plusieurs modèles à vos données d'origine. La différence ici est, cependant, que vous n'avez pas juste une formule empirique pour votre fonction de poids, plutôt que vous introduisez un méta-niveau et utilisez un autre modèle / approche pour estimer l'entrée avec les sorties de chaque modèle pour estimer les poids ou , en d'autres termes, pour déterminer quels modèles fonctionnent bien et ce qui est mal donné ces données d'entrée.
+Le stacking est similaire au boosting: vous appliquez également plusieurs modèles à vos données d'origine. La différence ici est, cependant, que vous n'avez pas juste une formule empirique pour votre fonction de poids, plutôt que vous introduisez un méta-niveau et utilisez un autre modèle / approche pour estimer l'entrée avec les sorties de chaque modèle pour estimer les poids ou , en d'autres termes, pour déterminer quels modèles fonctionnent bien et ce qui est mal donné ces données d'entrée \cite{key28}. 
 \subsubsection{Random Forest}
-Les forêts aléatoires(plus connus sous \textbf{Random Forest}) sont une combinaison d'arbres  de  décision,  où  chaque  arbre  dépend  des  valeurs  d'un  vecteur  aléatoire indépendamment échantillonné et avec la même distribution pour tous les arbres de la forêt.L'erreur  de  généralisation  d'une  forêt  d'arbres  dépend  de  la  force  des  arbres individuels  dans  la  forêt  et  de  la  corrélation  entre  eux.  L'utilisation d'une  sélection aléatoire  de  caractéristiques  pour  diviser  chaque nœud donne des  taux  d'erreur  qui se comparent favorablement à AdaBoost.\\
+Les forêts aléatoires(plus connus sous \textbf{Random Forest}) sont une combinaison d'arbres  de  décision,  où  chaque  arbre  dépend  des  valeurs  d'un  vecteur  aléatoire indépendamment échantillonné et avec la même distribution pour tous les arbres de la forêt.L'erreur  de  généralisation  d'une  forêt  d'arbres  dépend  de  la  force  des  arbres individuels  dans  la  forêt  et  de  la  corrélation  entre  eux.  L'utilisation d'une  sélection aléatoire  de  caractéristiques  pour  diviser  chaque nœud donne des  taux  d'erreur  qui se comparent favorablement à AdaBoost. \cite{key1}\\
 
 Pour notre projet nous avons entrainé quatre algorithmes ensemblistes; deux d'entre eux sont des algorithmes de boosting, un algorithme stacking et le random forest. La table \ref{tab:ensemble} présente une comparaison des différents résultats obtenus en entrainant ces quatre types d'algorithmes ensemblistes différents. Pour sélectionner le meilleur algorithme, nous avons développé des processus automatiques en nous basant sur les scores de chaque modèle. Le meilleur modèle va être celui du meilleur score obtenu.     
 
@@ -662,6 +674,8 @@ La table \ref{tab:api} nous présente les détails de notre API. La colonne "\te
 
 La construction de l'API est un travail d'ingénierie de logiciels, ce qui permet de combiner ensemble deux champs d'études de l'informatique (\textbf{Machine learning et Software Engineering}). Il faut relater que les modèles de machine learning ont besoin d'une couche d'ingénierie de logiciels pour leur rendre accessible aux utilisateurs qui ne comprennent rien en machine learning. Dans la vraie vie, ceux qui utilisent les modèles ne connaissent rien ni en machine learning ni en software engineering. C'est pourquoi dans tout lieu où il y a une équipe de data scientist qui travaillent, il y a aussi une équipe de développement de logiciels.
 
+\section{Conclusion}
+
 \newpage
 
 \chapter{Évaluation}
@@ -704,7 +718,7 @@ Nous n'avons pas trouvé de travaux connexes directement liés à notre domaine 
 Philip K. Chan, Computer Science, Florida Institute of Technology \& Salvatore J. Stolfo, Department of Computer Science, Columbia University \cite{key23} ont travaillé sur un projet de détection de fraude par carte de crédit. Ils ont eu leur dataset déséquilibrés (distributions uniformes dans leur article), 20\% de cas étaient frauduleux contre 80\% non-frauduleux.  
 \newpage
 
-\chapter{Conclusion}
+\chapter{Conclusion générale}
 
 \newpage
 \addcontentsline{toc}{chapter}{Bibliography}
