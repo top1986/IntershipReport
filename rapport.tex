@@ -399,6 +399,13 @@ Le chapitre 2 a présenté une vue générale sur les différents concepts utili
 \section{Introduction}
 Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. Chaque section représente une étape du projet. Il peut y avoir de petites définitions pour éclairer certains thèmes que nous n'avons pa pu aborder dans le chapitre sur le \textbf{Contexte Théorique}.
 
+\begin{figure}[h]
+	\includegraphics[width=17cm, height =9cm]{images/UseCaseDiag.png}
+	\caption{A use-case diagram for describing our work}
+	\label{usecase}
+\end{figure} 
+
+
 \section{Obtention des données}
 Une fois qu'on décide à attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
 Les données que nous utilisons dans ce projet proviennent de la compagnie pour laquelle nous faisons le stage. Cette dernière les avait obtenues de l'université Seattle, Washington, USA. Les données sont disponibles dans un fichier d'extension csv et hébergées sur le serveur de la compagnie. Par conséquent, nous avons un accès direct aux données sans avoir besoin de les télécharger à partir d'un dépôt de Machine Learning.
@@ -595,7 +602,7 @@ Pour notre projet nous avons entrainé quatre algorithmes ensemblistes; deux d'e
 		& \thead{Accurency score} & \thead{Precision} & \thead{Recall} \\
 		\hline
 		GradientBoostingClassifier & 0.83 & 0.93 & 0.89  \\
-		AdaBoostClassifier & 0.85 & 0.93 & 0.90 \\
+		\textbf{AdaBoostClassifier} & \textbf{0.85} & \textbf{0.93} & \textbf{0.90} \\
 		StackingClassifier & 0.78 & 0.91 & 0.84 \\
 		RandomForestClassifier & 0.82 & 0.91 & 0.90 \\
 		\hline
@@ -747,11 +754,16 @@ Pour conclure le chapitre sur les travaux connexes, nous répétons ce que nous 
 
 \chapter{Conclusion générale}
 
-
 \newpage
 
 \appendix
-\chapter{Presentation of our whole dataset}
+\chapter{Annexe A}
+
+\begin{figure}[h]
+	\includegraphics[width=17cm, height=24cm ]{images/deploymentdiag.png}
+	\caption{A deployment diagram of our tool}
+	\label{deployment}
+\end{figure} 
 
 \begin{longtable}{ | p{.25\textwidth} | p{.15\textwidth} | p{.10\textwidth}  | p{.10\textwidth} | p{.40\textwidth} |  } 
 \hline
