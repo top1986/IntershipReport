@@ -163,6 +163,7 @@ Avec l'augmentation continue du nombre de chirurgies de remplacement, il devient
    	
 \newpage
 \chapter{Introduction générale}	
+\section{Contexte}
 Le système de santé aux USA repose sur deux types de financement. Premièrement, sur le financement public qui englobe certains groupes de personnes de la population américaine uniquement. Il se concentre 	essentiellement sur deux programmes : le programme 		fédéral Medicare pour les plus de 65 ans et les personnes gravement handicapées (soit 15 \% de la population) et le programme Medicaid qui 			s’adresse aux familles pauvres avec enfants et touche 11 \% de la population. Deuxièmement, sur le financement privé qui touche tout le reste de la population, l’assurance est donc majoritairement privée aux 		Etats-Unis \cite{key4}. Les Américains sont assurés en général via leurs employeurs ou sinon de manière individuelle lorsque leur employeur ne propose pas d’assurance ou qu’ils travaillent en indépendant. La composante « 	assurance médicale » dans le choix d’un emploi est donc un critère important.\\
 	
 Le système américain, libéral et fondé sur le marché, s’organise autour d’assurances privées souvent liées à l’emploi et d’une assurance maladie obligatoire, liée notamment à la vieillesse et aux faibles revenus.
@@ -176,9 +177,43 @@ Il est un travail fastidieux pour les spécialistes orthopédistes de vérifier 
 
 Considérant le nombre grandissant d'arthroplastie dans les hôpitaux américains et tous les travaux manuels qu'un orthopédiste doit réaliser avant de décider le retour ou non d'un patient à la maison, nous estimons que créer un outil pour automatiser cette tâche est un projet pertinent. Le but de notre stage consiste à développer cet outil-là qui aidera les orthopédistes américains à prendre cette décision de façon automatique et sans perdre de temps.  \\
 
-Nous supposons qu'il existe déjà un jeu de données disponibles contenant toutes les informations touchant un grand nombre de patients et que chaque échantillon de ce jeu de données est un dossier patient. Nous supposons aussi que ce jeu de données possède des caractéristiques suffisantes pour décider si un patient doit être renvoyé ou non. Nous considérons aussi que ce jeu de données est composé de patients qui font l'objet d'une décision de retour. Si toutes ces conditions sont réunies, nous pouvons profiter des différentes technologies de la science de données en général et du marching learning en particulier pour développer un outil d'aide à la décision qui aide les orthopédistes à prendre la décision de retour automatiquement. \\
+\section{Problématique}
+
+Nous supposons qu'il existe déjà un jeu de données disponibles contenant toutes les informations touchant un grand nombre de patients et que chaque échantillon de ce jeu de données est un dossier patient. Nous supposons aussi que ce jeu de données possède des caractéristiques suffisantes pour décider si un patient doit être renvoyé ou non. Nous considérons aussi que ce jeu de données est composé de patients qui font l'objet d'une décision de retour. Si toutes ces conditions sont réunies, nous pouvons profiter des différentes technologies de la science de données, du marching learning et l'ingénierie de logiciels pour développer un outil d'aide à la décision qui aide les orthopédistes à prendre la décision de retour automatiquement. \\
 
 Les technologies de la science de données sont conçues pour développer des outils qui permettent de prendre des décisions à partir d'un ensemble de données existantes. Le machine learning qui est un sous-ensemble de la science de données permet de modéliser à partir du même ensemble de données. Dans le chapitre 2, nous expliquons le cycle de vie du travail du data scientist en détail. Ce que nous proposons comme solution dans notre projet. Nous avons réalisé ce cycle complet pour développer cet outil d'aide à la décision. \\
+
+Il y a deux grandes phases impliquées dans le processus de notre travail. La première phase est la construction du modèle machine learning et la deuxième est le déploiement du modèle construit qui consiste en la création d'un API nommé Ortho. C'est une phase d'ingénierie de logiciels. Pour les deux phases, nous avons deux diagrammes de cas d'utilisation qui les expliquent. Nous donnons une brève explication de chaque diagramme et ses différents cas d'utilisation. 
+
+Nous commençons d'abord par la phase de la construction du modèle. Celle-ci est présentée dans la figure \ref{MLUseCase}.  
+
+
+Ceux-ci peuvent être vus dans la figure \ref{usecase} qui est un diagramme de cas d'utilisation donnant une vision globale du comportement fonctionnel de notre API Ortho. Chaque cas représente une unité discrète d'interaction entre un utilisateur (Orthopédiste ou administrateur) et notre système. Voici une brève explication des acteurs et de chaque cas:
+\begin{enumerate}
+\item \textbf{Actors.} Les acteurs sont des orthopédistes et les administrateurs du système qui sont des orthopédistes ayant des droits et privilèges d'évaluer, de suivre et de gérer le modèle déployé;
+\item \textbf{Predict.} Les orthopédistes peuvent utiliser cette section en vue de prédire si les patients doivent rester à l'hôpital ou retourner chez eux. Pour accomplir cette tâche, il est obligatoire de remplir un formulaire.
+\item \textbf{Fill form.} Pour prédire, il faut remplir le formulaire qui contient les informations du dossier médical du patient. On recueille les informations pertinentes pour la prise de décision telles que les conditions médicales, les diagnostiques antérieures, l'indice de masse corporelle (BMI en anglais) etc. 
+\item \textbf{Evaluate.} Permet d'évaluer le modèle sur de nouvelles données prédites. On peut comparer l'évaluation faite au moment de la construction du modèle et celle faite au moment de la prédiction. L'évaluation exige une authentification.  
+\item \textbf{Monitor.} Permet de suivre périodiquement le modèle pour déterminer si les performances s'améliorent ou si elles détériorent. Exige une authentification.
+\item \textbf{Manage.} Permet d'optimiser le modèle sur de nouvelles données en essayant d'utiliser de nouveaux hyper-paramètres en vue de comparer les résultats. Exige une authentification.
+\item \textbf{Authenticate.} Permet l'authentification du système. Exige un nom utilisateur et un mot de passe.
+\end{enumerate}
+
+
+
+\begin{figure}[h]
+	\includegraphics[width=13cm, height =13cm]{images/APIML.png}
+	\caption{A use-case diagram for describing our Machine Learning System}
+	\label{MLUseCase}
+\end{figure} 
+
+\begin{figure}[h]
+	\includegraphics[width=17cm, height =9cm]{images/UseCaseDiag.png}
+	\caption{A use-case diagram for describing our API Ortho}
+	\label{usecase}
+\end{figure} 
+
+Avant de répondre à toutes ses exigences, nous avons construit un modèle machine learning en utilisant les techniques de machine learning. 
 
 La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a des sections, subsections etc. Le chapitre 2 donne un contexte théorique des différents éléments qui sont importants pour notre projet. Le chapitre 3 présente en détail la description technique des différentes étapes de notre projet. Le chapitre 4 fait une évaluation de notre outil crée. Le chapitre 5 présente les limitations et les travaux futurs. Le chapitre 6 détaille les travaux connexes et le chapitre 7 est celui de la conclusion.
 
@@ -402,13 +437,6 @@ Le chapitre 2 a présenté une vue générale sur les différents concepts utili
 \chapter{Description technique de notre projet}
 \section{Introduction}
 Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. Chaque section représente une étape du projet. Il peut y avoir de petites définitions pour éclairer certains thèmes que nous n'avons pa pu aborder dans le chapitre sur le \textbf{Contexte Théorique}.
-
-\begin{figure}[h]
-	\includegraphics[width=17cm, height =9cm]{images/UseCaseDiag.png}
-	\caption{A use-case diagram for describing our work}
-	\label{usecase}
-\end{figure} 
-
 
 \section{Obtention des données}
 Une fois qu'on décide à attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
