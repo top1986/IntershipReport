@@ -172,9 +172,13 @@ Les compagnies d'assurance privées ne couvrent pas les coûts associés à une 
 
 D'autres part, l'arthrose (maladie qui touche les articulations et caractérisée par la douleur et la difficulté à effectuer des mouvements articulaires \cite{key12}) touche environ 27 millions d'adultes aux États-Unis \cite{key11}.  Ce qui augmente considérablement le nombre d'arthroplastie dans les hôpitaux, et aussi le poids de travail des médecins à savoir quand est-ce qu'il ya une réadaptation ou non.\\
 
-Il est un travail fastidieux pour les spécialistes orthopédistes de vérifier manuellement les données médicales d'un patient pour pouvoir décider s'il doit être renvoyé ou non. Ce travail consiste en ce que les données médicales d'un dossier patient sont très volumineuses. Créer un moyen d'automatiser ce processus est le but de notre projet.  \\
+Il est un travail fastidieux pour les spécialistes orthopédistes de vérifier manuellement les données médicales d'un patient pour pouvoir décider s'il doit être renvoyé ou non. Ce travail consiste en ce que les données médicales d'un dossier patient sont très volumineuses. Seulement pour déterminer les conditions médicales antécédentes du patient, quarante six (46) colonnes pré-opératoires (C'est-à-dire les conditions de santé du patient avant une opération arthroplastie) doivent être prises en compte. Pour calculer les conditions médicales, le médecin orthopédiste doit additionner toutes les valeurs des colonnes pré-opératoires après avoir substitué ces valeurs soit par un(1), soit par deux(2) ou par trois(3) comme expliqué à la section de feature engineering. En plus de calculer les conditions médicales, il y a d'autres calculs à faire comme déterminer le niveau diagnostique du patient en se basant sur  les trois niveaux diagnostiques existant dans l'ensemble de données. Toutes ces démarches sont expliquées en détail dans la section de feature engineering. \\
+
+Considérant le nombre grandissant d'arthroplastie dans les hôpitaux américains et tous les travaux manuels qu'un orthopédiste doit réaliser avant de décider le retour ou non d'un patient à la maison, nous estimons que créer un outil pour automatiser cette tâche est un projet pertinent. Le but de notre stage consiste à développer cet outil-là qui aidera les orthopédistes américains à prendre cette décision de façon automatique et sans perdre de temps.  \\
 
 Nous supposons qu'il existe déjà un jeu de données disponibles contenant toutes les informations touchant un grand nombre de patients et que chaque échantillon de ce jeu de données est un dossier patient. Nous supposons aussi que ce jeu de données possède des caractéristiques suffisantes pour décider si un patient doit être renvoyé ou non. Nous considérons aussi que ce jeu de données est composé de patients qui font l'objet d'une décision de retour. Si toutes ces conditions sont réunies, nous pouvons profiter des différentes technologies de la science de données en général et du marching learning en particulier pour développer un outil d'aide à la décision qui aide les orthopédistes à prendre la décision de retour automatiquement. \\
+
+Les technologies de la science de données sont conçues pour développer des outils qui permettent de prendre des décisions à partir d'un ensemble de données existantes. Le machine learning qui est un sous-ensemble de la science de données permet de modéliser à partir du même ensemble de données. Dans le chapitre 2, nous expliquons le cycle de vie du travail du data scientist en détail. Ce que nous proposons comme solution dans notre projet. Nous avons réalisé ce cycle complet pour développer cet outil d'aide à la décision. \\
 
 La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a des sections, subsections etc. Le chapitre 2 donne un contexte théorique des différents éléments qui sont importants pour notre projet. Le chapitre 3 présente en détail la description technique des différentes étapes de notre projet. Le chapitre 4 fait une évaluation de notre outil crée. Le chapitre 5 présente les limitations et les travaux futurs. Le chapitre 6 détaille les travaux connexes et le chapitre 7 est celui de la conclusion.
 
@@ -764,6 +768,15 @@ Pour conclure le chapitre sur les travaux connexes, nous répétons ce que nous 
 	\caption{A deployment diagram of our tool}
 	\label{deployment}
 \end{figure} 
+
+\begin{figure}[h]
+	\includegraphics[ ]{images/ortho.png}
+	\caption{A class diagram to explain connexion between our API and machine learning system }
+	\label{cd}
+\end{figure} 
+
+
+
 
 \begin{longtable}{ | p{.25\textwidth} | p{.15\textwidth} | p{.10\textwidth}  | p{.10\textwidth} | p{.40\textwidth} |  } 
 \hline
