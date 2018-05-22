@@ -183,10 +183,22 @@ Nous supposons qu'il existe déjà un jeu de données disponibles contenant tout
 
 Les technologies de la science de données sont conçues pour développer des outils qui permettent de prendre des décisions à partir d'un ensemble de données existantes. Le machine learning qui est un sous-ensemble de la science de données permet de modéliser à partir du même ensemble de données. Dans le chapitre 2, nous expliquons le cycle de vie du travail du data scientist en détail. Ce que nous proposons comme solution dans notre projet. Nous avons réalisé ce cycle complet pour développer cet outil d'aide à la décision. \\
 
-Il y a deux grandes phases impliquées dans le processus de notre travail. La première phase est la construction du modèle machine learning et la deuxième est le déploiement du modèle construit qui consiste en la création d'un API nommé Ortho. C'est une phase d'ingénierie de logiciels. Pour les deux phases, nous avons deux diagrammes de cas d'utilisation qui les expliquent. Nous donnons une brève explication de chaque diagramme et ses différents cas d'utilisation. 
+Il y a deux grandes phases impliquées dans le processus de notre travail. La première phase est la construction du modèle machine learning et la deuxième est le déploiement du modèle construit qui consiste en la création d'un API nommé Ortho. C'est une phase d'ingénierie de logiciels. Pour les deux phases, nous avons deux diagrammes de cas d'utilisation qui les expliquent. Nous donnons une brève explication de chaque diagramme et ses différents cas d'utilisation. \\
 
-Nous commençons d'abord par la phase de la construction du modèle. Celle-ci est présentée dans la figure \ref{MLUseCase}.  
+Nous commençons d'abord par la phase de la construction du modèle qui est présentée dans la figure \ref{MLUseCase}.  Décrivons brièvement chaque cas d'utilisation:
+\begin{enumerate}
+\item Gather. Permet de récupérer les données du dataset;
+\item Clean. Permet de nettoyer les données en imputant les données nulles et en supprimant les variables que ne sont pas pertinentes;
+\item Explore. Permet d'explorer les données pour voir les différentes corrélations qui existent entre les variables et l'étiquette;
+\item Transform. Création de nouvelles variables en fonction de celles qui existent déjà dans l'ensemble des données. 
+\end{enumerate}
 
+
+\begin{figure}[h]
+	\includegraphics[width=13cm, height =13cm]{images/APIML.png}
+	\caption{A use-case diagram for describing our Machine Learning System}
+	\label{MLUseCase}
+\end{figure} 
 
 Ceux-ci peuvent être vus dans la figure \ref{usecase} qui est un diagramme de cas d'utilisation donnant une vision globale du comportement fonctionnel de notre API Ortho. Chaque cas représente une unité discrète d'interaction entre un utilisateur (Orthopédiste ou administrateur) et notre système. Voici une brève explication des acteurs et de chaque cas:
 \begin{enumerate}
@@ -200,12 +212,6 @@ Ceux-ci peuvent être vus dans la figure \ref{usecase} qui est un diagramme de c
 \end{enumerate}
 
 
-
-\begin{figure}[h]
-	\includegraphics[width=13cm, height =13cm]{images/APIML.png}
-	\caption{A use-case diagram for describing our Machine Learning System}
-	\label{MLUseCase}
-\end{figure} 
 
 \begin{figure}[h]
 	\includegraphics[width=17cm, height =9cm]{images/UseCaseDiag.png}
