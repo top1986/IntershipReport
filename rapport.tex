@@ -177,20 +177,24 @@ Il est un travail fastidieux pour les spécialistes orthopédistes de vérifier 
 
 Considérant le nombre grandissant d'arthroplastie dans les hôpitaux américains et tous les travaux manuels qu'un orthopédiste doit réaliser avant de décider le retour ou non d'un patient à la maison, nous estimons que créer un outil pour automatiser cette tâche est un projet pertinent. Le but de notre stage consiste à développer cet outil-là qui aidera les orthopédistes américains à prendre cette décision de façon automatique et sans perdre de temps.  \\
 
-\section{Problématique}
+\section{Ingénierie des exigences}
 
 Nous supposons qu'il existe déjà un jeu de données disponibles contenant toutes les informations touchant un grand nombre de patients et que chaque échantillon de ce jeu de données est un dossier patient. Nous supposons aussi que ce jeu de données possède des caractéristiques suffisantes pour décider si un patient doit être renvoyé ou non. Nous considérons aussi que ce jeu de données est composé de patients qui font l'objet d'une décision de retour. Si toutes ces conditions sont réunies, nous pouvons profiter des différentes technologies de la science de données, du marching learning et l'ingénierie de logiciels pour développer un outil d'aide à la décision qui aide les orthopédistes à prendre la décision de retour automatiquement. \\
 
 Les technologies de la science de données sont conçues pour développer des outils qui permettent de prendre des décisions à partir d'un ensemble de données existantes. Le machine learning qui est un sous-ensemble de la science de données permet de modéliser à partir du même ensemble de données. Dans le chapitre 2, nous expliquons le cycle de vie du travail du data scientist en détail. Ce que nous proposons comme solution dans notre projet. Nous avons réalisé ce cycle complet pour développer cet outil d'aide à la décision. \\
 
-Il y a deux grandes phases impliquées dans le processus de notre travail. La première phase est la construction du modèle machine learning et la deuxième est le déploiement du modèle construit qui consiste en la création d'un API nommé Ortho. C'est une phase d'ingénierie de logiciels. Pour les deux phases, nous avons deux diagrammes de cas d'utilisation qui les expliquent. Nous donnons une brève explication de chaque diagramme et ses différents cas d'utilisation. \\
+Il y a deux grandes phases impliquées dans le processus de développement de notre outil. La première phase est la construction d'un modèle machine learning et la deuxième est le déploiement du modèle construit, cette phase consiste en la création d'un API nommé Ortho, c'est une phase d'ingénierie de logiciels. Pour les deux phases, nous avons crée deux diagrammes de cas d'utilisation qui donnent une vision globale du comportement fonctionnel de notre outil. Nous donnons une brève explication de chaque diagramme et ses différents acteurs et cas d'utilisation. \\
 
-Nous commençons d'abord par la phase de la construction du modèle qui est présentée dans la figure \ref{MLUseCase}.  Décrivons brièvement chaque cas d'utilisation:
+Nous commençons d'abord par la phase de la construction du modèle qui est présentée dans la figure \ref{MLUseCase}.  Décrivons brièvement l'acteur API Ortho et chaque cas d'utilisation:
 \begin{enumerate}
-\item Gather. Permet de récupérer les données du dataset;
-\item Clean. Permet de nettoyer les données en imputant les données nulles et en supprimant les variables que ne sont pas pertinentes;
-\item Explore. Permet d'explorer les données pour voir les différentes corrélations qui existent entre les variables et l'étiquette;
-\item Transform. Création de nouvelles variables en fonction de celles qui existent déjà dans l'ensemble des données. 
+\item \textbf{API Ortho.} L'API fait la connexion entre le système du machine learning et le système du déploiement. Il accède au modèle qui a été sérialisé. 
+\item \textbf{Gather.} Permet de récupérer les données du dataset;
+\item \textbf{Clean.} Permet de nettoyer les données en imputant les données nulles et en supprimant les variables que ne sont pas pertinentes;
+\item \textbf{Explore.} Permet d'explorer les données pour voir les différentes corrélations qui existent entre les variables et l'étiquette;
+\item \textbf{Transform.} Création de nouvelles variables en fonction de celles qui existent déjà dans l'ensemble des données. 
+\item \textbf{Preprocess.} Un pré-traitement des données avant de les envoyer à l'algorithme de machine learning. Par exemple, les algorithmes de machine learning ne traitent pas les textes, il faut les convertir en valeurs numériques avant de les envoyer aux algorithmes. 
+\item \textbf{Train.} C'est la phase d'entrainement de modèles pour déterminer lequel est meilleur pour notre ensemble de données.
+\item \textbf{Serialize.} Sauvegarde le meilleur modèle pour son utilisation future. 
 \end{enumerate}
 
 
@@ -200,7 +204,7 @@ Nous commençons d'abord par la phase de la construction du modèle qui est pré
 	\label{MLUseCase}
 \end{figure} 
 
-Ceux-ci peuvent être vus dans la figure \ref{usecase} qui est un diagramme de cas d'utilisation donnant une vision globale du comportement fonctionnel de notre API Ortho. Chaque cas représente une unité discrète d'interaction entre un utilisateur (Orthopédiste ou administrateur) et notre système. Voici une brève explication des acteurs et de chaque cas:
+Nous poursuivons avec la phase de déploiement du modèle. Celle-ci peut être vue dans la figure \ref{usecase} qui est son diagramme de cas d'utilisation. Chaque cas représente une unité discrète d'interaction entre un utilisateur (Orthopédiste ou administrateur) et notre système. Voici une brève explication des acteurs et de chaque cas:
 \begin{enumerate}
 \item \textbf{Actors.} Les acteurs sont des orthopédistes et les administrateurs du système qui sont des orthopédistes ayant des droits et privilèges d'évaluer, de suivre et de gérer le modèle déployé;
 \item \textbf{Predict.} Les orthopédistes peuvent utiliser cette section en vue de prédire si les patients doivent rester à l'hôpital ou retourner chez eux. Pour accomplir cette tâche, il est obligatoire de remplir un formulaire.
@@ -218,8 +222,6 @@ Ceux-ci peuvent être vus dans la figure \ref{usecase} qui est un diagramme de c
 	\caption{A use-case diagram for describing our API Ortho}
 	\label{usecase}
 \end{figure} 
-
-Avant de répondre à toutes ses exigences, nous avons construit un modèle machine learning en utilisant les techniques de machine learning. 
 
 La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a des sections, subsections etc. Le chapitre 2 donne un contexte théorique des différents éléments qui sont importants pour notre projet. Le chapitre 3 présente en détail la description technique des différentes étapes de notre projet. Le chapitre 4 fait une évaluation de notre outil crée. Le chapitre 5 présente les limitations et les travaux futurs. Le chapitre 6 détaille les travaux connexes et le chapitre 7 est celui de la conclusion.
 
@@ -432,21 +434,37 @@ Le chapitre 2 a présenté une vue générale sur les différents concepts utili
 %\label{default}
 %\end{table}%
 
-
-
-
-
+    %%%%%%%%%%%%%%%%%%%. Chapitre 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \newpage
 
-\chapter{Description technique de notre projet}
+\chapter{Approche: Construction du modèle machine learning}
 \section{Introduction}
-Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. Chaque section représente une étape du projet. Il peut y avoir de petites définitions pour éclairer certains thèmes que nous n'avons pa pu aborder dans le chapitre sur le \textbf{Contexte Théorique}.
+
+Le développement du modèle est la première grande phase de l'implémentation de notre solution. Le modèle estimateur (meilleur modèle entrainé en fonction de notre ensemble de données) va être utilisé pour introduire la deuxième phase, celle de la création de l'API Ortho. Comme nous avons déjà vu dans l'introduction le diagramme de cas d'utilisation du système machine learning. Nous proposons maintenant un diagramme de classe (figure \ref{MLClassDiag}) qui répond aux différentes exigences que nous avons décrites. Nous tenons à souligner que dans notre diagramme de classe nous ne prenons pas en compte les classes prédéfinies dans les librairies de Python. Par exemple le \textbf{DataFrame} est une classe prédéfinie dans la librairie \textbf{pandas}. Nous l'utilisons dans notre classe \textbf{Gather} mais elle n'est pas définie dans notre diagramme de classe.  \\ 
+
+%Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. Chaque section représente une étape du projet. Il peut y avoir de petites définitions pour éclairer certains thèmes que nous n'avons pa pu aborder dans le chapitre sur le \textbf{Contexte Théorique}.
+
+
+Dans les sections qui suivent nous allons voir les différentes étapes d'implémentation de notre système machine learning. Nous commençons d'abord par l'obtention des données, pour ensuite les explorer, ensuite les nettoyer, les transformer et enfin les modéliser. 
+
+\begin{figure}[p]
+\includegraphics[width=13cm, height=19cm]{images/MLClassDiag.png}
+\caption{Class diagram of our machine learning system}
+\label{MLClassDiag}
+\end{figure}
+\newpage
+
 
 \section{Obtention des données}
 Une fois qu'on décide à attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
-Les données que nous utilisons dans ce projet proviennent de la compagnie pour laquelle nous faisons le stage. Cette dernière les avait obtenues de l'université Seattle, Washington, USA. Les données sont disponibles dans un fichier d'extension csv et hébergées sur le serveur de la compagnie. Par conséquent, nous avons un accès direct aux données sans avoir besoin de les télécharger à partir d'un dépôt de Machine Learning.
+
+Les données que nous utilisons dans ce projet proviennent de la compagnie pour laquelle nous faisons le stage. Cette dernière les avait obtenues de l'université Seattle, Washington, USA. Les données sont disponibles dans un fichier d'extension csv et hébergées sur le serveur de la compagnie. Par conséquent, nous avons un accès direct aux données sans avoir besoin de les télécharger à partir d'un dépôt de Machine Learning. \\
+
+Comme vous pouvez remarquer dans la classe diagramme du machine learning (figure \ref{MLClassDiag}), on a implémenté un classe nommant \textbf{Gather}. Celle-ci nous permet d'obtenir les données brutes à travers la méthode \textbf{read} qui prend en paramètre un nom de fichier (\textbf{filename}) et un séparateur (\textbf{sep}). Le fichier contient toutes les données disponibles pour la construction du modèle et le séparateur permet de préciser comment les colonnes sont séparées entre elles, dans notre cas c'est un point virgule (\textbf{;}) qui les sépare.
+
+Après avoir obtenu les données, il faut maintenant les explorer pour avoir des idées claires sur l'ensemble des données. La section suivante est l'étape d'exploration des données, les données obtenues à la classe Exploration de données. 
 
 \section{Exploration des données}
 
@@ -457,9 +475,11 @@ Le but de l'analyse exploratoire est de «connaître» l'ensemble de données. S
 \item Vous obtiendrez une «idée» de l'ensemble de données, ce qui vous aidera à communiquer les résultats et à avoir un impact plus important.
 \end{enumerate}
 
-Pour l'analyse exploratoire de nos données, Tout d'abord, nous commençons par une analyse basique de l'ensemble de nos données \textbf{(dataset in english)}. La table \ref{tab:dataset} donne une description de notre dataset utilisé pour notre projet et la figure \ref{fig:samplesdataset} donne une vue de notre ensemble de données, leur représentation, et leurs valeurs possibles. Voyons une brève description de chaque composante du dataset après une analyse basique de notre exploration:
+Pour l'analyse exploratoire de nos données, Tout d'abord, nous commençons par une analyse basique de l'ensemble de nos données \textbf{(dataset in english)}. La table \ref{tab:dataset} donne une description de notre dataset utilisé pour notre projet et la figure \ref{fig:samplesdataset} donne une vue de notre ensemble de données, leur représentation, et leurs valeurs possibles. Si nous nous référons à notre classe diagramme \ref{MLClassDiag}), c'est l'attribut info de la classe Explore qui nous fournit les informations sur notre dataset. La méthode head nous retourne les cinq premières lignes du jeu de données.
 
-\paragraph*{Number of Features :} Représente le nombre de caractéristiques ou colonnes de notre dataset. Les features sont importants pour un modèle de machine learning puisque le modèle les utilise pour prédire des événements. 
+Voyons une brève description de chaque composante du dataset après une analyse basique de notre exploration:
+
+\paragraph*{Number of Features :} Représente le nombre totale de features ou colonnes de notre dataset. Les features sont importants pour un modèle de machine learning puisque le modèle les utilise pour prédire des événements. Dans l'annexe A, La table \ref{tab:dt} donne une description de tous les features de notre dataset. Le nombre total des features est 92.  La colonne \textbf{Feature name} représente le nom de chaque colonne. La colonne \textbf{datatype} représente le type de données et les colonnes. Et les colonnes \textbf{non-null} et \textbf{null} représentent respectivement le nombre d'échantillons non-nulls et le nombre d'échantillons nulls. Référez-vous à la table \ref{tab:dt}, pour prendre connaissance des nom de colonnes car nous allons les utiliser plus tard. 
 
 
 
@@ -498,8 +518,6 @@ Target value & Discharge\\
 
 \paragraph*{ Target value :} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. \\
 
-La table \ref{tab:dt} donne une description de tous les features de notre dataset. Le nombre total des features est 92.  La colonne \textbf{Feature name} représente le nom de chaque colonne. La colonne \textbf{datatype} représente le type de données et les colonnes. Et les colonnes \textbf{non-null} et \textbf{null} représentent respectivement le nombre d'échantillons non-nulls et le nombre d'échantillons nulls.
-
 \begin{table}[h]
 \centering
 \begin{tabular}{| l | c |}
@@ -537,7 +555,11 @@ La corrélation négative signifie que lorsqu'une caractéristique augmente, l'a
 \label{fig:correlation}
 \end{figure}
 
-La figure \ref{fig:correlation} nous donne une idée comment nos variables sont corrélées entre elles. Par exemple, le poids \textbf{ (Weight dans le dataset)} et le BMI ont une correlation de 0.81 très proche de 1. On peut déduire que les patients qui ont leur BMI plus élevé sont les plus pesants. L'objectif de la correlation est de gagner en intuition sur les données, ce qui nous aidera tout au long du flux de travail.   
+La figure \ref{fig:correlation} nous donne une idée comment nos variables sont corrélées entre elles. Par exemple, le poids \textbf{ (Weight dans le dataset)} et le \textbf{BMI} ont une correlation de 0.81 très proche de 1. On peut déduire que les patients qui ont leur BMI plus élevé sont les plus pesants. L'objectif de la correlation est de gagner en intuition sur les données, ce qui nous aidera tout au long du flux de travail.\\ 
+
+Pour calculer la correlation, nous avons utilisé la méthode \textbf{corr} de  la classe \textbf{Explore}. Nous avons passé un peu de style comme paramètre pour avoir les couleurs.  \\
+ 
+Après avoir exploré les données et acquérir suffisamment de connaissance sur notre ensemble de données, c'est le temps maintenant de les nettoyer. La section qui suit montre comment nous avons procédé pour nettoyer notre dataset.
 
 \section{Nettoyage des données}
 Le nettoyage des données \textbf{(Data cleaning en anglais)} est l'une de ces choses que tout le monde fait mais dont personne ne parle vraiment. Bien sûr, ce n'est pas la partie la plus intéressante de l'apprentissage automatique. Et non, il n'y a pas de trucs cachés et de secrets à découvrir.
@@ -550,7 +572,7 @@ Cependant, un nettoyage correct des données peut faire ou défaire notre projet
 
 \subsection{Irrelevant observations :} Les observations non pertinentes sont celles qui ne correspondent pas vraiment au problème spécifique que vous essayez de résoudre \cite{key21}. \\
 
-Dans notre projet, nous avons trouvé beaucoup de données impertinentes. Par exemple. pendant la phase d'exploration nous avons trouvé que le "\textbf{Weight}" est une donnée impertinente car elle très corrélée avec le "\textbf{BMI}". On a décidé de sauvegarder le BMI et de laisser tomber le \textbf{"Weight"}.  De même que nous nous sommes rendu compte que le \textbf{"RawDX"} et \textbf{"GHOA}" étaient les mêmes données sauvegardées dans d'autres formes. Et on a maintenu le \textbf{"RawDX"} et laisser tomber le \textbf{"GHOA"}
+Dans notre projet, nous avons trouvé beaucoup de données impertinentes. Par exemple. pendant la phase d'exploration nous avons trouvé que le "\textbf{Weight}" est une donnée impertinente car elle très corrélée avec le "\textbf{BMI}". On a décidé de maintenir le \textbf{BMI} et de laisser tomber le \textbf{"Weight"}.  De la même manière nous nous rendons compte que le \textbf{"RawDX"} et \textbf{"GHOA}" étaient les mêmes données sauvegardées sous des formes différentes. Et on a maintenu le \textbf{"RawDX"} et laissé tomber le \textbf{"GHOA"}. La méthode \textbf{drop} de la classe \textbf{Clean} est utilisée pour supprimer les features non pertinents.  
 
 \subsection{Données manquantes}
 Les données manquantes \textbf{(Missing data en anglais)} sont un problème trompeur dans l'apprentissage automatique appliqué. Tout d'abord, juste pour être clair, vous ne pouvez pas simplement ignorer les valeurs manquantes dans un ensemble de données. Vous devez les gérer d'une manière ou d'une autre pour la raison très pratique que la plupart des algorithmes n'acceptent pas les valeurs manquantes.\\
@@ -563,8 +585,9 @@ Les deux stratégies les plus couramment recommandées pour traiter les données
 
 Après avoir essayé les deux recommandations, nous avons constaté que le \textbf{"imputing"} nous donne de meilleurs résultats. Pour arriver à cette affirmation, nous avons essayé plusieurs modèles avec leurs différentes évaluations. Il faut souligner que notre dataset a de beaucoup de valeurs nulles. C'est la deuxième difficulté du projet après le déséquilibre au niveau du dataset. \\
 
-Il est important de préciser que dans le  \textbf{"imputing"}, il y a plusieurs méthodes de remplissage. On peut remplir avec la valeur "\textbf{zéro (0})", la valeur moyenne "\textbf{mean}" ou la valeur moyenne "\textbf{median}". Encore, nous avons opté de remplir avec la valeur moyenne "\textbf{mean}", car elle nous a donné de meilleurs résultats. 
+Il est important de préciser que dans le  \textbf{"imputing"}, il y a plusieurs méthodes de remplissage. On peut remplir avec la valeur "\textbf{zéro (0})", la valeur moyenne "\textbf{mean}" ou la valeur moyenne "\textbf{median}". Encore, nous avons opté de remplir avec la valeur moyenne "\textbf{mean}", car elle nous a donné de meilleurs résultats. La méthode \textbf{fiilna} de la classe \textbf{Clean} est utilisée pour remplir les données manquantes. Elle prend un jeu de données et la stratégie de remplissage en paramètres et elle retourne un jeu données sans données manquantes. \\
 
+La prochaine section va être l'étape de transformation ou le feature engineering. Une fois que nos données sont nettoyées et il n'y a pas de données vides, on peut les transformer pour en avoir de nouvelles beaucoup plus pertinentes. 
 
 \section{Feature Engineering}
 
@@ -592,6 +615,8 @@ Nous avons fait notre feature engineering en deux étapes:
 
 \end{enumerate}
 
+La classe Transform de notre diagramme de classe fait toutes les transformations que nous venons de décrire dans cette section. La méthode \textbf{transform} prend en paramètre le jeu de données nettoyé et les attributs à transformer et elle retourne un jeu de données transformé lequel nous allons utiliser comme entrée de l'étape suivante sur la modélisation. 
+
 
  
 
@@ -602,7 +627,7 @@ La modélisation est un processus d'entrainement de modèles. Il consiste à dé
 
 Toutes les étapes que nous venons de détailler dans les sections précédentes constituent des étapes préparatoires pour la modélisation. Dans l'étape d'exploration de données, nous nous sommes rendus compte que notre ensemble de données était déséquilibré. \\ 
 
-Puisque notre ensemble de données est déséquilibré, nous ne pouvons pas utiliser les algorithmes de classification simples tel que LogisticRegression, TreeDecisionClassifier, LinearClassifier etc. Nous avons utilisé l'approche des méthodes d'ensemble qui consiste à combiner plusieurs classificateurs simples pour donner un classificateur fort. L'image \ref{ensemble} donne une approche générale sur le fonctionnement et la construction des méthodes d'ensemble. \\
+Puisque notre ensemble de données est déséquilibré, nous ne pouvons pas utiliser les algorithmes de classification simples tel que LogisticRegression, TreeDecisionClassifier, LinearClassifier etc. Nous avons utilisé l'approche des méthodes d'ensemble qui consiste à combiner plusieurs classificateurs simples pour donner un classificateur fort. L'image \ref{ensemble} donne une approche générale sur le fonctionnement et la construction des méthodes d'ensemble. \textbf{Data} représente l'ensemble de données d'origine, (\textbf{C1, C2, ... , Cn}) sont les différents algorithmes de classification faibles qu'on combine pour donner en entrée à \textbf{Vote Classifier}. \textbf{Strong Classifier} est l'algorithme de classification fort qu'on obtient. \\
 
 Dans le chapitre sur \textit{"Contexte théorique"} nous avons vu comment manipuler les données déséquilibrées en ré-échantillonnant \textbf{(resampling en anglais)} les données d'origine pour fournir des classes équilibrées. Nous avons vu toutes les avantages à utiliser les techniques SMOTE que les autres. Dans la sous-section qui suit sur la modélisation, nous allons brièvement examiner une autre approche, à savoir la modification des algorithmes de classification existants pour les rendre appropriés aux ensembles de données déséquilibrés. 
 
@@ -629,7 +654,7 @@ Le stacking est similaire au boosting: vous appliquez également plusieurs modè
 \subsubsection{Random Forest}
 Les forêts aléatoires(plus connus sous \textbf{Random Forest}) sont une combinaison d'arbres  de  décision,  où  chaque  arbre  dépend  des  valeurs  d'un  vecteur  aléatoire indépendamment échantillonné et avec la même distribution pour tous les arbres de la forêt.L'erreur  de  généralisation  d'une  forêt  d'arbres  dépend  de  la  force  des  arbres individuels  dans  la  forêt  et  de  la  corrélation  entre  eux.  L'utilisation d'une  sélection aléatoire  de  caractéristiques  pour  diviser  chaque nœud donne des  taux  d'erreur  qui se comparent favorablement à AdaBoost. \cite{key1}\\
 
-Pour notre projet nous avons entrainé quatre algorithmes ensemblistes; deux d'entre eux sont des algorithmes de boosting, un algorithme stacking et le random forest. La table \ref{tab:ensemble} présente une comparaison des différents résultats obtenus en entrainant ces quatre types d'algorithmes ensemblistes différents. Pour sélectionner le meilleur algorithme, nous avons développé des processus automatiques en nous basant sur les scores de chaque modèle. Le meilleur modèle va être celui du meilleur score obtenu.     
+Pour notre projet nous avons entrainé quatre algorithmes ensemblistes comme on peut constater dans notre classe diagramme \ref{MLClassDiag}; deux d'entre eux sont des algorithmes de boosting, un algorithme stacking et le random forest classification. La table \ref{tab:ensemble} présente une comparaison des différents résultats obtenus en entrainant ces quatre types d'algorithmes ensemblistes différents. Pour sélectionner le meilleur algorithme, nous avons développé des processus automatiques en nous basant sur les scores de chaque modèle. Le meilleur modèle va être celui du meilleur score obtenu.     
 
 \begin{table}[h]
 	\centering
@@ -661,60 +686,113 @@ Après avoir déterminé le meilleur modèle à partir des processus automatique
 %produire un meilleur mélange.
  
 
-\section{Déploiement de modèle}
+\chapter{Implémentation de l'outil Ortho}
+\section{Introduction}
+
 Les systèmes modernes d'apprentissage automatique facilitent la construction d'un système de décision de base. Cette facilité, cependant, est un peu décevante. Construire et déployer un premier système de décision a tendance à bien fonctionner, et les résultats peuvent être assez impressionnants pour les bonnes applications. L'ajout d'un autre système se passe généralement aussi bien. Cependant, d'étranges interactions peuvent commencer à apparaître d'une manière qui serait impossible du point de vue de l'ingénierie logicielle. Changer une partie du système affecte une autre partie du système, même si des tests isolés peuvent suggérer que cela est impossible. \\
 
 Le problème est que les systèmes basés sur l'apprentissage automatique peuvent avoir des propriétés très subtiles qui sont très différentes des systèmes logiciels plus traditionnels. En partie, cette différence vient du fait que les sorties des systèmes d'apprentissage automatique ont des comportements beaucoup plus complexes que les composants logiciels typiques. Cela vient aussi en partie du fait de la nature probabiliste des jugements que de tels systèmes sont appelés à faire. \\
 
 Cette complexité et cette subtilité rendent la gestion de ces systèmes plus délicate que la gestion de systèmes logiques traditionnels, bien modularisés, basés sur des micro-services. Les systèmes complexes d'apprentissage profond peuvent évoluer pour montrer des comportements pathologiques «changer quoi que ce soit, tout changer», même s'ils apparaissent superficiellement comme des micro-services bien conçus avec de hauts degrés d'isolation \cite{key7}.\\
 
-Compte tenu de cette complexité qui existe au niveau des applications de machine learning, nous avons décidé de construire un API pour faire le déploiement de notre modèle, de telle sorte que s'il faut faire un changement dans la phase d'entrainement du modèle, cela n'affectera pas tout le système en général.  
+Compte tenu de cette complexité qui existe au niveau des applications de machine learning, nous avons décidé de construire un API Ortho pour faire le déploiement de notre modèle, de telle sorte que s'il faut faire un changement dans la phase d'entrainement du modèle, cela n'affectera pas tout le système en général.  
 
-\subsection{Construction d'un API}
-Les API (Application Program Interfaces) sont des méthodes de communication logicielle développées sur une norme particulière. De nombreuses entreprises ont leurs propres API publics qui résolvent des problèmes spécifiques pour les développeurs. En transmettant à leur API un paramètre en entrée, l'utilisateur peut recevoir une sortie sans avoir besoin de savoir (ou de comprendre) comment la tâche sous-jacente est effectuée. Les API permettent une fonctionnalité multi-plateforme, rendue possible par une norme agnostique de plate-forme, telle que la spécification REST. La beauté des API est qu'elles sont super accessibles - que vous construisiez une application mobile, des appareils IoT, un serveur ou que vous souhaitiez simplement trouver un moyen de communiquer entre vos propres microservices, les API vous y aident \cite{key8}.\\
+\section{Construction de l'API Ortho}
 
-Pour communiquer avec notre modèle, nous avons construit un API en Django framework web en suivant l'architecture présentée dans la figure \ref{django}. Dans cette architecture, le model peut être soit un fichier ou une base de données; mais dans notre cas, le model est notre model machine learning sérialisé depuis dans la phase d'entrainement. 
+Les API (Application Program Interfaces) sont des méthodes de communication logicielle développées sur une norme particulière. De nombreuses entreprises ont leurs propres API publics qui résolvent des problèmes spécifiques pour les développeurs. En transmettant à leur API un paramètre en entrée, l'utilisateur peut recevoir une sortie sans avoir besoin de savoir (ou de comprendre) comment la tâche sous-jacente est effectuée. Les API permettent une fonctionnalité multi-plateforme, rendue possible par une norme agnostique de plate-forme, telle que la spécification REST. La beauté des API est qu'elles sont super accessibles - que vous construisiez une application mobile, des appareils IoT, un serveur ou que vous souhaitiez simplement trouver un moyen de communiquer entre vos propres micro-services, les API vous y aident \cite{key8}.\\
+
+Pour communiquer avec notre modèle, nous avons construit un API en Django framework web en suivant l'architecture présentée dans la figure \ref{django}. Voyons un peu cette architecture:
+\paragraph{User.} Ce sont les utilisateurs des systèmes développés. Ils utilisent un interface web de Django pour réaliser leurs tâches.
+\paragraph{Django.} C'est le moteur web de Django. Il se compose de toutes les librairies internes du framework.
+\paragraph{URL. } C'est un fichier de python contenant tous les URLs autorisés par l'application dont nous développons.
+\paragraph{View. } C'est la couche metier de toute application Django. Il fait la liaison entre le model et le template. 
+\paragraph{Model. } Le modèle est utilisé pour stocker et maintenir les données. C'est le backend où la base de données est définie. Dans notre cas, le model va être le modèle machine learning que nous avons construit.
+\paragraph{Template. } Tout ce qui a trait à la présentation. Tout ce que l'utilisateur peut voir. \\
+
 \begin{figure}[h]
 	\includegraphics[width=15cm, height=6cm ]{images/ArchitectureDjango.png}
 	\caption{Django Framework web architecture \cite{key26}}
 	\label{django}
 \end{figure} 
 
-\subsection{Présentation de notre API}
+\begin{figure}[h]
+	\includegraphics[ ]{images/APICD.png}
+	\caption{Class diagram of our Ortho API }
+	\label{ortho}
+\end{figure} 
 
-La table \ref{tab:api} nous présente les détails de notre API. La colonne "\textbf{Attribute or Method}" désigne les différents attributs et les méthodes que constitue notre API. et "\textbf{Comments}" dit ce que fait chaque attribut ou méthode. On précise aussi les différents paramètres de chaque fonction et leur valeur de retour. 
+%\begin{figure}[h]
+%	\includegraphics[ ]{images/ortho.png}
+%	\caption{Connexion between our API and machine learning system }
+%	\label{ortho}
+%\end{figure} 
 
-\begin{table}[t]
-	\centering
-	\begin{tabular}{|p{6cm}|p{10cm}|}
-		\hline
-		\thead{Attribute or Method} & \thead{Comments}\\
-		\hline
-		 model & Variable that allows to recover model saved during the training phase  \\
-		 \hline
-		 preprocess\_request(form) & Method to prepare the data for transformation. Its loads the yaml file that contains the set of attributes wich are authorized and converts null values in NaN, Yes in 1 and No in 0. It returns a dcitionnary of attributes and values. \\
-		 \hline
-		 predict(form) & Function that allows prediction of new data. It takes a "form" input parameter and returns a decision message that says whether the patient should be fired or left. The "form" parameter is a django web form\\
-		 \hline
-		save\_prediction(form, y\_pred) & This function saves the new predictions in a database in order to analyze the behavior of the model in the future. It takes as input two parameters (form, y\_pred). The "form" parameter is always the same django form and "y\_pred" is the decision made by the model.\\
-		\hline
-		get\_predictions() & Returns all predictions\\
-		\hline
-	\end{tabular}
-	\caption{Presents details of our API}
-	\label{tab:api}
-\end{table}
+Notre API prend un formulaire web de Django en entrée et retourne un message de décision. Le framework django fait la validation du formulaire avant d'appeler l'API. Si tous les champs du formulaire sont bien validés et toutes les valeurs obligatoires sont présentes, alors l'API prend le formulaire et fait un pré-traitement des données. S'il trouve des données optionnelles qui sont vides ou nulles, il les remplace par ``\textbf{NaN}'' et s'il trouve des champs booléens, il les remplace par \textbf{0} si c'est \textbf{No} et par \textbf{1} si c'est \textbf{Yes}. \\
 
-La construction de l'API est un travail d'ingénierie de logiciels, ce qui permet de combiner ensemble deux champs d'études de l'informatique (\textbf{Machine learning et Software Engineering}). Il faut relater que les modèles de machine learning ont besoin d'une couche d'ingénierie de logiciels pour leur rendre accessible aux utilisateurs qui ne comprennent rien en machine learning. Dans la vraie vie, ceux qui utilisent les modèles ne connaissent rien ni en machine learning ni en software engineering. C'est pourquoi dans tout lieu où il y a une équipe de data scientist qui travaillent, il y a aussi une équipe de développement de logiciels.
+Le diagramme de classe présenté dans la figure \ref{ortho} permet de répondre à deux des cas d'utilisation que nous avons défini dans le diagramme de cas d'utilisation. Mais nous allons voir brièvement le fonctionnement de ce diagramme dans l'API:
+
+\paragraph{Predict. } La classe qui répond à l'exigence \textbf{Predict} défini à l'introduction. Elle trois attributs et quatre méthodes. L'attribut \textbf{model} est le modèle machine learning désérialisé. L'attribut \textbf{args} est un dictionnaire qui stocke la décision rendue par le modèle et un message de prédiction. La méthode \textbf{predicit} calcule la prédiction en fonction des données du formulaire. La méthode \textbf{save} permet de sauvegarder les prédictions après avoir rendu une décision. 
+\paragraph{Evaluation. } La classe d'évaluation permet de répondre à l'exigence \textbf{evaluate} défini dans le diagramme de cas d'utilisation à l'introduction générale. Elle contient deux attributs et trois méthodes. L'attribut \textbf{model} obtient le modèle du machine learning construit. L'attribut \textbf{predictions} est une liste de toutes les prédictions qui ont déjà traitées par le modèle. L'opération \textbf{evaluate} permet de d'évaluer le modèle en fonction de l'ensemble de \textbf{prédictions}. L'opération save sauvegarde le résultat de l'évaluation. \\
+
+
+\begin{figure}[p]
+	\includegraphics[ ]{images/ortho.png}
+	\caption{Connexion between our API and machine learning system }
+	\label{ortho}
+\end{figure} 
+
+%\section{Présentation de notre API}
+%
+%La table \ref{tab:api} nous présente les détails de notre API. La colonne "\textbf{Attribute or Method}" désigne les différents attributs et les méthodes que constitue notre API. et "\textbf{Comments}" dit ce que fait chaque attribut ou méthode. On précise aussi les différents paramètres de chaque fonction et leur valeur de retour. 
+%
+%\begin{table}[t]
+%	\centering
+%	\begin{tabular}{|p{6cm}|p{10cm}|}
+%		\hline
+%		\thead{Attribute or Method} & \thead{Comments}\\
+%		\hline
+%		 model & Variable that allows to recover model saved during the training phase  \\
+%		 \hline
+%		 preprocess\_request(form) & Method to prepare the data for transformation. Its loads the yaml file that contains the set of attributes wich are authorized and converts null values in NaN, Yes in 1 and No in 0. It returns a dcitionnary of attributes and values. \\
+%		 \hline
+%		 predict(form) & Function that allows prediction of new data. It takes a "form" input parameter and returns a decision message that says whether the patient should be fired or left. The "form" parameter is a django web form\\
+%		 \hline
+%		save\_prediction(form, y\_pred) & This function saves the new predictions in a database in order to analyze the behavior of the model in the future. It takes as input two parameters (form, y\_pred). The "form" parameter is always the same django form and "y\_pred" is the decision made by the model.\\
+%		\hline
+%		get\_predictions() & Returns all predictions\\
+%		\hline
+%	\end{tabular}
+%	\caption{Presents details of our API}
+%	\label{tab:api}
+%\end{table}
+
+La construction de l'API Ortho est un travail d'ingénierie de logiciels, ce qui permet de combiner ensemble deux champs d'études de l'informatique (\textbf{Machine learning et Software Engineering}) décrit dans la classe digramme présenté à la figure \ref{ortho}. Il faut relater que les modèles de machine learning ont besoin d'une couche d'ingénierie de logiciels pour leur rendre accessible aux utilisateurs qui ne comprennent rien en machine learning. Dans la vraie vie, ceux qui utilisent les modèles ne connaissent rien ni en machine learning ni en software engineering. C'est pourquoi dans tout lieu où il y a une équipe de data scientist qui travaillent, il y a aussi une équipe de développement de logiciels.
 
 \newpage
 
-\section{Conclusion}
-Ce chapitre a détaillé tout ce que nous avons fait dans notre projet. C'est la phase de développement de notre projet. Nous avons vu la phase rapportant sur le développement d'un modèle d'apprentissage profond et la phase rapportant sur le génie de logiciel. La phase phase 1 permet la construction et la sérialisation du modèle  et la phase permet d'appliquer les techniques d'ingénierie de logiciel sur le modèle sérialisé.  Le chapitre qui suit va expliquer comment nous avons fait pour évaluer notre modèle de machine learning pour savoir s'il est fiable et répond aux critères d'évaluation escomptés.
+\section{Déploiement de notre système}
+Le système que nous développons a eu deux grandes phases de développement comme mentionné dans l'introduction. En plus, nous avons utilisé Django comme framework web qui a des fonctionnalités prédéfinies que nous utilisons dans notre projet. Maintenant nous allons montrer comment nous combinons tous ces morceaux ensemble pour donner un système. Le diagramme de déploiement présenté à la figure \ref{deployment} donne une vue générale des différentes connexions de chaque système. Voyons une brève description de chaque noeud de notre diagramme de déploiement:
+\paragraph{Seattle University Data Server. } C'est le serveur de données de l'université Seattle. Ce serveur contient la base de données des patients qui ont subi des arthroplasties aux États-Unis. C'est notre source de données.
+\paragraph{Machine Learning System. } C'est notre système ML que nous avons développé dans le chapitre 3. Il contient cinq composantes.
+\paragraph{Web Repository. } C'est le dépôt web qui contient notre modèle machine learning.
+\paragraph{Deployment System. } Le système de construction de notre API Ortho et l'environnement Django.
+\paragraph{Server web. } L'hébergeur du site web Ortho predictions. Le service va être en ligne. 
 
-\newpage
+\begin{figure}[h]
+	\includegraphics[width=17cm, height=24cm ]{images/deploymentdiag.png}
+	\caption{A deployment diagram of our tool}
+	\label{deployment}
+\end{figure} 
+
+%\newpage
+%
+%\section{Conclusion}
+%Ce chapitre a détaillé tout ce que nous avons fait dans notre projet. C'est la phase de développement de notre projet. Nous avons vu la phase rapportant sur le développement d'un modèle d'apprentissage profond et la phase rapportant sur le génie de logiciel. La phase phase 1 permet la construction et la sérialisation du modèle  et la phase permet d'appliquer les techniques d'ingénierie de logiciel sur le modèle sérialisé.  Le chapitre qui suit va expliquer comment nous avons fait pour évaluer notre modèle de machine learning pour savoir s'il est fiable et répond aux critères d'évaluation escomptés.
+
+
 
 \chapter{Évaluation}
+\section{Évaluation du modèle machine learning}
 L'évaluation des algorithmes d'apprentissage automatique est une partie essentielle de tout projet. Le modèle peut nous donner des résultats satisfaisants lorsqu'il est évalué à l'aide d'une métrique, par exemple \textbf{precision\_score}, mais il peut donner de mauvais résultats lorsqu'il est évalué par rapport à d'autres mesures, telles que \textbf{logarithmic\_loss} ou toute autre mesure de ce type. Évaluer un projet de machine learning est différent d'évaluer les projets de génie logiciels traditionnels. La différence est que pour évaluer de tels projets, il faut tenir compte des différentes théories de machine learning permettant de faire des évaluations sur des modèles. Ce que nous avons déjà dans la sous-section 2.3.1 portant sur la "\textbf{Mesure de performance des algorithmes de classification}" au chapitre "\textbf{Contexte théorique}". \\
 
 Pour évaluer notre modèle, nous avons séparé notre ensemble de données en deux (Train Set et Test Set). Le train set a été utilisé pour construire le modèle et le test set pour faire l'évaluation du modèle. Nous avons séparé le jeu de données comme suit : 80\% pour le train set et 20\% pour le test set. Puisque notre jeu de données était déséquilibré, nous n'avons pas ré-échantillonné (resampling en anglais) notre ensemble de test, parce que les nouvelles données que le modèle va prédire se seront jamais ré-échantillonné. D'autres raisons de ce choix est que si nous ré-échantillonnons l'ensemble de test, il est fort probable que le modèle soit biaisé, ce qui provoquera de fausses prédictions. \\
@@ -740,9 +818,9 @@ Pour évaluer notre modèle, nous avons séparé notre ensemble de données en d
 
 La table \ref{tab:eval} donne les résultats de l'évaluation de notre modèle sélectionné comme le meilleur. On pourrait constater que cette table est ressemblée à la table de comparaison des différents algorithmes entrainés dans le projet (table \ref{tab:ensemble}). La raison est que pour comparer et sélectionner les différents algorithmes, il faut d'abord évaluer chaque algorithme. C'est comme une évaluation anticipée. Une interprétation sommaire de cette évaluation est que 8\% des prédictions faites par le modèle est erroné et 92\% sont correctement classées. Pour faire cette interpretation, nous nous tenons compte du '' \textbf{Precision score} '' de la table \ref{tab:eval}. 
 
-\newpage
+\section{Evaluation de notre API Ortho}
 
-\chapter{Limitations et travaux futurs}
+\section{Limitations et travaux futurs}
 Notre projet est loin d'être exhaustif, il reste beaucoup de choses à faire mais les parties essentielles du projet sont réalisées. Nous pouvons considérer tout ce que nous avons fait jusqu'à présent dans ce projet comme étant une première version du système. Pour le moment, on peut utiliser le système pour faire la prédiction et l'évaluation de notre modèle déployé. C'est-à-dire n'importe quel orthopédiste peut utiliser le système pour prédire si son patient doit rester à l'hôpital et s'il doit retourner chez lui après une arthroplastie. Pour que le médecin orthopédiste puisse faire ces prédictions, il doit, préalablement remplir un formulaire web qui contient les champs nécessaires pour compléter un dossier médical.   \\
 
 Comme travaux futurs, nous prévoyons inclure les modules qui gèrent le monitoring et management du modèle. Et aussi la gestion des sessions puisque tout le monde peut avoir accès au module de prédictions mais les modules monitoring et management sont réservés aux administrateurs du système.    
@@ -797,17 +875,11 @@ Pour conclure le chapitre sur les travaux connexes, nous répétons ce que nous 
 \appendix
 \chapter{Annexe A}
 
-\begin{figure}[h]
-	\includegraphics[width=17cm, height=24cm ]{images/deploymentdiag.png}
-	\caption{A deployment diagram of our tool}
-	\label{deployment}
-\end{figure} 
-
-\begin{figure}[h]
-	\includegraphics[ ]{images/ortho.png}
-	\caption{A class diagram to explain connexion between our API and machine learning system }
-	\label{cd}
-\end{figure} 
+%\begin{figure}[h]
+%	\includegraphics[ ]{images/ortho.png}
+%	\caption{A class diagram to explain connexion between our API and machine learning system }
+%	\label{cd}
+%\end{figure} 
 
 
 
