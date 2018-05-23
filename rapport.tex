@@ -827,42 +827,51 @@ Comme travaux futurs, nous prévoyons inclure les modules qui gèrent le monitor
 \newpage
 
 \chapter{Travaux connexes}
-Nous n'avons pas trouvé de travaux connexes directement liés à notre domaine c'est-à-dire aucun organisme n'a encore développé de systèmes liés au risque de retour des patients après une arthroplastie. Par contre nous avons trouvé des projets qui ont des points similaires par rapport à notre projet tels que les classes déséquilibrées. \\
+Nous n'avons pas trouvé de travaux connexes directement liés à notre domaine c'est-à-dire aucun organisme n'a encore développé de systèmes liés au risque de retour des patients après une arthroplastie. Par contre nous avons trouvé des projets qui ont des points similaires par rapport à notre projet tels que les classes déséquilibrées, la technique SMOTE, le problème de classification et les algorithmes ensemblistes. \\
 
-Philip K. Chan, Computer Science, Florida Institute of Technology \& Salvatore J. Stolfo, Department of Computer Science, Columbia University \cite{key23} ont travaillé sur un projet de détection de fraude par carte de crédit. Ils ont eu leur dataset déséquilibrés (distributions uniformes dans leur article), 20\% de cas étaient frauduleux contre 80\% non-frauduleux.  Pour rappel, la distribution de notre dataset est présentée à la table \ref{tab:target}, avec 11\% de classes négatives et 89\% de classe positives. Les auteurs ont utilisés juste un  algorithme stacking comme méthodes d'ensemble, tandis que nous, nous avons essayé quatre types d'algorithmes différents en vue de sélectionner le meilleur. Pour le resample(ré-échantillonnage), ils ont utilisé le random over-sampling comme méthode, cette méthode est trop basique pour ces genres de situation car elle ne permet pas de gérer le overfitting. Tandis que nous, nous avons opté pour la technique de boosting qui a beaucoup plus d'avantage, car elle permet de gérer la variance et le biais.\\
+Alberto Fernández et al. \cite{key30} ont fourni une analyse expérimentale approfondie qui permettra de déterminer le comportement des différentes approches proposées dans la littérature spécialisée. Tout d'abord, ils ont utilisé des schémas de binarisation, c'est-à-dire, un par rapport à un et un par rapport à tous, afin d'appliquer les approches standard à la résolution de problèmes de classes binaires déséquilibrées. Deuxièmement, ils ont appliqué plusieurs procédures ad hoc qui ont été conçues pour le scénario d'ensembles de données déséquilibrés avec plusieurs classes. Leur étude expérimentale inclut plusieurs algorithmes bien connus de la littérature tels que les arbres de décision, les machines à vecteurs de support et l'apprentissage par instance, avec l'intention d'obtenir des conclusions globales à partir de différents paradigmes de classification. Tandis que dans notre projet nous avons utilisé les algorithmes ensemblistes qui donnent de meilleurs résultats que les algorithmes simples utilisés dans cette étude.\\
 
-Yuchun Tang et al. \cite{key29} ont travaillé sur un projet de detection d'emails spam et ceux qui sont non-spam. Dans leur projet, le dataset est hautement déséquilibré comme montré à la table \ref{tab:Tang}. C'est plus déséquilibré que notre dataset. Il est courant que dans n'importe quel serveur web que les emails spam sont hautement plus nombreux que ceux qui sont non-spam. Ce qui provoque un déséquilibre sérieux dans l'ensemble de données. \\
+Sreejita Ghosh et al.  \cite{key31} ont réalisé un travail dans le domaine biomédical, un taux de détection élevé de maladies éventuellement rares est généralement hautement souhaitable alors que des erreurs dans la classe majoritaire (par exemple des témoins sains) peuvent être plus acceptables. Par conséquent, l'optimisation de la précision prédictive globale est souvent inadaptée. Ils ont analysé un grand ensemble de données de GC / MS urinaires de 829 contrôles et 68 patients souffrant de l'un des trois troubles stéroïdiens innés. Ils ont utilisé 2 algorithmes comparables capables de gérer de grandes quantités de données manquantes. En outre, ils ont comparé différentes stratégies pour traiter les données fortement déséquilibrées, y compris le sous-échantillonnage, le sur-échantillonnage et l'introduction de coûts par classe. Dans cette étude, ils ont utilisé SMOTE pour équilibrer mais ils n'ont pas utilisé les algorithmes ensemblistes qui sont conçus pour être adaptés aux jeux de données déséquilibrés. \\
 
-\begin{table}[h]
-	\centering
-	\begin{tabular}{| p{5cm} |p{2cm} |  p{2cm}|}
-		\hline
-		 & \thead{spam} & \thead{non-spam} \\
-		\hline
-		  training data & 93.96\% & 6.04\% \\
-		 \hline
-		  validation data & 93.09\% & 6.91\% \\
-		 \hline
-		 testing data & 94.99\% & 5.01\%  \\ 
-		 \hline
-	\end{tabular}
-	\caption{Target value of Yuchun Tang et al. project}
-	\label{tab:Tang}
-\end{table}
+Rukshan Batuwita and Vasile Palade \cite{key32} ont démontré que les SVM (Support Vector Machines) pourraient produire des résultats sous-optimaux avec des jeux de données déséquilibrés, malgré c'est une technique d'apprentissage automatique très populaire. Autrement dit, un classificateur SVM formé sur un ensemble de données déséquilibré peut produire des modèles sous-optimaux qui sont biaisés vers la classe majoritaire et ont une faible performance sur la classe minoritaire, comme la plupart des autres paradigmes de classification. Diverses techniques de pré-traitement et d'algorithmique des données ont été proposées dans la littérature pour atténuer ce problème pour les SVM. Il existe des méthodes qui ont utilisé la combinaison des deux méthodes externes et internes pour résoudre le problème de déséquilibre de classe pour les SVM. La méthode hybride de l'ensemble des machines à noyau (HKME) combine un SVM binaire standard et un classificateur SVM à une classe pour résoudre le problème du déséquilibre de classes. La différence avec notre projet, c'est que nous avons utilisé des techniques dédiées pour faire le resampling, non pas des techniques combinées comme proposé dans cet article.
 
-Comme technique de resampling, le \textbf{Granular Computing} et le \textbf{SVM (\textit{Support Vector Machines})} sont utilisés pour le sous-échantillonnage  (\textbf{\textit{under-sampling en anglais}}) en conservant des échantillons informatifs tout en éliminant les échantillons non pertinents, redondants ou même bruyants. Après le sous-échantillonnage, les données sont nettoyées et, par conséquent, un bon classificateur peut être modélisé pour la classification IP en termes d'efficacité et d'efficience. La technique utilisée dans ce projet a une désavantage très importante, c'est la perte d'informations. Il faut être prudent quand on utilise cette technique, puisqu'on peut perdre des informations pertinentes pour l'entraînement du modèle. Comme précisé dans leur article, les informations supprimées sont non-pertinentes pour le projet; mais généralement, c'est une technique à éviter ou à utiliser minutieusement. \\
 
-Comme algorithmes de classification, ils ont utilisés les quatre algorithmes suivants  \cite{key29}:
-\begin{enumerate}
-\item GSVM-BA algorithm for building a decision tree
-\item The NBTree algorithm for building a decision tree with naïve Bayes classifiers at the leaves
-\item The Logistic algorithm for building a multinomial logistic regression model with a ridge estimator
-\item The SVM algorithm for building a support vector machine
-\end{enumerate}
+  
 
-Le meilleur algorithme obtenu après évaluation était GSVM-BA, avec le score 83\%  \cite{key29}. Tandis que dans notre projet, nous avons obtenu  92\% avec l'algorithme AdaBoostClassifier qui est un algorithme de boosting qui donne de meilleurs résultats que n'importe quel autre algorithme. Puisque ce projet a été développé depuis 2008, c'est sûr à cette époque on ne parlait pas encore des algorithmes de méthodes d'ensemble. \\
-
-Pour conclure le chapitre sur les travaux connexes, nous répétons ce que nous avons dit au commencement de ce chapitre qu'il n'y a pas de projets déjà réalisés sur l'évaluation du risque de retour. Mais comme notre dataset était déséquilibré, nous avons comparé notre projet avec deux autres projets qui ont eu, eux-aussi, leurs datasets déséquilibrés. Nous avons vu les différentes techniques de resampling et les différents algorithmes que les auteurs ont utilisés dans le cadre de leurs projets. Finalement, nous avons comparé leurs techniques avec les nôtres, aussi les différents résultats obtenus après évaluation.  
+%Philip K. Chan, Computer Science, Florida Institute of Technology \& Salvatore J. Stolfo, Department of Computer Science, Columbia University \cite{key23} ont travaillé sur un projet de détection de fraude par carte de crédit. Ils ont eu leur dataset déséquilibrés (distributions uniformes dans leur article), 20\% de cas étaient frauduleux contre 80\% non-frauduleux.  Pour rappel, la distribution de notre dataset est présentée à la table \ref{tab:target}, avec 11\% de classes négatives et 89\% de classe positives. Les auteurs ont utilisés juste un  algorithme stacking comme méthodes d'ensemble, tandis que nous, nous avons essayé quatre types d'algorithmes différents en vue de sélectionner le meilleur. Pour le resample(ré-échantillonnage), ils ont utilisé le random over-sampling comme méthode, cette méthode est trop basique pour ces genres de situation car elle ne permet pas de gérer le overfitting. Tandis que nous, nous avons opté pour la technique de boosting qui a beaucoup plus d'avantage, car elle permet de gérer la variance et le biais.\\
+%
+%Yuchun Tang et al. \cite{key29} ont travaillé sur un projet de detection d'emails spam et ceux qui sont non-spam. Dans leur projet, le dataset est hautement déséquilibré comme montré à la table \ref{tab:Tang}. C'est plus déséquilibré que notre dataset. Il est courant que dans n'importe quel serveur web que les emails spam sont hautement plus nombreux que ceux qui sont non-spam. Ce qui provoque un déséquilibre sérieux dans l'ensemble de données. \\
+%
+%\begin{table}[h]
+%	\centering
+%	\begin{tabular}{| p{5cm} |p{2cm} |  p{2cm}|}
+%		\hline
+%		 & \thead{spam} & \thead{non-spam} \\
+%		\hline
+%		  training data & 93.96\% & 6.04\% \\
+%		 \hline
+%		  validation data & 93.09\% & 6.91\% \\
+%		 \hline
+%		 testing data & 94.99\% & 5.01\%  \\ 
+%		 \hline
+%	\end{tabular}
+%	\caption{Target value of Yuchun Tang et al. project}
+%	\label{tab:Tang}
+%\end{table}
+%
+%Comme technique de resampling, le \textbf{Granular Computing} et le \textbf{SVM (\textit{Support Vector Machines})} sont utilisés pour le sous-échantillonnage  (\textbf{\textit{under-sampling en anglais}}) en conservant des échantillons informatifs tout en éliminant les échantillons non pertinents, redondants ou même bruyants. Après le sous-échantillonnage, les données sont nettoyées et, par conséquent, un bon classificateur peut être modélisé pour la classification IP en termes d'efficacité et d'efficience. La technique utilisée dans ce projet a une désavantage très importante, c'est la perte d'informations. Il faut être prudent quand on utilise cette technique, puisqu'on peut perdre des informations pertinentes pour l'entraînement du modèle. Comme précisé dans leur article, les informations supprimées sont non-pertinentes pour le projet; mais généralement, c'est une technique à éviter ou à utiliser minutieusement. \\
+%
+%Comme algorithmes de classification, ils ont utilisés les quatre algorithmes suivants  \cite{key29}:
+%\begin{enumerate}
+%\item GSVM-BA algorithm for building a decision tree
+%\item The NBTree algorithm for building a decision tree with naïve Bayes classifiers at the leaves
+%\item The Logistic algorithm for building a multinomial logistic regression model with a ridge estimator
+%\item The SVM algorithm for building a support vector machine
+%\end{enumerate}
+%
+%Le meilleur algorithme obtenu après évaluation était GSVM-BA, avec le score 83\%  \cite{key29}. Tandis que dans notre projet, nous avons obtenu  92\% avec l'algorithme AdaBoostClassifier qui est un algorithme de boosting qui donne de meilleurs résultats que n'importe quel autre algorithme. Puisque ce projet a été développé depuis 2008, c'est sûr à cette époque on ne parlait pas encore des algorithmes de méthodes d'ensemble. \\
+%
+%Pour conclure le chapitre sur les travaux connexes, nous répétons ce que nous avons dit au commencement de ce chapitre qu'il n'y a pas de projets déjà réalisés sur l'évaluation du risque de retour. Mais comme notre dataset était déséquilibré, nous avons comparé notre projet avec deux autres projets qui ont eu, eux-aussi, leurs datasets déséquilibrés. Nous avons vu les différentes techniques de resampling et les différents algorithmes que les auteurs ont utilisés dans le cadre de leurs projets. Finalement, nous avons comparé leurs techniques avec les nôtres, aussi les différents résultats obtenus après évaluation.  
 
 
 
