@@ -819,6 +819,27 @@ Pour évaluer notre modèle, nous avons séparé notre ensemble de données en d
 La table \ref{tab:eval} donne les résultats de l'évaluation de notre modèle sélectionné comme le meilleur. On pourrait constater que cette table est ressemblée à la table de comparaison des différents algorithmes entrainés dans le projet (table \ref{tab:ensemble}). La raison est que pour comparer et sélectionner les différents algorithmes, il faut d'abord évaluer chaque algorithme. C'est comme une évaluation anticipée. Une interprétation sommaire de cette évaluation est que 8\% des prédictions faites par le modèle est erroné et 92\% sont correctement classées. Pour faire cette interpretation, nous nous tenons compte du '' \textbf{Precision score} '' de la table \ref{tab:eval}. 
 
 \section{Evaluation de notre API Ortho}
+Pour évaluer notre API, nous avons construit un diagramme de séquence qui montre comment les orthopédistes peuvent utiliser l'API pour prédire un retour. Et l'API à son tour se connecte au repository du machine learning pour charger le modèle sérialisé par le système machine learning. La figure \ref{SequenceDiag} est la classe diagramme qui montre les interactions entre les orthopédistes et ses différents objets impliqués dans le scénario de la prédiction.
+
+Nous allons décrire brièvement les différents messages qui permettent à un orthopédiste de réussir une prédiction.
+\begin{enumerate}
+\item \textbf{Fill form and press predict.} Quand l'orthopédiste accède à la page de la prédiction, il doit remplir le formulaire et ensuite appuyer sur le bouton Predict pour envoyer le formulaire;
+\item \textbf{Validate Form.} Le moteur Django est engagé de faire la validation automatique du formulaire selon les critères qu'on avait précisés dans l'étape de conception du formulaire;
+\item \textbf{Form is validated.} Si le formulaire est validé, Django retourne un message que la validation est vraie c'est-à-dire le formulaire est bien rempli;
+\item \textbf{Predict decision using the validated form.} Le formulaire rempli est passé à l'API comme paramètre. L'API fait le traitement du formulaire tel que nous avons vu dans la phase de construction de l'API.
+\item \textbf{Load model.} L'API charge le modèle qui est hébergé dans le repository de machine learning. Le repository peut être le serveur de la compagnie ou le cloud;
+\item \textbf{Model loaded.} L'API utilise le modèle pour faire la prédiction utilisant le formulaire pré-traité et rendu sous forme d'un dataframe (un objet de la classe DataFrame de la librairie Pandas);
+\item \textbf{Decision predicted.} L'API rend la décision si le patient doit retourner ou rester à l'hôpital;
+\item \textbf{A message with the decision.} Une réponse en format de chaine de caractère est rendu à l'utilisateur dans ce cas l'orthopédiste. Cette réponse est le message de la décision.
+\end{enumerate}
+
+
+ 
+\begin{figure}[p]
+	\includegraphics[width=17cm, height=10cm ]{images/SequenceDiag.png}
+	\caption{Sequence diagram for evaluating our API tool}
+	\label{SequenceDiag}
+\end{figure} 
 
 \section{Limitations et travaux futurs}
 Notre projet est loin d'être exhaustif, il reste beaucoup de choses à faire mais les parties essentielles du projet sont réalisées. Nous pouvons considérer tout ce que nous avons fait jusqu'à présent dans ce projet comme étant une première version du système. Pour le moment, on peut utiliser le système pour faire la prédiction et l'évaluation de notre modèle déployé. C'est-à-dire n'importe quel orthopédiste peut utiliser le système pour prédire si son patient doit rester à l'hôpital et s'il doit retourner chez lui après une arthroplastie. Pour que le médecin orthopédiste puisse faire ces prédictions, il doit, préalablement remplir un formulaire web qui contient les champs nécessaires pour compléter un dossier médical.   \\
