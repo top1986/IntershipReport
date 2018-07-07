@@ -26,8 +26,6 @@
 
 \usepackage{color}   %May be necessary if you want to color links
 
-\usepackage{natbib}
-
 %Customize chapter format
 \usepackage{titlesec, blindtext}
 \definecolor{gray75}{gray}{0.75}
@@ -44,6 +42,22 @@
 }
 
 
+\usepackage{quoting,xparse}
+
+\NewDocumentCommand{\bywhom}{m}{% the Bourbaki trick
+	{\nobreak\hfill\penalty50\hskip1em\null\nobreak
+		\hfill\mbox{\normalfont(#1)}%
+		\parfillskip=0pt \finalhyphendemerits=0 \par}%
+}
+
+\NewDocumentEnvironment{pquotation}{m}
+{\begin{quoting}[
+		indentfirst=true,
+		leftmargin=\parindent,
+		rightmargin=\parindent]\itshape}
+	{\bywhom{#1}\end{quoting}}
+
+\usepackage{natbib}
 
 \begin{document}
 \renewcommand{\labelitemi}{$\bullet$}
@@ -227,59 +241,74 @@ La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a 
 \chapter{Contexte théorique}
 \section{Introduction}
 
-Tout projet informatique suppose qu'on doit délivrer un produit fini et utilisable accomplissant un certain nombre d'objectifs. Il y a toujours une équipe qui travaille durement pour réaliser ou implémenter ces genres de projets. Tout développement informatique passe nécessairement par la pratique ce qui exige souvent l'application de beaucoup de concepts étudiés en théorie. Dans tout rapport portant sur la réalisation d'un projet scientifique et technique, il s'avère utile et important d'établir un contexte théorique dans le but de faire ressortir les différents cadres théoriques. Nous allons, dans ce chapitre, présenter quelques concepts théoriques importants abordés dans le cadre de notre projet.
+Tout projet informatique suppose qu'on doit délivrer un produit fini et utilisable accomplissant un certain nombre d'objectifs. Il y a toujours une équipe qui travaille durement pour réaliser ou implémenter ces genres de projets. Tout développement informatique passe nécessairement par la pratique ce qui exige souvent l'application de beaucoup de concepts étudiés en théorie. Dans tout rapport portant sur la réalisation d'un projet scientifique et technique, il s'avère utile et important d'établir un contexte théorique dans le but de faire ressortir les différents cadres théoriques. Nous allons, dans ce chapitre, présenter quelques concepts théoriques importants abordés dans le cadre de notre projet.\\
 
-Généralement, nous nous mettons l'accent sur un sous-ensemble de tous les concepts jugés pertinents pour la réalisation de notre projet. Par exemple, le machine learning est un champ de recherche informatique de plusieurs décennies de travaux de recherche, il est impossible de d'aborder dans un seul chapitre tout ce qui a trait au ML, par contre nous nous concentrons sur les éléments les plus essentiels pour notre projet.       
+Généralement, nous nous mettons l'accent sur un sous-ensemble de tous les concepts jugés pertinents pour la réalisation de notre projet. Par exemple, le machine learning est un champ de recherche informatique de plusieurs décennies de travaux de recherche, il est impossible de d'aborder dans un seul chapitre tout ce qui a trait au ML, par contre nous nous concentrons sur les éléments les plus essentiels pour notre projet. \\      
 
 La suite de ce chapitre se subdivise comme suit : la deuxième section est une approche globale sur les sciences de données. Nous estimons que c'est important parce qu'aucun modèle de machine learning ne peut être construit sans d'abord réaliser une phase d'exploration de données; or les sciences de données peuvent être définies comme étant une combinaison entre l'exploration de données et la modélisation de données. La troisième section se porte sur le machine learning qui est le cœur même de notre projet; comme on avait précisé au paragraphe antérieur, nous considérons seulement un sous-ensemble de concepts jugés utiles pour notre projet. La quatrième traite du problème de classification en ML; puisque notre projet était un problème de classification, nous décidons de le consacrer une section indépendante. La cinquième et dernière se porte sur les classes déséquilibrées car notre ensemble de données était déséquilibrée.     
 
 \section{Sciences des données}
 
-On ne peut pas parler de machine learning sans avoir parlé des sciences de données. Car la modélisation des données est une étape des sciences de données, quoique la plus importante. Les sciences de données nous permettent de prendre un ensemble de données brutes, les explorer et les modéliser dans le but d'extraire des connaissances utiles à la prise d'une décision. Comme son nom l'indique, la science des données n'est possible que lorsqu'on dispose d'un jeu de données qu'on appelle données historiques. Ces dernières sont des données recueillies à partir de la collecte d'informations. Les données peuvent être sous diverses formes, structurées ou non. D'une façon générale, pour traiter un problème en sciences de données, trois conditions sont nécessaires : (1) il faut avoir les données disponibles dans un format adéquat; (2) définir des objectifs précis de ce qu'on veut faire avec les données; (3) et savoir comment est-ce qu'on va procéder pour réaliser ce objectifs. \\
+On ne peut pas parler de machine learning sans avoir parlé des sciences de données. Car la modélisation des données est une étape des sciences de données, quoique la plus importante. Les sciences de données nous permettent de prendre un ensemble de données brutes, les explorer et les modéliser dans le but d'extraire des connaissances utiles à la prise d'une décision. Comme son nom l'indique, la science des données n'est possible que lorsqu'on dispose d'un jeu de données qu'on appelle données historiques. Ces dernières sont des données recueillies à partir de la collecte d'informations. Les données peuvent être sous diverses formes, structurées ou non. D'une façon générale, pour traiter un problème en sciences de données, trois conditions sont nécessaires : (1) il faut avoir les données disponibles dans un format adéquat; (2) définir des objectifs précis de ce qu'on veut faire avec les données; (3) et savoir comment est-ce qu'on va procéder pour réaliser ces objectifs. \\
 
-Les sciences de données peuvent être considérées comme un jonction de l'informatique et les statistiques. Du coté de l'informatique, c'est la modélisation et tandis que du coté des statistiques, c'est l'exploration. La modélisation est l'utilisation d'un algorithme d'apprentissage sur un ensemble de données et l'exploration est la phase de visualisation de données sous diverses formes. 
+Les sciences de données peuvent être considérées comme une jonction entre l'informatique et les statistiques. Du coté de l'informatique, c'est la modélisation de données et tandis que du coté des statistiques, c'est l'exploration des données. Nous définissons la modélisation comme étant l'utilisation d'un algorithme d'apprentissage sur un ensemble de données bien préparé; on entend par \textit{bien préparé}, quand un jeu de données ne contient pas des données nulles, vides et textuelles.  Quant à l'exploration,  c'est la phase de visualisation et de préparation des données brutes qui peuvent être sous diverses formes. \\
 
+Les sciences de données offrent des méthodes automatisées pour l'analyse prédictive d'un ensemble de données généralement massif. Le but est d'apporter des solutions à des problèmes spécifiques. Au début de l'ère de de l'intelligence artificielle, l'analyse des données massives était compliquée parce que la capacité de calcul des ordinateurs était faible. Avec l'augmentation exponentielle des capacités de ordinateurs, l'explosion quantitative des données numériques devient de moins en moins un problème. Il faut noter qu'en Machine Learning, plus on a de données, plus l'analyse prédictive est fiable. Les algorithmes d'apprentissage fonctionnent mieux avec de grandes quantités de données. Quand le jeu de données est volumineux, on peut faire facilement la validation croisée qui est une technique par laquelle on subdivise aléatoirement un ensemble de données en plusieurs parties dans le but d'obtenir un meilleur apprentissage. La grande quantité de données permet aussi un séparation de données adéquate entre l'ensemble d'entrainement et l'ensemble de test.\\  
 
-%La science des données est un domaine interdisciplinaire de méthodes, processus, algorithmes et systèmes scientifiques permettant d'extraire des connaissances ou des informations à partir de données sous diverses formes, structurées ou non \cite{key5}. Elle emploie des techniques et des théories tirées de plusieurs autres domaines plus larges des mathématiques, la statistique principalement, la théorie de l'information et la technologie de l'information, notamment le traitement de signal, des modèles probabilistes, l'apprentissage automatique, l'apprentissage statistique, la programmation informatique, l'ingénierie de données, la reconnaissance de formes et l'apprentissage, la visualisation, l'analytique prophétique, la modélisation d'incertitude, le stockage de données, la compression de données et le calcul à haute performance. Les méthodes qui s'adaptent aux données de masse sont particulièrement intéressantes dans la science des données, bien que la discipline ne soit généralement pas considérée comme limitée à ces données.\\
-	
-L'objectif du « data scientist » (expert en données massives) est de produire des méthodes (automatisées, autant que possible) de tri et d'analyse de données de masse et de sources plus ou moins complexes ou disjointes de données, afin d'en extraire des informations utiles ou potentiellement utiles. 
-Le métier de data scientist est apparu pour trois raisons principales \cite{key6} :	
-\begin{itemize}
-\item l'explosion de la quantité de données produites et collectées par les humains;
-\item 	l'amélioration et l'accessibilité plus grande des algorithmes de machine learning;
-\item l'augmentation exponentielle des capacités de calcul des ordinateurs.\\
-\end{itemize}	
-Le cycle de travail du data scientist comprend notamment:
-\begin{itemize}
-\item la récupération des données utiles à l'étude;
-\item le nettoyage des données pour les rendre exploitables;
-\item une longue phase d'exploration des données afin de comprendre en profondeur l'articulation des données;
-\item la modélisation des données;
-\item l'évaluation et interprétation des résultats;
-\item  la conclusion de l'étude : prise de décision ou déploiement en production du modèle.
-\end{itemize}
-La figure \ref{workflow_datascientis}  nous donne une vue générale du travail d'un data scientist. Étant stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet du data scientist. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans les deux prochains chapitres comment nous implémentons ce cycle au sein de notre projet. \\ \\
+Grâce à la croissance de la capacité de stockage des ordinateurs, l'apparition des algorithmes d'apprentissage puissants et la puissance de calcul des ordinateurs, la profession de \textit{scientifique de données} a vu le jour. Yannis Chaouche \footnote{https://openclassrooms.com/courses/initiez-vous-au-machine-learning/comment-resoudre-un-probleme-de-data-science}, professeur et expert en machine learning, a publié sur le site web OpenClassrooms, un cours intitulé  \guillemotleft \textit{Initiez-vous au machine learning}\guillemotright  où il a défini le cycle de travail d'un scientifique de données. D'après lui ce cycle comprend:
+
+\begin{pquotation}{Professeur Yannis Chaouche}
+		\noindent 1. la récupération des données utiles à l'étude;\\
+		2. le nettoyage des données pour les rendre exploitables;\\
+		3. une longue phase d'exploration des données afin de comprendre en profondeur l'articulation des données;\\
+		4. la modélisation des données;\\
+		5. l'évaluation et interprétation des résultats;\\
+		6. la conclusion de l'étude : prise de décision ou déploiement en production du modèle.
+\end{pquotation}  
+		
+
+La figure \cite{key6}, implémentée par le professeur Yannis,  nous donne une vue générale du travail d'un scientifique de données. Cette figure est une façon de schématiser les différentes étapes qu'on a définies précédemment. Comme stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet défini par le professeur Yannis. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans les deux prochains chapitres comment nous implémentons ce cycle au sein de notre projet. \\ \\
 \begin{figure}[h]
 \includegraphics[]{images/workflow_datascientis.png}
-\caption{Work cycle of data scientist \cite{key6}}
+\caption{Cycle de travail d'un scientifique de données}
 \label{workflow_datascientis}
 \end{figure}
-Deux composantes sont nécessaires pour pouvoir commencer à se demander si la data science peut, oui ou non, apporter de la valeur et aider à la résolution d'un problème : des \textbf{données} et une \textbf{problématique} bien définie \cite{key6}.
-\subsection{Données.}
- Les données constituent la ressource principale pour qu'un data scientist puisse effectuer son travail correctement. Nos données proviennent du département orthopédique de l'université de Seattle, Washington, États-Unis. Elles sont au nombre de 2718 files et 92 colonnes. Nous les utilisons comme données historiques (\textit{historical data, en anglais}) dans le cadre du développement de notre modèle de machine learning. 
-\subsection{Problématique.}
-La problématique de notre projet, comme nous l'avons vu dans l'introduction, est d'aider à décider si un patient doit rester à l'hôpital ou rentrer chez lui après une arthroplastie.  
 
-Au sein de ce cycle, le machine learning désigne l'ensemble des méthodes de modélisation statistique à partir des données, et se situe bien au coeur du travail du data scientist. Dans la sous-section qui suit nous allons aborder le machine learning, car le gros de notre travail est de construire un model machine learning d'aide à la décision. Nous verrons une brève introduction sur ce quoi le machine learning, ensuite un survol sur les concepts fondamentaux du ML et finalement nous nous concentrerons sur un sous-ensemble de concepts qui touchent notre projet, principalement le problème de classification. Nous n'aborderons pas dans ce rapport, la théorie sur l'exploration des données \textit{(data mining en anglais)}. Nous supposons que ceux qui lisent ce rapport ont déjà des notions élémentaires sur cette question, sinon ils peuvent visiter wikipedia ou n'importe quelle autre page pour avoir des idées générales sur ce point.
+\subsection{Données.}
+
+Comme nous avons précédemment dit, les données sont éminentes pour un travail de scientifique de données. S'il n'y a pas de données ou si elles ne sont pas disponibles, on ne peut rien faire. Dans les organisations les données n'ont pas les mêmes niveaux d'importance, par exemple les données juridiques sont de haute confidentialité, personne ne peut avoir accès à moins que les concernés donnent une autorisation légale. Il est toujours difficile d'obtenir les données parce que cela peut compromettre une institution; souvent il faut signer un contrat de confidentialité qui prévoit une sanction sévère s'il y a une violation.  Les données constituent la ressource principale pour qu'un scientifique de données puisse effectuer son travail correctement. 
+
+\subsubsection{Types de données} 
+Les données, de part leurs natures, peuvent être quantitatives ou qualitatives. Pour mieux explorer un ensemble de données, il faut savoir distinguer le type de chaque donnée. Quand on parle de type de données ici, il ne faut pas confondre avec type de données qu'on a l'habitude d'utiliser en programmation informatique dans les langages à typage dynamique; mais il faut les considérer d'un point de vue ML. 
+
+\paragraph{Données quantitatives.} Les données quantitatives sont des données qu'on peut mesurer ou qui peuvent prendre une valeur quelconque, avec lesquelles on peut faire des calculs numériques tels que la moyenne, l'addition, la multiplication, la division entre autres. Ces types de données permettent de répondre à la question du type \guillemotleft combien \guillemotright. Par exemple combien de patients y-a-t-il dans la base de données? La réponse pourrait être 3200 qui est une donnée quantitative. Il existe deux catégories de données quantitatives : données quantitatives continues et données quantitatives discrètes. Les premières peuvent n'importe qu'elle valeur dans un ensemble de valeurs, par exemple la température, les PIB,le taux de chômage etc. Les deuxièmes ne prennent qu'un nombre limité de valeur dans un ensemble de valeur, par exemple le nombre d'enfants dans une famille, le nombre de chambres dans un appartement etc. 
+    
+\paragraph{Données qualitatives.} 
+Les données qualitatives décrivent les qualités ou les caractéristiques. On ne peut pas les compter ni faire de calcul avec ces données, on peut les comparer ou éventuellement les trier. Les valeurs qualitatives ne peuvent pas être des nombres, sinon un ensemble de modalités; elles permettent de répondre à la question de la forme \guillemotleft Quel type \guillemotright ou \guillemotleft Quelle catégorie \guillemotright. On distingue aussi deux catégories de données qualitatives : données qualitatives nominales (ou catégorielles) et données qualitatives ordinales. Les premières catégories sont celles dont les modalités ne peuvent ordonnées, par exemple la couleur des yeux, le sexe, la région d'appartenance etc. Les deuxièmes catégories peuvent être ordonnées selon un ordre logique, par exemple les tailles des vêtements, le degré d'accord à un test d'opinion (fortement d'accord, d'accord, pas d'accord ou fortement pas d'accord).
+
+\subsection{Problématique.}
+Tout projet de science de données suppose la résolution d'un problème, ce genres de projets commencent toujours par le constat d'un problème. Il faut qu'on soit en mesure de définir clairement ce qu'on veut résoudre et comment on va le résoudre. Généralement, cela demande qu'on s'asseye avec les responsables des organisations, de faire des entrevues avec eux afin de prendre connaissance des différents besoins et d'établir le pourquoi du projet. S'il n'y a pas une problématique clairement défini, le projet de science de données est impossible. \\
+
+Pour conclure la section sur les sciences de données, la chose la plus importante à retenir c'est que deux conditions doivent être réunies pour qu'un projet de sciences de données soit possible : un jeu de données disponible et une définition claire des problèmes à résoudre. Pour notre projet nous avons disposé d'un ensemble de données orthopédiques et tous les objectifs étaient bien élaborés. \\
+
+Dans la section qui suit nous allons voir une brève introduction sur ce quoi le machine learning, ensuite un survol sur les concepts fondamentaux du ML et finalement nous nous concentrerons sur un sous-ensemble de concepts qui touchent notre projet, principalement le problème de classification. Nous n'aborderons pas dans ce rapport, la théorie sur l'exploration des données \textit{(data mining en anglais)}. Nous supposons que ceux qui lisent ce rapport ont déjà des notions élémentaires sur cette question, sinon vous pouvez consulter des documents les livres suivants : \guillemotleft Data mining and statistics for decision making \guillemotright écrit par Stephane Tuffery; \guillemotleft Principles of data mining \guillemotright  écrit par David Hand, Heikki Mannila et Padhraic Smyth.
 
 \section{Vue d'ensemble sur Machine Learning}
 
-Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. C'est la science qui consiste à apprendre les ordinateurs sans être explicitement programmés. La figure \ref{machinelearning} nous montre en grosso modo les techniques du machine learning, à un très haut d'abstraction. \\
+Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. En 1997, Tom Mitchell, dans son livre \guillemotleft Machine Learning \guillemotright \cite{key37} a proposé une définition plus précise : 
+
+\begin{pquotation} {Définition de Tom Mitchell}
+	\guillemotleft On dit qu'un programme informatique apprend de l'expérience \textbf{E} par rapport à une certaine classe de tâches \textbf{T} et à la mesure de performance \textbf{P}, si sa performance aux tâches dans \textbf{T} , telle que mesurée par \textbf{P}, s'améliore avec l'expérience \textbf{E}\guillemotright.
+\end{pquotation}
+
+Nous voyons dans cette définition que le programme informatique peut être n'importe quel algorithme d'apprentissage; l'expérience est considérée comme n'importe quelle source de connaissances auxquelles un algorithme est obligé d'apprendre, par exemple un même algorithme peut apprendre à partir des données de finance, biologie, médecine etc.; La mesure de performance consiste à améliorer les résultats d'un algorithme tout en conservant la même expérience. \\ 
+
+La figure \ref{machinelearning} nous montre en grosso modo les techniques du machine learning, à un très haut d'abstraction. Deux grandes techniques de machine learning sont définies : Apprentissage supervisé \textbf{(Supervised learning en anglais)} et l'apprentissage non-supervisé \textbf{(Unsupervised learning en anglais)}. L'apprentissage supervisé est une technique d'apprentissage avec des données étiquetées, il existe deux types de problèmes possibles dans l'apprentissage supervisé: problème de régression qui consiste à prédire une valeur numérique comme le prix d'un appartement dans une région graphique quelconque; et le problème de classification qui consiste à prédire une valeur booléenne (si oui ou non on doit prendre une décision), par exemple on peut vouloir savoir si une campagne marketing pourrait être une réussite ou un échec. L'apprentissage non-supervisé est une technique d'apprentissage non étiquetée, c'est l'idée de groupe \textbf{(Clustering en anglais)} qui prédomine.  Cette figure donne une vue générale sur ce qu'est le machine learning.\\
 
 Le machine learning constitue une manière de modéliser des phénomènes, dans le but de prendre des décisions stratégiques. Les algorithmes utilisés permettent, dans une certaine mesure, à un système piloté par ordinateur (un robot éventuellement), ou assisté par ordinateur, d'adapter ses analyses et ses comportements en réponse, en se fondant sur l'analyse de données empiriques provenant d'une base de données ou de capteurs. La difficulté réside dans le fait que l'ensemble de tous les comportements possibles compte tenu de toutes les entrées possibles devient rapidement trop complexe à décrire \textbf{(on parle d'explosion combinatoire)}. On confie donc à des programmes le soin d'ajuster un modèle pour simplifier cette complexité et de l'utiliser de manière opérationnelle. Idéalement, l'apprentissage visera à être non supervisé, c'est-à-dire que la nature des données d'entrainement n'est pas connue \cite{key13}.
 \begin{figure}[h]
 \includegraphics[width=15cm, height=6cm]{images/machinelearning.png}
-\caption{Machine learning representation \cite{key24}}
+\caption{Vue globale de Machine learning \cite{key24}}
 \label{machinelearning}
 \end{figure}
 
@@ -463,6 +492,7 @@ Dans les sections qui suivent nous allons voir les différentes étapes d'implé
 
 
 \section{Obtention des données}
+Nos données proviennent du département orthopédique de l'université de Seattle, Washington, États-Unis. Elles sont au nombre de 2718 files et 92 colonnes. Nous les utilisons comme données historiques (\textit{historical data, en anglais}) dans le cadre du développement de notre modèle de machine learning. 
 Une fois qu'on décide à attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
 
 Les données que nous utilisons dans ce projet proviennent de la compagnie pour laquelle nous faisons le stage. Cette dernière les avait obtenues de l'université Seattle, Washington, USA. Les données sont disponibles dans un fichier d'extension csv et hébergées sur le serveur de la compagnie. Par conséquent, nous avons un accès direct aux données sans avoir besoin de les télécharger à partir d'un dépôt de Machine Learning. \\
@@ -1074,5 +1104,5 @@ glipizide & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est at
 \addcontentsline{toc}{chapter}{Bibliography}
 
 \bibliographystyle{abbrv}
-\bibliography{bibliography.bib} 	
+\bibliography{bibliography} 	
 \end{document}
