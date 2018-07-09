@@ -329,7 +329,7 @@ Dans la résolution de tout problème d'apprentissage supervisé, deux phases so
 
 Dans la pratique, quand nous obtenons les données il y a juste un seul ensemble de données, il n'y a pas de données d'entrainement et de données de test séparément. C'est la responsabilité du scientifique de données de répartir les données  au moment où il construit le modèle. Il est toujours recommandé de  répartir l'ensemble de données original car l'obtention de nouvelles données est toujours une tache difficile. Ca peut prendre plusieurs mois d'attente. Habituellement on conserve 80\% des données pour l'entrainement et 20\% pour le test. \\
 
-Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plus souple, nous prenons un échantillon de l'ensemble de données \guillemotleft California Housing Prices  \guillemotright\footnote{L'ensemble de données original est apparu dans R. Kelley Pace et Ronald Barry, “Sparse Spatial Autoregressions,” Statistics \& Probability Letters 33, no. 3 (1997): 291–297} qui contient des informations sur un ensemble de districts à Californie aux États-Unis, nous choisissons seulement cinq (5) enregistrements de cette base de données juste pour illustrer notre exemple, comme on peut remarquer à la table \ref{tab:CaliforniaHousingPrices}. Le but est de prédire le prix moyen du logement dans un district de Californie tout en 
+Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plus souple, nous prenons un échantillon de l'ensemble de données \guillemotleft California Housing Prices  \guillemotright\footnote{L'ensemble de données original est apparu dans R. Kelley Pace et Ronald Barry, “Sparse Spatial Autoregressions,” Statistics \& Probability Letters 33, no. 3 (1997): 291–297} qui contient des informations sur un ensemble de districts à Californie aux États-Unis, nous choisissons seulement cinq (5) enregistrements de cette base de données juste pour illustrer notre exemple, comme on peut remarquer à la table \ref{tab:CaliforniaHousingPrices}. Le but est de prédire le prix moyen du logement dans un district de Californie qui ne fait pas partie de cet ensemble de données. L'ensemble de données de la la table \ref{tab:CaliforniaHousingPricesTrain} est considéré comme un ensemble d'entrainement car toutes les valeurs \textit{median\_house\_value} sont connues. Tandis que dans la table \ref{tab:CaliforniaHousingPricesTest} est l'ensemble de données de test puisque les de  \textit{median\_house\_value} sont inconnues.
 
 
 
@@ -350,10 +350,37 @@ Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plu
 		
 	\end{tabular}
 	\caption{Échantillon de l'ensemble de données \textit{California Housing Prices}}
-	\label{tab:CaliforniaHousingPrices}
+	\label{tab:CaliforniaHousingPricesTrain}
 \end{table}
 
-Dans cet exemple, l'ensemble des variables prédictives est le vecteur défini de la façon suivante : $\vec{X} = \begin{bmatrix}x_1, x_2, x_3, x_4  \end{bmatrix}$ où $x_1$ représente le code, $x_2$ la description, $x_3$ le type et $x_4$ la date d'expiration. La variable cible est la quantité vendue, c'est celle qu'on veut prédire. La matrice  $A_{5,4}$ est définie comme suit: \\
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|c|c|c|c|c|}
+		\hline
+		\textbf{longitude} & \textbf{latitude} & \textbf{median\_income} & \textbf{median\_house\_value}   \\
+		\hline
+		-122.24 & 37.85  & 6.005	& ? \\
+		-122.25 & 37.86 & 5.0519 & ? \\
+		\hline
+		
+	\end{tabular}
+	\caption{Échantillon de l'ensemble de données \textit{California Housing Prices}}
+	\label{tab:CaliforniaHousingPricesTest}
+\end{table}
+
+Dans cet exemple, l'ensemble des variables prédictives sont :  \textit{longitude, latitude, median\_income et la variable cible} ou l'étiquette est: \textit{median\_house\_value}. La matrice $X$ est définie de la manière suivante : \\
+$ X=
+	\begin{pmatrix}
+		-122.23x_1 & 37.88x_2 & 8.3252x_3\\
+		-122.22x_1 & 37.86x_2 & 8.3014x_3 \\
+		-122.24x_1 & 37.85x_2 & 7.2574x_3 \\
+		-122.25x_1 & 37.85x_2 & 5.6434x_3 \\
+		-122.25x_1 & 37.84x_2 & 3.8462x_3 \\
+	\end{pmatrix}
+$
+
+
+est le vecteur défini de la façon suivante : $\vec{X} = \begin{bmatrix}x_1, x_2, x_3, x_4  \end{bmatrix}$ où $x_1$ représente le code, $x_2$ la description, $x_3$ le type et $x_4$ la date d'expiration. La variable cible est la quantité vendue, c'est celle qu'on veut prédire. La matrice  $A_{5,4}$ est définie comme suit: \\
 $A_{5,4} =  
  \begin{pmatrix} 
  	JO0000386 & Jus d'orange & Boissons & 25/03/2019 \\ 
