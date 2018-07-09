@@ -13,6 +13,8 @@
 \usepackage[figurename=Fig.]{caption}
 \usepackage{subfig}
 
+\usepackage{amsmath} %Add matrices
+
 \usepackage{longtable} 
 
 \usepackage{makecell}%using for thead
@@ -316,11 +318,50 @@ Le machine learning constitue une manière de modéliser des phénomènes, dans 
 Pour continuer nous allons passer en revue les différents types de machine learning apparus dans la figure \ref{machinelearning}. Ils constituent la base du machine learning. Aussi nous verrons quelques concepts importants découlés de chaque type. Nous donnerons une brève introduction de chaque thème jugé important à savoir pour la suite de ce rapport. L'idée ce n'est pas tout détaillé mais de présenter un aspect global de chaque concept.  
 
 \subsection{Apprentissage supervisé}
-Dans un problème d'apprentissage supervisé, on dispose d'un ensemble de données qu'on appelle données d'entrainement constitué de données d'entrée et de sortie. Il est formellement défini comme une fonction $h:x \rightarrow y $ où $h \in \mathcal{H} $ est la fonction d'hypothèse produite par un apprenant (algorithme d'apprentissage) et $\mathcal{H}$ est l'espace des hypothèses d'apprentissage; $x$ représente l'ensemble de données d'entrée de la fonction et $y$ détermine l'ensemble de données de sortie. Les entrées sont appelées variables prédictives et les sorties sont des variables cibles. Une autre définition possible de l'apprentissage supervisé est un couple d'échantillons d'entrée-sortie de la forme $(x_i, y_i)$ où $x_i$ est la description d'un objet dans un espace de représentation; $y_i$ est la sortie désirée de l'objet et l'index $i$ est défini sur l'intervalle  $1 \leq i \leq \mathbb{N}$, avec $\mathbb{N}$ le nombre d'échantillons ou observations de données. Le nombre de variables prédictives associées à une observation est noté comme un vecteur $x=(x_1, \cdot, x_p)$ où $p$ est la taille de l'observation. \cite{key38, key40, key39}   \\
 
-Pour expliquer l'apprentissage supervisé en langage plus souple, nous illustrons un exemple d'une base de données constituée d'un ensemble de données de produits alimentaires d'un magasin. Les attributs de chaque produit stocké sont : le code du produit, le nom du produit, type de produit, la date d'expiration et la quantité vendue par mois. Le problème est de prédire la quantité d'un produit qui pourrait être vendue au moment de passer une commande pour le mois prochain. La base de données contient des exemples de produits avec leurs quantités vendues sur une période de 12 mois; chaque produit est lié à une quantité. Prédire la quantité d'un nouveau produit en fonction des produits déjà existé est un problème de d'apprentissage supervisé.  \\      
+L'apprentissage supervisé est formellement défini comme une fonction $h:x \rightarrow y $ où $h \in \mathcal{H} $ est la fonction d'hypothèse produite par un apprenant qui est un algorithme d'apprentissage, et $\mathcal{H}$ est l'espace des hypothèses d'apprentissage; $x$ représente l'ensemble de données d'entrée de la fonction et $y$ détermine l'ensemble de données de sortie. Une autre définition possible de l'apprentissage supervisé est un couple d'échantillons d'entrée-sortie de la forme $(x^{(i)}, y^{(i)})$ où $x^{(i)}$ est la description d'un objet dans un espace de représentation; $y^{(i)}$ est la sortie ou la variable cible (une variable qu'on souhaite prédire) désirée de l'objet et $i$ est un index  défini sur l'intervalle  $1 \leq i \leq m$, avec $m$ le nombre d'échantillons ou d'observations dans l'ensemble de données. Le nombre de variables prédictives (ensemble de variables à partir desquelles on espère faire des prédictions) associées à une observation est noté comme un vecteur $\vec{x}=(x_1, \cdots, x_n)$ où $n$ est la taille des variables. \cite{key38, key40, key39}   \\
 
-L'apprentissage supervisé est divisé en deux catégories de problèmes selon le type des sorties, le problème de classification et le problème de régression. La différence entre les deux est le type de problème à traiter. Dans les deux cadres de figure les entrées restent toujours les mêmes, il n'y a aucune distinction à ce niveau. Voyons un peu les caractéristiques de chaque problème et la différence qui existe entre eux.  
+Dans la résolution de tout problème d'apprentissage supervisé, deux phases sont nécessaires:
+\begin{enumerate}
+	\item \textbf{Phase d'entrainement.} Phase dans laquelle on dispose d'un ensemble de données d'entrainement \textbf{(trainset en anglais)} constitué de variables prédictives et une variable cible \footnote{Les variables cibles peuvent aussi appeler \textit{étiquettes}}; les données d'entrainement proviennent des expériences antérieures. Durant cette étape l'algorithme d'apprentissage ne fait que d'apprendre à partir des exemples des données d'entrainement, il ne retourne aucune valeur. C'est pendant cette phase que la fonction d'hypothèse $h$ (ou fonction de prédiction) est sélectionnée dans l'espace des hypothèses $\mathcal{H}$.
+	\item \textbf{Phase de prédiction.} Dans la prédiction, on a un ensemble de données test disponible où les valeurs cibles ne sont pas connues, ce sont ces valeurs qu'on doit les prédire. Dans ce cas la fonction de prédiction est utilisée pour retourner toutes les valeurs possibles de la variable cible et son entrée est l'ensemble des variables prédictives.
+\end{enumerate}
+
+Dans la pratique, quand nous obtenons les données il y a juste un seul ensemble de données, il n'y a pas de données d'entrainement et de données de test séparément. C'est la responsabilité du scientifique de données de répartir les données  au moment où il construit le modèle. Il est toujours recommandé de  répartir l'ensemble de données original car l'obtention de nouvelles données est toujours une tache difficile. Ca peut prendre plusieurs mois d'attente. Habituellement on conserve 80\% des données pour l'entrainement et 20\% pour le test. \\
+
+Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plus souple, nous prenons un échantillon de l'ensemble de données \guillemotleft California Housing Prices  \guillemotright\footnote{L'ensemble de données original est apparu dans R. Kelley Pace et Ronald Barry, “Sparse Spatial Autoregressions,” Statistics \& Probability Letters 33, no. 3 (1997): 291–297} qui contient des informations sur un ensemble de districts à Californie aux États-Unis, nous choisissons seulement cinq (5) enregistrements de cette base de données juste pour illustrer notre exemple, comme on peut remarquer à la table \ref{tab:CaliforniaHousingPrices}. Le but est de prédire le prix moyen du logement dans un district de Californie tout en 
+
+
+
+%Après une analyse prédictive, nous avons extrait les cinq attributs les plus pertinents pour notre démarche qui sont : le code du produit, la description du produit, le type du produit, la date d'expiration et la quantité vendue. Un problème d'apprentissage supervisé serait de prédire, au moment de passer une commande, la quantité d'un produit qui pourrait être vendue au mois prochain. Souvent les personnels responsables des inventaires aimeraient avoir une idée sur les quantités à commander. Nous considérons que cette base de données contient des exemples de produits avec leurs quantités vendues au cours du mois actuel où chaque produit est lié à une quantité vendue. \\      
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|l|c|c|c|c|c|}
+		\hline
+		\textbf{longitude} & \textbf{latitude} & \textbf{median\_income} & \textbf{median\_house\_value}   \\
+		\hline
+		 	-122.23 & 37.88  & 8.3252	& 452600.0 \\
+			-122.22 & 37.86 & 8.3014 & 358500.0 \\
+			-122.24 & 37.85 & 7.2574 & 352100.0\\
+			-122.25 & 37.85 & 5.6431 & 341300.0\\
+			-122.25	& 37.84 & 3.8462 & 342200.0\\
+		\hline
+		
+	\end{tabular}
+	\caption{Échantillon de l'ensemble de données \textit{California Housing Prices}}
+	\label{tab:CaliforniaHousingPrices}
+\end{table}
+
+Dans cet exemple, l'ensemble des variables prédictives est le vecteur défini de la façon suivante : $\vec{X} = \begin{bmatrix}x_1, x_2, x_3, x_4  \end{bmatrix}$ où $x_1$ représente le code, $x_2$ la description, $x_3$ le type et $x_4$ la date d'expiration. La variable cible est la quantité vendue, c'est celle qu'on veut prédire. La matrice  $A_{5,4}$ est définie comme suit: \\
+$A_{5,4} =  
+ \begin{pmatrix} 
+ 	JO0000386 & Jus d'orange & Boissons & 25/03/2019 \\ 
+ 	PT0000986 & Pâte de tomates & Cuisine & 14/12/2018 \\ 
+ 	\end{pmatrix} 
+$
+
+L'apprentissage supervisé, selon le type de sorties, est divisé en deux catégories de problèmes : problème de classification et problème de régression. La différence entre les deux se situe au niveau du type de problème à traiter. Dans la vie réelle, les problèmes sont diverses et différents les uns des autres mais une analyse prédictive aide à catégoriser les types de problèmes à traiter et déterminer quels types d'algorithmes supervisés à utiliser.  Dans les deux cadres de figure les entrées restent toujours les mêmes, il n'y a aucune distinction à ce niveau. Voyons un peu en détails les caractéristiques de chaque problème et pour pouvoir saisir la différence qui existe entre les deux.  
 
 \paragraph{Problème de classification.} Dans un problème de classification, les types de sorties qu'on traite sont des classes. Les classes sont des variables catégorielles ou discrètes, elles permettent de déterminer si un vecteur $x$ appartient à un catégorie de sortie. Par exemple, dans une base de données médicale contenant des informations des patients, on peut avoir une classe  \guillemotleft \textit{cancer} \guillemotright pour prédire si un patient d'une certaine région peut avoir le cancer ou non. Les algorithmes d'apprentissage qui résolvent des problèmes de classification sont appelés  \guillemotleft classifier \guillemotright. L'algorithme essaye d'attribuer chaque nouvelle entrée à une classe discrète appartenant au nombre $\mathbb{N}$ de classes. Classification est souvent séparé en classification binaire qui est le cas spécial de distinguer exactement deux classes (oui/non) et en classification multiclasse qui est la classification entre plus de deux classes. Dans l'exemple du cancer, c'est une classification binaire parce qu'il s'agit de dire oui ou non si un patient a du cancer. L'exemple d'iris \footnote{page de wikipedia sur iris : https://en.wikipedia.org/wiki/Iris\_flower\_data\_set} qui est un jeu de données basé sur 50 échantillons d'espèces est un exemple typique de la classification multiclasse. \cite{key41, key42}
   
