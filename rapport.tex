@@ -13,6 +13,8 @@
 \usepackage[figurename=Fig.]{caption}
 \usepackage{subfig}
 
+%\usepackage[document]{ragged2e} %for aligning text
+
 \usepackage{amsmath} %Add matrices
 
 \usepackage{longtable} 
@@ -249,7 +251,7 @@ Généralement, nous nous mettons l'accent sur un sous-ensemble de tous les conc
 
 La suite de ce chapitre se subdivise comme suit : la deuxième section est une approche globale sur les sciences de données. Nous estimons que c'est important parce qu'aucun modèle de machine learning ne peut être construit sans d'abord réaliser une phase d'exploration de données; or les sciences de données peuvent être définies comme étant une combinaison entre l'exploration de données et la modélisation de données. La troisième section se porte sur le machine learning qui est le cœur même de notre projet; comme on avait précisé au paragraphe antérieur, nous considérons seulement un sous-ensemble de concepts jugés utiles pour notre projet. La quatrième traite du problème de classification en ML; puisque notre projet était un problème de classification, nous décidons de le consacrer une section indépendante. La cinquième et dernière se porte sur les classes déséquilibrées car notre ensemble de données était déséquilibrée.     
 
-\section{Sciences des données}
+\section{Sciences des données} \label{datascience}
 
 On ne peut pas parler de machine learning sans avoir parlé des sciences de données. Car la modélisation des données est une étape des sciences de données, quoique la plus importante. Les sciences de données nous permettent de prendre un ensemble de données brutes, les explorer et les modéliser dans le but d'extraire des connaissances utiles à la prise d'une décision. Comme son nom l'indique, la science des données n'est possible que lorsqu'on dispose d'un jeu de données qu'on appelle données historiques. Ces dernières sont des données recueillies à partir de la collecte d'informations. Les données peuvent être sous diverses formes, structurées ou non. D'une façon générale, pour traiter un problème en sciences de données, trois conditions sont nécessaires : (1) il faut avoir les données disponibles dans un format adéquat; (2) définir des objectifs précis de ce qu'on veut faire avec les données; (3) et savoir comment est-ce qu'on va procéder pour réaliser ces objectifs. \\
 
@@ -267,9 +269,8 @@ Grâce à la croissance de la capacité de stockage des ordinateurs, l'apparitio
 		5. l'évaluation et interprétation des résultats;\\
 		6. la conclusion de l'étude : prise de décision ou déploiement en production du modèle.
 \end{pquotation}  
-		
 
-La figure \cite{key6}, implémentée par le professeur Yannis,  nous donne une vue générale du travail d'un scientifique de données. Cette figure est une façon de schématiser les différentes étapes qu'on a définies précédemment. Comme stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet défini par le professeur Yannis. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans les deux prochains chapitres comment nous implémentons ce cycle au sein de notre projet. \\ \\
+La figure \cite{key6}, implémentée par le professeur Yannis,  nous donne une vue générale du travail d'un scientifique de données. Cette figure est une façon de schématiser les différentes étapes qu'on a définies précédemment. Comme stagiaire en science de données, nous avons suivi minutieusement, dans le cadre de notre projet, le cycle de travail complet défini par le professeur Yannis. Depuis la récupération des données jusqu'au déploiement d'un système en production. Nous expliquerons en détail dans les deux prochains chapitres comment nous implémentons ce cycle au sein de notre projet. 
 \begin{figure}[h]
 \includegraphics[]{images/workflow_datascientis.png}
 \caption{Cycle de travail d'un scientifique de données}
@@ -286,7 +287,7 @@ Les données, de part leurs natures, peuvent être quantitatives ou qualitatives
 \paragraph{Données quantitatives.} Les données quantitatives sont des données qu'on peut mesurer ou qui peuvent prendre une valeur quelconque, avec lesquelles on peut faire des calculs numériques tels que la moyenne, l'addition, la multiplication, la division entre autres. Ces types de données permettent de répondre à la question du type \guillemotleft combien \guillemotright. Par exemple combien de patients y-a-t-il dans la base de données? La réponse pourrait être 3200 qui est une donnée quantitative. Il existe deux catégories de données quantitatives : données quantitatives continues et données quantitatives discrètes. Les premières peuvent n'importe qu'elle valeur dans un ensemble de valeurs, par exemple la température, les PIB,le taux de chômage etc. Les deuxièmes ne prennent qu'un nombre limité de valeur dans un ensemble de valeur, par exemple le nombre d'enfants dans une famille, le nombre de chambres dans un appartement etc. 
     
 \paragraph{Données qualitatives.} 
-Les données qualitatives décrivent les qualités ou les caractéristiques. On ne peut pas les compter ni faire de calcul avec ces données, on peut les comparer ou éventuellement les trier. Les valeurs qualitatives ne peuvent pas être des nombres, sinon un ensemble de modalités; elles permettent de répondre à la question de la forme \guillemotleft Quel type \guillemotright ou \guillemotleft Quelle catégorie \guillemotright. On distingue aussi deux catégories de données qualitatives : données qualitatives nominales (ou catégorielles) et données qualitatives ordinales. Les premières catégories sont celles dont les modalités ne peuvent ordonnées, par exemple la couleur des yeux, le sexe, la région d'appartenance etc. Les deuxièmes catégories peuvent être ordonnées selon un ordre logique, par exemple les tailles des vêtements, le degré d'accord à un test d'opinion (fortement d'accord, d'accord, pas d'accord ou fortement pas d'accord).
+Les données qualitatives décrivent les qualités ou les caractéristiques. On ne peut pas les compter ni faire de calcul avec ces données, on peut les comparer ou éventuellement les trier. Les valeurs qualitatives ne peuvent pas être des nombres, sinon un ensemble de modalités; elles permettent de répondre à la question de la forme \guillemotleft Quel type \guillemotright ou \guillemotleft Quelle catégorie \guillemotright. On distingue aussi deux catégories de données qualitatives : données qualitatives nominales (ou catégorielles) et données qualitatives ordinales. Les premières catégories sont celles dont les modalités ne peuvent ordonnées, par exemple la couleur des yeux, le sexe, la région d'appartenance etc. Les deuxièmes catégories peuvent être ordonnées selon un ordre logique, par exemple les tailles des vêtements, le degré d'accord à un test d'opinion (fortement d'accord, d'accord, pas d'accord ou fortement pas d'accord). \cite[p.~12]{key44}
 
 \subsection{Problématique.}
 Tout projet de science de données suppose la résolution d'un problème, ce genres de projets commencent toujours par le constat d'un problème. Il faut qu'on soit en mesure de définir clairement ce qu'on veut résoudre et comment on va le résoudre. Généralement, cela demande qu'on s'asseye avec les responsables des organisations, de faire des entrevues avec eux afin de prendre connaissance des différents besoins et d'établir le pourquoi du projet. S'il n'y a pas une problématique clairement défini, le projet de science de données est impossible. \\
@@ -297,17 +298,27 @@ Dans la section qui suit nous allons voir une brève introduction sur ce quoi le
 
 \section{Vue d'ensemble sur Machine Learning}
 
-Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. En 1997, Tom Mitchell, dans son livre \guillemotleft Machine Learning \guillemotright \cite{key37} a proposé une définition plus précise : 
+Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. En 1997, Tom Mitchell, dans son livre \guillemotleft Machine Learning \guillemotright a proposé une définition plus précise : 
 
-\begin{pquotation} {Définition de Tom Mitchell}
+\begin{pquotation} {Tom Mitchell \cite[p.~2]{key37}}
 	\guillemotleft On dit qu'un programme informatique apprend de l'expérience \textbf{E} par rapport à une certaine classe de tâches \textbf{T} et à la mesure de performance \textbf{P}, si sa performance aux tâches dans \textbf{T} , telle que mesurée par \textbf{P}, s'améliore avec l'expérience \textbf{E}\guillemotright.
-\end{pquotation}
+\end{pquotation} 
 
 Nous voyons dans cette définition que le programme informatique peut être n'importe quel algorithme d'apprentissage; l'expérience est considérée comme n'importe quelle source de connaissances auxquelles un algorithme est obligé d'apprendre, par exemple un même algorithme peut apprendre à partir des données de finance, biologie, médecine etc.; La mesure de performance consiste à améliorer les résultats d'un algorithme tout en conservant la même expérience. \\ 
 
-La figure \ref{machinelearning} nous montre en grosso modo les techniques du machine learning, à un très haut d'abstraction. Deux grandes techniques de machine learning sont définies : Apprentissage supervisé \textbf{(Supervised learning en anglais)} et l'apprentissage non-supervisé \textbf{(Unsupervised learning en anglais)}. L'apprentissage supervisé est une technique d'apprentissage avec des données étiquetées, il existe deux types de problèmes possibles dans l'apprentissage supervisé: problème de régression qui consiste à prédire une valeur numérique comme le prix d'un appartement dans une région graphique quelconque; et le problème de classification qui consiste à prédire une valeur booléenne (si oui ou non on doit prendre une décision), par exemple on peut vouloir savoir si une campagne marketing pourrait être une réussite ou un échec. L'apprentissage non-supervisé est une technique d'apprentissage non étiquetée, c'est l'idée de groupe \textbf{(Clustering en anglais)} qui prédomine.  Cette figure donne une vue générale sur ce qu'est le machine learning.\\
+La figure \ref{machinelearning} nous montre en grosso modo les techniques du machine learning, à un très haut d'abstraction. Deux grandes techniques de machine learning sont définies : Apprentissage supervisé \textbf{(Supervised learning en anglais)} et l'apprentissage non-supervisé \textbf{(Unsupervised learning en anglais)}. L'apprentissage supervisé est une technique d'apprentissage avec des données étiquetées, il existe deux types de problèmes possibles dans l'apprentissage supervisé: problème de régression qui consiste à prédire une valeur numérique comme le prix d'un appartement dans une région géographique quelconque; et le problème de classification qui consiste à prédire une valeur booléenne (oui ou non), par exemple on peut vouloir savoir si une campagne marketing pourrait être une réussite ou un échec. L'apprentissage non-supervisé est une technique d'apprentissage non étiquetée, c'est l'idée de groupe \textbf{(Clustering en anglais)} qui prédomine.  Cette figure donne une vue générale sur ce qu'est le machine learning.\\
 
 Le machine learning constitue une manière de modéliser des phénomènes, dans le but de prendre des décisions stratégiques. Les algorithmes utilisés permettent, dans une certaine mesure, à un système piloté par ordinateur (un robot éventuellement), ou assisté par ordinateur, d'adapter ses analyses et ses comportements en réponse, en se fondant sur l'analyse de données empiriques provenant d'une base de données ou de capteurs. La difficulté réside dans le fait que l'ensemble de tous les comportements possibles compte tenu de toutes les entrées possibles devient rapidement trop complexe à décrire \textbf{(on parle d'explosion combinatoire)}. On confie donc à des programmes le soin d'ajuster un modèle pour simplifier cette complexité et de l'utiliser de manière opérationnelle. Idéalement, l'apprentissage visera à être non supervisé, c'est-à-dire que la nature des données d'entrainement n'est pas connue \cite{key13}.
+
+\subsection{Phases de modélisation d'un problème ML}
+
+Nous avons mentionné dans la section \ref{datascience} portant sur les Sciences de données, qu'aucun projet de sciences de données n'est possible s'il n'y pas une problématique bien définie. Et s'il existe un problème, il existe aussi des moyens de le résoudre. Le cycle de travail d'un scientifique de données énuméré dans la section \ref{datascience} peut être comme les principales techniques de résolution d'un problème. Dans ce cycle de travail, il y a la technique de modélisation, voyons maintenant le deux phases nécessaires à la modélisation:
+\begin{enumerate}
+	\item \textbf{Phase d'entrainement.} Phase dans laquelle on dispose d'un ensemble de données d'entrainement \textbf{(trainset en anglais)} constitué de variables prédictives et une variable cible \footnote{Les variables cibles peuvent aussi appeler \textit{étiquettes}}; les données d'entrainement proviennent des expériences antérieures. Durant cette étape l'algorithme d'apprentissage ne fait que d'apprendre à partir des exemples des données d'entrainement, il ne retourne aucune valeur. C'est pendant cette phase que la fonction d'hypothèse $h$ (ou fonction de prédiction) est sélectionnée dans l'espace des hypothèses $\mathcal{H}$. 
+	\item \textbf{Phase de prédiction.} Dans la prédiction, on dispose d'un nouvel ensemble de données où les valeurs cibles ne sont pas connues et ce sont ces valeurs qu'on doit prédire. Dans ce cas la fonction de prédiction est utilisée pour calculer toutes les valeurs possibles de la variable cible et son entrée est l'ensemble des variables prédictives.
+\end{enumerate}
+
+Dans la pratique, obtenir de nouvelles données est une tâche très difficile,  peut prendre plusieurs mois d'attente. Par conséquent quand on a un ensemble de données, il est recommandé au scientifique de données, au moment où il construit son modèle, de le répartir en deux : données d'entrainement et données de test. L'ensemble des données d'entrainement est utilisé dans la phase d'entrainement et celui des données de test dans la phase de prédiction.  Habituellement on conserve 80\% des données pour l'entrainement et 20\% pour le test. 
 
 \begin{figure}[h]
 \includegraphics[width=15cm, height=6cm]{images/machinelearning.png}
@@ -315,25 +326,38 @@ Le machine learning constitue une manière de modéliser des phénomènes, dans 
 \label{machinelearning}
 \end{figure}
 
-Pour continuer nous allons passer en revue les différents types de machine learning apparus dans la figure \ref{machinelearning}. Ils constituent la base du machine learning. Aussi nous verrons quelques concepts importants découlés de chaque type. Nous donnerons une brève introduction de chaque thème jugé important à savoir pour la suite de ce rapport. L'idée ce n'est pas tout détaillé mais de présenter un aspect global de chaque concept.  
+Pour continuer nous allons passer en revue les différents types de techniques de machine learning apparues dans la figure \ref{machinelearning}. Elles constituent la base du machine learning. Aussi nous verrons quelques concepts importants découlés de chaque type. Nous donnerons une brève introduction de chaque thème jugé important pour la suite de ce rapport. L'idée n'est pas de tout détailler mais de présenter un aspect global de chaque concept pour faciliter la compréhension.  
 
 \subsection{Apprentissage supervisé}
 
-L'apprentissage supervisé est formellement défini comme une fonction $h:x \rightarrow y $ où $h \in \mathcal{H} $ est la fonction d'hypothèse produite par un apprenant qui est un algorithme d'apprentissage, et $\mathcal{H}$ est l'espace des hypothèses d'apprentissage; $x$ représente l'ensemble de données d'entrée de la fonction et $y$ détermine l'ensemble de données de sortie. Une autre définition possible de l'apprentissage supervisé est un couple d'échantillons d'entrée-sortie de la forme $(x^{(i)}, y^{(i)})$ où $x^{(i)}$ est la description d'un objet dans un espace de représentation; $y^{(i)}$ est la sortie ou la variable cible (une variable qu'on souhaite prédire) désirée de l'objet et $i$ est un index  défini sur l'intervalle  $1 \leq i \leq m$, avec $m$ le nombre d'échantillons ou d'observations dans l'ensemble de données. Le nombre de variables prédictives (ensemble de variables à partir desquelles on espère faire des prédictions) associées à une observation est noté comme un vecteur $\vec{x}=(x_1, \cdots, x_n)$ où $n$ est la taille des variables. \cite{key38, key40, key39}   \\
+L'apprentissage supervisé est formellement défini comme une fonction $h:x \rightarrow y $ où $h \in \mathcal{H} $ est la fonction d'hypothèse produite par un apprenant qui est un algorithme d'apprentissage, et $\mathcal{H}$ est l'espace des hypothèses d'apprentissage; $x$ représente l'ensemble de données d'entrée de la fonction et $y$ détermine l'ensemble de données de sortie. Une autre définition possible de l'apprentissage supervisé est un couple d'échantillons d'entrée-sortie de la forme $(x^{(i)}, y^{(i)})$ où $x^{(i)}$ est la description d'un objet \footnote{Un objet est considéré comme une instance d'un ensemble de données, il peut être appelé aussi individu, observation, échantillon ou ligne.} dans un espace de représentation \footnote{L'espace de représentation est l'ensemble de données.}; $y^{(i)}$ est la sortie ou la variable cible\footnote{Une variable qu'on souhaite prédire} désirée de l'objet et $i$ est un index  défini sur l'intervalle  $1 \leq i \leq m$, où $m$ le nombre d'échantillons ou d'observations dans l'ensemble de données. Le nombre de variables prédictives \footnote{ L'ensemble de variables à partir desquelles on espère faire des prédictions} associées à une observation est noté comme un vecteur $\vec{x}=(x_1, \cdots, x_j)$ où $j$ est un index compris entre $1 \leq i \leq n$ et $n$ représente la taille des variables. \cite{key38, key40, key39}. Les $n$ variables décrivant les $m$ individus d'ensemble de données sont représentés dans ce qu'on appelle une matrice $X$ de dimensions $(m,n)$ définie de la manière suivante :   
 
-Dans la résolution de tout problème d'apprentissage supervisé, deux phases sont nécessaires:
-\begin{enumerate}
-	\item \textbf{Phase d'entrainement.} Phase dans laquelle on dispose d'un ensemble de données d'entrainement \textbf{(trainset en anglais)} constitué de variables prédictives et une variable cible \footnote{Les variables cibles peuvent aussi appeler \textit{étiquettes}}; les données d'entrainement proviennent des expériences antérieures. Durant cette étape l'algorithme d'apprentissage ne fait que d'apprendre à partir des exemples des données d'entrainement, il ne retourne aucune valeur. C'est pendant cette phase que la fonction d'hypothèse $h$ (ou fonction de prédiction) est sélectionnée dans l'espace des hypothèses $\mathcal{H}$. 
-	\item \textbf{Phase de prédiction.} Dans la prédiction, on a un ensemble de données test disponible où les valeurs cibles ne sont pas connues, ce sont ces valeurs qu'on doit les prédire. Dans ce cas la fonction de prédiction est utilisée pour retourner toutes les valeurs possibles de la variable cible et son entrée est l'ensemble des variables prédictives.
-\end{enumerate}
+$$ 
+	X=
+		\begin{pmatrix}
+			x_{11} & \cdots & x_{1n}\\
+			\vdots & \ddots & \vdots \\
+			x_{m1} & \cdots & x_{mn}
+		\end{pmatrix}
+$$      
 
-Dans la pratique, quand nous obtenons les données il y a juste un seul ensemble de données, il n'y a pas de données d'entrainement et de données de test séparément. C'est la responsabilité du scientifique de données de répartir les données  au moment où il construit le modèle. Il est toujours recommandé de  répartir l'ensemble de données original car l'obtention de nouvelles données est toujours une tache difficile. Ca peut prendre plusieurs mois d'attente. Habituellement on conserve 80\% des données pour l'entrainement et 20\% pour le test. \\
+\begin{flushright}
+	\cite[p.~21]{key44}
+\end{flushright}                                                               
 
-Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plus souple, nous prenons un échantillon de l'ensemble de données \guillemotleft California Housing Prices  \guillemotright\footnote{L'ensemble de données original est apparu dans R. Kelley Pace et Ronald Barry, “Sparse Spatial Autoregressions,” Statistics \& Probability Letters 33, no. 3 (1997): 291–297} qui contient des informations sur un ensemble de districts à Californie aux États-Unis, nous choisissons seulement cinq (5) enregistrements de cette base de données juste pour illustrer notre exemple, comme on peut remarquer à la table \ref{tab:CaliforniaHousingPrices}. Le but est de prédire le prix moyen du logement dans un district de Californie qui ne fait pas partie de cet ensemble de données. L'ensemble de données de la la table \ref{tab:CaliforniaHousingPricesTrain} est considéré comme un ensemble d'entrainement car toutes les valeurs \textit{median\_house\_value} sont connues. Tandis que dans la table \ref{tab:CaliforniaHousingPricesTest} est l'ensemble de données de test puisque les de  \textit{median\_house\_value} sont inconnus.
+et un vecteur $\vec{y}$ défini de la manière suivante:
+$$
+\vec{y}=
+\begin{pmatrix}
+y_1\\
+\vdots\\
+y_m
+\end{pmatrix}
+$$ 
 
 
-
-%Après une analyse prédictive, nous avons extrait les cinq attributs les plus pertinents pour notre démarche qui sont : le code du produit, la description du produit, le type du produit, la date d'expiration et la quantité vendue. Un problème d'apprentissage supervisé serait de prédire, au moment de passer une commande, la quantité d'un produit qui pourrait être vendue au mois prochain. Souvent les personnels responsables des inventaires aimeraient avoir une idée sur les quantités à commander. Nous considérons que cette base de données contient des exemples de produits avec leurs quantités vendues au cours du mois actuel où chaque produit est lié à une quantité vendue. \\      
+Pour expliquer en clair cette définition, laissons-nous l'illustrer à travers un exemple en prenant un échantillon de l'ensemble de données \guillemotleft California Housing Prices \footnote{Cet ensemble de données est disponible sur ce site : https://www.kaggle.com/camnugent/california-housing-prices} \guillemotright. Cet ensemble de données original est développé par R. Kelley Pace et Ronald Barry \cite{key43}, il contient des informations sur un ensemble de districts à Californie aux États-Unis. Il a 10 colonnes et 20640 lignes de données, nous l'avons utilisé dans notre stage pour mettre en pratique les différents concepts appris de ML.  Pour illustrer notre exemple, nous choisissons seulement 5 enregistrements de cette base de données, 3 variables prédictives qui sont \textit{longitude, latitude, median\_income} et la variable cible qui est \textit{median\_house\_value}. Le but est de prédire le prix moyen du logement dans un nouveau district de Californie c'est-à-dire qui ne fait pas partie de cet ensemble de données. L'ensemble de données de la table \ref{tab:CaliforniaHousingPricesTrain} est considéré comme un ensemble d'entrainement car toutes les valeurs \textit{median\_house\_value} sont connues. Tandis que les données la table \ref{tab:CaliforniaHousingPricesTest} est l'ensemble de test puisque les valeurs de  \textit{median\_house\_value} sont inconnues.
+   
 
 \begin{table}[h]
 	\centering
@@ -368,17 +392,21 @@ Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plu
 	\label{tab:CaliforniaHousingPricesTest}
 \end{table}
 
-Dans cet exemple, l'ensemble des variables prédictives sont :  \textit{longitude, latitude, median\_income} et la variable cible ou l'étiquette est: \textit{median\_house\_value}. La matrice $X$ est définie de la manière suivante : \\
-$ X=
+En suivant la définition que nous avons de l'apprentissage supervisé et en considérant les données de la table \ref{tab:CaliforniaHousingPricesTrain}, la matrice de données est écrite de la façon suivante :
+$$ X=
 	\begin{pmatrix}
 		-122.23x_1 & 37.88x_2 & 8.3252x_3\\
 		-122.22x_1 & 37.86x_2 & 8.3014x_3 \\
 		-122.24x_1 & 37.85x_2 & 7.2574x_3 \\
 		-122.25x_1 & 37.85x_2 & 5.6434x_3 \\
 		-122.25x_1 & 37.84x_2 & 3.8462x_3 \\
-	\end{pmatrix}
-	\text{et }
-	y=
+	\end{pmatrix}	
+$$
+
+et le vecteur $ \vec{y}$ de la façon suivante 
+
+$$
+	\vec{y}=
 	\begin{bmatrix}
 		452600 \\
 		358500 \\
@@ -386,17 +414,107 @@ $ X=
 		341300 \\
 		342200 \\
 	\end{bmatrix}
-$
+$$
 \\
-où $x_1$ représente longitude, $x_2$ latitude, $x_3$ median\_income et $y$ median\_house\_value; $m=5$ est le nombre d'observations (ou lignes) de l'ensemble de données; $n=4$ le nombre de variables prédictives. \\
+où $x_1$ représente \textit{longitude}, $x_2$ \textit{latitude}, $x_3$\textit{ median\_income} et $y$ median\_house\_value; $m=5$ est le nombre d'observations (ou lignes) de l'ensemble de données; $n=4$ le nombre de variables prédictives. \\
+On sait que, d'après la définition : $h(x) = y$, par conséquent on a : 
 
-Les données de la table \ref{tab:CaliforniaHousingPricesTrain} peuvent utilisées pendant la phase d'entrainement puisque les valeurs de la variable sont toutes connues. Tandis que les données de la table \ref{tab:CaliforniaHousingPricesTest} doivent utilisés pendant la phase de prédiction car les valeurs cibles sont inconnues. \\
+$$ 
+	\begin{pmatrix}
+	-122.23x_1 & 37.88x_2 & 8.3252x_3\\
+	-122.22x_1 & 37.86x_2 & 8.3014x_3 \\
+	-122.24x_1 & 37.85x_2 & 7.2574x_3 \\
+	-122.25x_1 & 37.85x_2 & 5.6434x_3 \\
+	-122.25x_1 & 37.84x_2 & 3.8462x_3 \\
+	\end{pmatrix}	
+	=
+	\begin{bmatrix}
+	452600 \\
+	358500 \\
+	352100 \\
+	341300 \\
+	342200 \\
+	\end{bmatrix}
+$$
 
-L'apprentissage supervisé, selon le type de sorties, est divisé en deux catégories de problèmes : problème de classification et problème de régression. La différence entre les deux se situe au niveau du type de problème à traiter. Dans la vie réelle, les problèmes sont diverses et différents les uns des autres mais une analyse prédictive aide à catégoriser les types de problèmes à traiter et déterminer quels types d'algorithmes supervisés à utiliser.  Dans les deux cadres de figure les entrées restent toujours les mêmes, il n'y a aucune distinction à ce niveau. Voyons un peu en détails les caractéristiques de chaque problème et pour pouvoir saisir la différence qui existe entre les deux.  
+Ce qui peut être écrit sous forme d'équations linéaires de la façon suivante : 
 
-\paragraph{Problème de classification.} Dans un problème de classification, les types de sorties qu'on traite sont des classes. Les classes sont des variables catégorielles ou discrètes, elles permettent de déterminer si un vecteur $x$ appartient à un catégorie de sortie. Par exemple, dans une base de données médicale contenant des informations des patients, on peut avoir une classe  \guillemotleft \textit{cancer} \guillemotright pour prédire si un patient d'une certaine région peut avoir le cancer ou non. Les algorithmes d'apprentissage qui résolvent des problèmes de classification sont appelés  \guillemotleft classifier \guillemotright. L'algorithme essaye d'attribuer chaque nouvelle entrée à une classe discrète appartenant au nombre $\mathbb{N}$ de classes. Classification est souvent séparé en classification binaire qui est le cas spécial de distinguer exactement deux classes (oui/non) et en classification multiclasse qui est la classification entre plus de deux classes. Dans l'exemple du cancer, c'est une classification binaire parce qu'il s'agit de dire oui ou non si un patient a du cancer. L'exemple d'iris \footnote{page de wikipedia sur iris : https://en.wikipedia.org/wiki/Iris\_flower\_data\_set} qui est un jeu de données basé sur 50 échantillons d'espèces est un exemple typique de la classification multiclasse. \cite{key41, key42}
+\begin{align*}
+	-122.23x_1 + 37.88x_2 + 8.3252x_3 = 452600 \\
+	-122.22x_1 + 37.86x_2 + 8.3014x_3 = 358500 \\
+	-122.24x_1 + 37.85x_2 + 7.2574x_3 = 352100 \\
+	-122.25x_1 + 37.85x_2 + 5.6434x_3  = 341300 \\
+	-122.25x_1 + 37.84x_2 + 3.8462x_3  = 342200
+\end{align*}
 
-\paragraph{Problème de régression.} 
+La plupart des algorithmes supervisés sont linéaires c'est-à-dire leurs fonctions d'hypothèse $h$ sont une combinaison linéaire des variables prédictives qui est écrite de la forme: $\theta_1x_1 + \cdots + \theta_nx_n \equiv \Theta \cdot X$. $\vec{\Theta} $ est une vecteur défini de la façon suivante : $\vec{\Theta} = \theta_1, \cdots, \theta_n$ qui sont les différentes valeurs possibles de chaque variable. \\
+La régression logistique et la classification logistique sont des algorithmes linéaires.    
+
+%Les données de la table \ref{tab:CaliforniaHousingPricesTrain} peuvent utilisées pendant la phase d'entrainement puisque les valeurs de la variable sont toutes connues. Tandis que les données de la table \ref{tab:CaliforniaHousingPricesTest} doivent utilisés pendant la phase de prédiction car les valeurs cibles sont inconnues. \\
+
+\subsection{Type d'apprentissage supervisé}
+
+L'apprentissage supervisé, selon le type de sorties, est divisé en deux types de problèmes : problème de classification et problème de régression. La différence entre les deux se situe au niveau du type de problème à traiter. Dans la vie réelle, les problèmes sont diverses et différents les uns des autres mais une analyse prédictive aide à catégoriser les types de problèmes à traiter et déterminer quels types d'algorithmes supervisés à utiliser.  Dans les deux cadres de figure les entrées restent toujours les mêmes, il n'y a aucune distinction à ce niveau. Voyons un peu en détails les caractéristiques de chaque problème et pour pouvoir saisir la différence qui existe entre les deux.  
+
+\subsubsection{Problème de classification} 
+Dans un problème de classification, les types de sorties qu'on traite sont des classes. Les classes sont des variables catégorielles ou discrètes, elles permettent de déterminer si un vecteur $x$ appartient à une catégorie de sortie, dans ce cas la variable cible est qualitative. En d'autres termes, le problème de classification est le problème d'identifier lequel d'un ensemble de catégories (sous-population) appartient à une nouvelle observation, sur la base d'un ensemble de données contenant des observations (ou instances) dont la composition est connue. Une définition plus précise et formelle a été proposée par Tom Michell :
+
+\begin{pquotation} {Tom Mitchell \cite[p.~88]{key38}}
+	\guillemotleft Un exemple est un couple $(\mathbf{x,u})$ où $\mathbf{x} \in \mathcal{X}$ est la description ou la représentation de l'objet et $\mathbf{u} \in \mathcal{U}$ représente la supervision de $\mathbf{x}$. Dans un problème de classification, $\mathbf{u}$ s'appelle la classe de $\mathbf{x}$ et appartient à un ensemble $\mathcal{C} = \{\omega_1, \cdots \omega_C \}$. $\mathcal{C}$ designe le nombre de classes possibles pour un objet\guillemotright.
+\end{pquotation}
+
+Dans la pratique, pour parler de classification, l'ensemble $\mathcal{C}$ doit être fini et petit. Si $\mathcal{C} = 2$, on parle de classification binaire qui est le cas spécial de distinguer exactement deux classes (oui/non ou vrai/faux); si $\mathcal{C} > 2$, on parle de classification multiclasse. L'exemple d'iris \footnote{page de wikipedia sur iris : https://en.wikipedia.org/wiki/Iris\_flower\_data\_set} qui est un jeu de données basé sur 50 échantillons d'espèces végétales est un exemple typique de la classification multiclasse. Un exemple de classification binaire est de prédire si un patient d'un certain lieu géographique peut avoir ou non le cancer si l'on dispose d'un ensemble de données médicales des patients de ce lieu. Les algorithmes d'apprentissage qui résolvent des problèmes de classification sont appelés  \guillemotleft classifier \guillemotright. L'algorithme essaye d'attribuer chaque nouvelle entrée à une classe discrète appartenant au nombre $\mathcal{C}$ de classes. \cite{key44, key41, key42}
+
+%Voici quelques exemples de problèmes de classification. Nous avons déjà parlé de la classification du spam par courrier électronique comme exemple de problème de classification. Un autre exemple serait le classement des transactions en ligne. Donc, si vous avez un site Web qui vend des trucs et si vous voulez savoir si une transaction particulière est frauduleuse ou non, si quelqu'un utilise une carte de crédit volée ou a volé le mot de passe de l'utilisateur. Si la transaction est frauduleuse, on retourne 1 comme valeur sinon l'algorithme retourne 0.\\
+%0 est aussi appelé la classe négative, et 1 la classe positive, et ils sont parfois aussi désignés par les symboles "-" et "+".\\
+
+\subsubsection{Mesure de performance des algorithmes de classification}
+L'évaluation de la performance des méthodes d'apprentissage automatique est aussi cruciale que l'algorithme lui-même, car il identifie les forces et les faiblesses de chaque algorithme d'apprentissage. Différentes mesures de performance sont utilisées pour évaluer différents algorithmes de machine learning. Pour ce projet, nous nous concentrons sur celles utilisées dans les problèmes de classification parce que notre projet est problème de classification. Les métriques  de classification couramment utilisées pour évaluer la performance des problèmes de classification sont \textit{Log-Loss, Accuracy, AUC(Area under Curve)} etc. Nous pouvons créer nos propres métriques personnalisées selon nos besoins. Le choix des métriques est très important en ML car il permet de détecter les défauts ou les erreurs de nos modèles. \\
+
+%Les metrics que vous choisissez pour évaluer votre modèle d'apprentissage automatique sont très importantes. Le choix des paramètres influence la façon dont la performance des algorithmes d'apprentissage automatique est mesurée et comparée. Pour ne pas perdre plus de temps, voyons ce que sont quelques metrics que nous avons utilisé dans notre projet.
+
+\subsubsection{Matrice de confusion}
+La matrice de confusion \textbf{(Confusion Matrix en anglais)} est utilisée pour trouver l'exactitude et la précision d'un modèle. Elle doit être utilisée pour des problèmes de classification binaire puisqu'il est basé sur des valeurs positives et négatives.La matrice de confusion en soi n'est pas une mesure de performance en tant que telle, mais presque toutes les métriques de performance sont basées sur la matrice de confusion et les nombres qui s'y trouvent. La figure \ref{confusionmatrix} est une représentation de la matrice de confusion. La Actual value (\textbf{valeur actuelle}) représente la vraie valeur de l'étiquette ou la variable cible tandis que la Predicted value (\textbf{valeur prédite}) représente la valeur de prédiction. 
+\paragraph*{True Positives (TP) :}
+True Positives (\textbf{vrais positifs, en français}) sont les cas où la classe réelle du point de données était 1 (Vrai) et la prédiction est également 1 (Vrai)
+\paragraph*{True Negatives (TN):}
+True Negatives (\textbf{vrais négatifs, en français}) sont les cas où la classe réelle du point de données était 0 (Faux) et la prédiction est également 0 (Faux)
+
+\begin{figure}[h]
+	\includegraphics[width=14cm, height=7cm]{images/confusionmatrix.png}
+	\caption{Confusion Matrix representation \cite{key25}}
+	\label{confusionmatrix}
+\end{figure}
+
+\paragraph*{False Positives (FP):}
+False Positives (\textbf{faux positifs, en français}) sont les cas où la classe réelle du point de données était 0 (Faux) et la prédiction est 1 (Vrai). Faux parce que le modèle a prédit incorrectement et positivement parce que la classe prédite était positive. (1)
+\paragraph*{False Negatives (FN):}
+False Negatives (\textbf{faux négatifs, en français}) sont les cas où la classe réelle du point de données était 1 (Vrai) et la prédiction est 0 (Faux). Faux parce que le modèle a prédit incorrectement et négativement parce que la classe prédite était négative. (0)
+
+Voyons comment  calculer quelques métriques de classification à partir de la matrice de confusion :
+
+\begin{enumerate}
+	\item \textbf{Accuracy:}
+	L'exactitude \textbf{(Accuracy en anglais)} dans les problèmes de classification est le nombre de prédictions correctes faites par le modèle sur toutes les prédictions faites.
+	$\textnormal{Accuracy} = \frac{TP+TN}{TP+ FP + FN + TN} $
+	
+	\item  \textbf{Precision:} 
+	La précision permet de répondre à la question suivante : Quelle proportion d'identifications positives était effectivement correcte ?
+	$\textnormal{Precision} = \frac{TP}{TP+ FP} $
+	
+	\item \textbf{Recall or Sensitivity:}
+	Le rappel permet de répondre à la question suivante : Quelle proportion de résultats positifs réels a été identifiée correctement ?
+	$\textnormal{Recall} = \frac{TP}{TP+ FN} $
+	
+	\item \textbf{F1-score:}
+	Nous ne voulons pas vraiment avoir à la fois la précision et le rappel dans nos poches chaque fois que nous faisons un modèle pour résoudre un problème de classification. Donc, il est préférable que nous puissions obtenir un seul score qui représente à la fois la précision (P) et le rappel (R)
+	
+	$ \textnormal{F1score} = \frac{ 2 }{\frac {1}{\textnormal{precision}} +  \frac {1}{\textnormal{recall}}  } = 2 \times \frac{\textnormal{precision} \times \textnormal{recall}} { \textnormal{precision} + \textnormal{recall} } = \frac{TP} {TP + \frac{FN+FP} {2} } $
+\end{enumerate}
+
+
+
+\subsubsection{Problème de régression.} 
   
 
 
@@ -413,17 +531,6 @@ Le système doit ici — dans l'espace de description (la somme des données) �
 Cette méthode est souvent source de sérendipité(le fait de réaliser une découverte scientifique ou une invention technique de façon inattendue à la suite d'un concours de circonstances fortuit )\\
 ex. : Pour un épidémiologiste qui voudrait dans un ensemble assez large de victimes de cancer du foie tenter de faire émerger des hypothèses explicatives, l'ordinateur pourrait différencier différents groupes, que l'épidémiologiste chercherait ensuite à associer à divers facteurs explicatifs, origines géographique, génétique, habitudes ou pratiques de consommation, expositions à divers agents potentiellement ou effectivement toxiques (métaux lourds, toxines telle que l'aflatoxine, etc.) \cite{key13}.
 
-\subsection{Apprentissage semi-supervisé}
-Effectué de manière probabiliste ou non, il vise à faire apparaître la distribution sous-jacente des exemples dans leur espace de description. Il est mis en œuvre quand des données (ou « étiquettes ») manquent… Le modèle doit utiliser des exemples non étiquetés pouvant néanmoins renseigner.
-Ex. : En médecine, il peut constituer une aide au diagnostic ou au choix des moyens les moins onéreux de tests de diagnostic.
-Apprentissage partiellement supervisé 
-probabiliste ou non, quand l'étiquetage des données est partiel3. C'est le cas quand un modèle énonce qu'une donnée n'appartient pas à une classe A, mais peut-être à une classe B ou C (A, B et C étant 3 maladies par exemple évoquées dans le cadre d'un diagnostic différentiel) \cite{key13}.
-\subsection{Apprentissage par renforcement}l'algorithme apprend un comportement étant donné une observation. L'action de l'algorithme sur l'environnement produit une valeur de retour qui guide l'algorithme d'apprentissage \cite{key13}.
-ex. : L'algorithme de Q-learning est un exemple classique.
-\subsection{Apprentissage par transfert}
-L’apprentissage par transfert peut être vu comme la capacité d’un système à reconnaître et appliquer des connaissances et des compétences, apprises à partir de tâches antérieures, sur de nouvelles tâches ou domaines partageant des similitudes. La question qui se pose est : comment identifier les similitudes entre la ou les tâche(s) cible(s) et la ou les tâche(s) source(s), puis comment transférer la connaissance de la ou des tâche(s) source(s) vers la ou les tâche(s) cible(s) ? \cite{key13}
-\subsection{Notion de dataset}
-Le dataset est l'ensemble des données utilisé pour entraîner un modèle. Il existe deux types de jeux de données (dataset) généraux. Jeux étiqueté et jeux sans étiquette \cite{key15}.
 \subsection{Training Set and Test Set}
 Dans l'apprentissage automatique, un jeu de données universel inconnu est supposé exister, qui contient toutes les paires de données possibles ainsi que leur distribution de probabilité d'apparition dans le monde réel. Alors que dans les applications réelles, ce que nous avons observé est seulement un sous-ensemble de l'ensemble de données universel en raison du manque de mémoire ou d'un autre inévitable les raisons. Cet ensemble de données acquises s'appelle l'ensemble d'apprentissage \textbf{(Training Set)} et est utilisé pour apprendre les propriétés et la connaissance de l'ensemble de données universel. Afin d'examiner la performance de l'apprentissage, un autre ensemble de données peut être réservé pour le test, appelé ensemble de test ou données de test \textbf{(Test Set)} \cite{key15}.\\
 %\begin{itemize}
@@ -433,67 +540,6 @@ Dans l'apprentissage automatique, un jeu de données universel inconnu est suppo
 
 Le machine learning est un champ d'études vaste, c'est un domaine de recherche. Dans ce rapport nous ne pouvons pas aborder tous les concepts découlant du machine learning mais nous allons considérer un sous-ensemble de concepts que nous avons utilisés pour le développement de notre projet. Dans notre cas, c'est un problème de classification qui fait partie de l'apprentissage supervisé. C'est comme l'exemple des courriers spam et anti-spam que nous avons pris dans l'introduction de cette section. Le problème est de décider est-ce que le patient doit retourner chez lui ou s'il doit rester à l'hôpital après une arthoplastie. Si la réponse est vraie le patient reste à l'hôpital sinon il retourne chez lui. Il faut toujours garder en esprit que cette décision est importante pour un centre orthopédique car elle peut réduire ou augmenter le coût budgétaire.   
 
-\section{Problème de Classification}
-
-Dans l'apprentissage automatique et les statistiques, le problème de classification est le problème d'identifier lequel d'un ensemble de catégories (sous-population) appartient à une nouvelle observation, sur la base d'un ensemble de données contenant des observations (ou instances) dont la composition est connue \cite{key16}.\\
-
-Voici quelques exemples de problèmes de classification. Nous avons déjà parlé de la classification du spam par courrier électronique comme exemple de problème de classification. Un autre exemple serait le classement des transactions en ligne. Donc, si vous avez un site Web qui vend des trucs et si vous voulez savoir si une transaction particulière est frauduleuse ou non, si quelqu'un utilise une carte de crédit volée ou a volé le mot de passe de l'utilisateur. Si la transaction est frauduleuse, on retourne 1 comme valeur sinon l'algorithme retourne 0.\\
-0 est aussi appelé la classe négative, et 1 la classe positive, et ils sont parfois aussi désignés par les symboles "-" et "+".\\
-
-Dans notre projet, le problème est un problème de classification binaire parce qu'on doit décider si oui ou non le patient reste à l'hôpital après une intervention chirurgicale. Si le patient reste, la valeur de la classe est positive (c'est-à-dire 1), s'il ne reste pas ou il est renvoyé, la valeur de la classe est négative (c'est-à-dire 0).
-
-\subsection{Mesure de performance des algorithmes de classification}
-L'évaluation de la performance des méthodes d'apprentissage automatique est aussi cruciale que l'algorithme lui-même, car il identifie les forces et les faiblesses de chaque algorithme d'apprentissage. Différentes mesures de performance sont utilisées pour évaluer différents algorithmes d'apprentissage automatique. Pour l'instant, nous allons nous concentrer sur ceux utilisés pour les problèmes de classification. Quelques metrics que nous pouvons utiliser pour évaluer la performance des problèmes de classification sont Log-Loss, Accuracy, AUC(Area under Curve) etc. Ils font partie des plus communs mais nous pouvons créer des metrics personnalisés en fonction de nos besoins \cite{key17}.\\
-
-Les metrics que vous choisissez pour évaluer votre modèle d'apprentissage automatique sont très importantes. Le choix des paramètres influence la façon dont la performance des algorithmes d'apprentissage automatique est mesurée et comparée. Pour ne pas perdre plus de temps, voyons ce que sont quelques metrics que nous avons utilisé dans notre projet.
-
-\subsection{Matrice de confusion}
-La matrice de confusion \textbf{(Confusion Matrix en anglais)} est l'une des mesures les plus intuitives et les plus faciles (à moins bien sûr, vous n'êtes pas confus) utilisées pour trouver l'exactitude et la précision du modèle. Il est utilisé pour les problèmes de classification où la sortie peut être de deux types ou plus de classes \cite{key17}.\\
-
-La figure \ref{confusionmatrix} est une représentation de la matrice de confusion. La valeur actuelle (Actual value) représente la vraie valeur de l'étiquette tandis que la valeur prédite (Predicted value) représente la valeur retournée par le modèle machine learning. 
-\paragraph*{True Positives (TP):}
-Les vrais positifs sont les cas où la classe réelle du point de données était 1 (Vrai) et la prédiction est également 1 (Vrai)
-\paragraph*{True Negatives (TN):}
-Les vrais négatifs sont les cas où la classe réelle du point de données était 0 (Faux) et la prédiction est également 0 (Faux)
-
-\begin{figure}[h]
-\includegraphics[width=14cm, height=7cm]{images/confusionmatrix.png}
-\caption{Confusion Matrix representation \cite{key25}}
-\label{confusionmatrix}
-\end{figure}
-
-\paragraph*{False Positives (FP):}
-Les faux positifs sont les cas où la classe réelle du point de données était 0 (Faux) et la prédiction est 1 (Vrai). Faux parce que le modèle a prédit incorrectement et positivement parce que la classe prédite était positive. (1)
-\paragraph*{False Negatives (FN):}
-Les faux négatifs sont les cas où la classe réelle du point de données était 1 (Vrai) et la prédiction est 0 (Faux). Faux parce que le modèle a prédit incorrectement et négativement parce que la classe prédite était négative. (0)
-
-
-
-\subsection{Calcul de certains metrics de classification à partir de la matrice confusion}
-
-La matrice de confusion en soi n'est pas une mesure de performance en tant que telle, mais presque toutes les métriques de performance sont basées sur la matrice de confusion et les nombres qui s'y trouvent. Nous allons voir comment utiliser la matrice de confusion pour calculer quelques metrics de classification \cite{key17}.
-
-\begin{enumerate}
-\item \textbf{Accuracy:}
-L'exactitude \textbf{(Accuracy en anglais)} dans les problèmes de classification est le nombre de prédictions correctes faites par le modèle sur toutes les prédictions faites.
-$\textnormal{Accuracy} = \frac{TP+TN}{TP+ FP + FN + TN} $
-
-\item  \textbf{Precision:} 
-La précision permet de répondre à la question suivante : Quelle proportion d'identifications positives était effectivement correcte ?
-$\textnormal{Precision} = \frac{TP}{TP+ FP} $
-
-\item \textbf{Recall or Sensitivity:}
-Le rappel permet de répondre à la question suivante : Quelle proportion de résultats positifs réels a été identifiée correctement ?
-$\textnormal{Recall} = \frac{TP}{TP+ FN} $
- 
- \item \textbf{F1-score:}
- Nous ne voulons pas vraiment avoir à la fois la précision et le rappel dans nos poches chaque fois que nous faisons un modèle pour résoudre un problème de classification. Donc, il est préférable que nous puissions obtenir un seul score qui représente à la fois la précision (P) et le rappel (R)
- 
- $ \textnormal{F1score} = \frac{ 2 }{\frac {1}{\textnormal{precision}} +  \frac {1}{\textnormal{recall}}  } = 2 \times \frac{\textnormal{precision} \times \textnormal{recall}} { \textnormal{precision} + \textnormal{recall} } = \frac{TP} {TP + \frac{FN+FP} {2} } $
- 
- \item \textbf{ROC-AUC:}
-Une courbe ROC (receiver operating characteristic) est un graphique représentant les performances d'un modèle de classification pour tous les seuils de classification. Cette courbe trace le taux de vrais positifs \textbf{(True Positifs en anglais)} en fonction du taux de faux positifs \textbf{(False Positifs en anglais)} \cite{key18}.
-\end{enumerate}
 
 \section{Classes déséquilibrées}
 
@@ -552,6 +598,8 @@ Le chapitre 2 a présenté une vue générale sur les différents concepts utili
 \section{Introduction}
 
 Le développement du modèle est la première grande phase de l'implémentation de notre solution. Le modèle estimateur (meilleur modèle entrainé en fonction de notre ensemble de données) va être utilisé pour introduire la deuxième phase, celle de la création de l'API Ortho. Comme nous avons déjà vu dans l'introduction le diagramme de cas d'utilisation du système machine learning. Nous proposons maintenant un diagramme de classe (figure \ref{MLClassDiag}) qui répond aux différentes exigences que nous avons décrites. Nous tenons à souligner que dans notre diagramme de classe nous ne prenons pas en compte les classes prédéfinies dans les librairies de Python. Par exemple le \textbf{DataFrame} est une classe prédéfinie dans la librairie \textbf{pandas}. Nous l'utilisons dans notre classe \textbf{Gather} mais elle n'est pas définie dans notre diagramme de classe.  \\ 
+
+Dans notre projet, le problème est un problème de classification binaire parce qu'on doit décider si oui ou non le patient reste à l'hôpital après une intervention chirurgicale. Si le patient reste, la valeur de la classe est positive (c'est-à-dire 1), s'il ne reste pas ou il est renvoyé, la valeur de la classe est négative (c'est-à-dire 0).
 
 %Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. Chaque section représente une étape du projet. Il peut y avoir de petites définitions pour éclairer certains thèmes que nous n'avons pa pu aborder dans le chapitre sur le \textbf{Contexte Théorique}.
 
