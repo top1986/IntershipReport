@@ -323,13 +323,13 @@ L'apprentissage supervisé est formellement défini comme une fonction $h:x \rig
 
 Dans la résolution de tout problème d'apprentissage supervisé, deux phases sont nécessaires:
 \begin{enumerate}
-	\item \textbf{Phase d'entrainement.} Phase dans laquelle on dispose d'un ensemble de données d'entrainement \textbf{(trainset en anglais)} constitué de variables prédictives et une variable cible \footnote{Les variables cibles peuvent aussi appeler \textit{étiquettes}}; les données d'entrainement proviennent des expériences antérieures. Durant cette étape l'algorithme d'apprentissage ne fait que d'apprendre à partir des exemples des données d'entrainement, il ne retourne aucune valeur. C'est pendant cette phase que la fonction d'hypothèse $h$ (ou fonction de prédiction) est sélectionnée dans l'espace des hypothèses $\mathcal{H}$.
+	\item \textbf{Phase d'entrainement.} Phase dans laquelle on dispose d'un ensemble de données d'entrainement \textbf{(trainset en anglais)} constitué de variables prédictives et une variable cible \footnote{Les variables cibles peuvent aussi appeler \textit{étiquettes}}; les données d'entrainement proviennent des expériences antérieures. Durant cette étape l'algorithme d'apprentissage ne fait que d'apprendre à partir des exemples des données d'entrainement, il ne retourne aucune valeur. C'est pendant cette phase que la fonction d'hypothèse $h$ (ou fonction de prédiction) est sélectionnée dans l'espace des hypothèses $\mathcal{H}$. 
 	\item \textbf{Phase de prédiction.} Dans la prédiction, on a un ensemble de données test disponible où les valeurs cibles ne sont pas connues, ce sont ces valeurs qu'on doit les prédire. Dans ce cas la fonction de prédiction est utilisée pour retourner toutes les valeurs possibles de la variable cible et son entrée est l'ensemble des variables prédictives.
 \end{enumerate}
 
 Dans la pratique, quand nous obtenons les données il y a juste un seul ensemble de données, il n'y a pas de données d'entrainement et de données de test séparément. C'est la responsabilité du scientifique de données de répartir les données  au moment où il construit le modèle. Il est toujours recommandé de  répartir l'ensemble de données original car l'obtention de nouvelles données est toujours une tache difficile. Ca peut prendre plusieurs mois d'attente. Habituellement on conserve 80\% des données pour l'entrainement et 20\% pour le test. \\
 
-Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plus souple, nous prenons un échantillon de l'ensemble de données \guillemotleft California Housing Prices  \guillemotright\footnote{L'ensemble de données original est apparu dans R. Kelley Pace et Ronald Barry, “Sparse Spatial Autoregressions,” Statistics \& Probability Letters 33, no. 3 (1997): 291–297} qui contient des informations sur un ensemble de districts à Californie aux États-Unis, nous choisissons seulement cinq (5) enregistrements de cette base de données juste pour illustrer notre exemple, comme on peut remarquer à la table \ref{tab:CaliforniaHousingPrices}. Le but est de prédire le prix moyen du logement dans un district de Californie qui ne fait pas partie de cet ensemble de données. L'ensemble de données de la la table \ref{tab:CaliforniaHousingPricesTrain} est considéré comme un ensemble d'entrainement car toutes les valeurs \textit{median\_house\_value} sont connues. Tandis que dans la table \ref{tab:CaliforniaHousingPricesTest} est l'ensemble de données de test puisque les de  \textit{median\_house\_value} sont inconnues.
+Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plus souple, nous prenons un échantillon de l'ensemble de données \guillemotleft California Housing Prices  \guillemotright\footnote{L'ensemble de données original est apparu dans R. Kelley Pace et Ronald Barry, “Sparse Spatial Autoregressions,” Statistics \& Probability Letters 33, no. 3 (1997): 291–297} qui contient des informations sur un ensemble de districts à Californie aux États-Unis, nous choisissons seulement cinq (5) enregistrements de cette base de données juste pour illustrer notre exemple, comme on peut remarquer à la table \ref{tab:CaliforniaHousingPrices}. Le but est de prédire le prix moyen du logement dans un district de Californie qui ne fait pas partie de cet ensemble de données. L'ensemble de données de la la table \ref{tab:CaliforniaHousingPricesTrain} est considéré comme un ensemble d'entrainement car toutes les valeurs \textit{median\_house\_value} sont connues. Tandis que dans la table \ref{tab:CaliforniaHousingPricesTest} est l'ensemble de données de test puisque les de  \textit{median\_house\_value} sont inconnus.
 
 
 
@@ -368,7 +368,7 @@ Pour expliquer en clair ce qu'est l'apprentissage supervisé dans un langage plu
 	\label{tab:CaliforniaHousingPricesTest}
 \end{table}
 
-Dans cet exemple, l'ensemble des variables prédictives sont :  \textit{longitude, latitude, median\_income et la variable cible} ou l'étiquette est: \textit{median\_house\_value}. La matrice $X$ est définie de la manière suivante : \\
+Dans cet exemple, l'ensemble des variables prédictives sont :  \textit{longitude, latitude, median\_income} et la variable cible ou l'étiquette est: \textit{median\_house\_value}. La matrice $X$ est définie de la manière suivante : \\
 $ X=
 	\begin{pmatrix}
 		-122.23x_1 & 37.88x_2 & 8.3252x_3\\
@@ -377,20 +377,26 @@ $ X=
 		-122.25x_1 & 37.85x_2 & 5.6434x_3 \\
 		-122.25x_1 & 37.84x_2 & 3.8462x_3 \\
 	\end{pmatrix}
+	\text{et }
+	y=
+	\begin{bmatrix}
+		452600 \\
+		358500 \\
+		352100 \\
+		341300 \\
+		342200 \\
+	\end{bmatrix}
 $
+\\
+où $x_1$ représente longitude, $x_2$ latitude, $x_3$ median\_income et $y$ median\_house\_value; $m=5$ est le nombre d'observations (ou lignes) de l'ensemble de données; $n=4$ le nombre de variables prédictives. \\
 
-
-est le vecteur défini de la façon suivante : $\vec{X} = \begin{bmatrix}x_1, x_2, x_3, x_4  \end{bmatrix}$ où $x_1$ représente le code, $x_2$ la description, $x_3$ le type et $x_4$ la date d'expiration. La variable cible est la quantité vendue, c'est celle qu'on veut prédire. La matrice  $A_{5,4}$ est définie comme suit: \\
-$A_{5,4} =  
- \begin{pmatrix} 
- 	JO0000386 & Jus d'orange & Boissons & 25/03/2019 \\ 
- 	PT0000986 & Pâte de tomates & Cuisine & 14/12/2018 \\ 
- 	\end{pmatrix} 
-$
+Les données de la table \ref{tab:CaliforniaHousingPricesTrain} peuvent utilisées pendant la phase d'entrainement puisque les valeurs de la variable sont toutes connues. Tandis que les données de la table \ref{tab:CaliforniaHousingPricesTest} doivent utilisés pendant la phase de prédiction car les valeurs cibles sont inconnues. \\
 
 L'apprentissage supervisé, selon le type de sorties, est divisé en deux catégories de problèmes : problème de classification et problème de régression. La différence entre les deux se situe au niveau du type de problème à traiter. Dans la vie réelle, les problèmes sont diverses et différents les uns des autres mais une analyse prédictive aide à catégoriser les types de problèmes à traiter et déterminer quels types d'algorithmes supervisés à utiliser.  Dans les deux cadres de figure les entrées restent toujours les mêmes, il n'y a aucune distinction à ce niveau. Voyons un peu en détails les caractéristiques de chaque problème et pour pouvoir saisir la différence qui existe entre les deux.  
 
 \paragraph{Problème de classification.} Dans un problème de classification, les types de sorties qu'on traite sont des classes. Les classes sont des variables catégorielles ou discrètes, elles permettent de déterminer si un vecteur $x$ appartient à un catégorie de sortie. Par exemple, dans une base de données médicale contenant des informations des patients, on peut avoir une classe  \guillemotleft \textit{cancer} \guillemotright pour prédire si un patient d'une certaine région peut avoir le cancer ou non. Les algorithmes d'apprentissage qui résolvent des problèmes de classification sont appelés  \guillemotleft classifier \guillemotright. L'algorithme essaye d'attribuer chaque nouvelle entrée à une classe discrète appartenant au nombre $\mathbb{N}$ de classes. Classification est souvent séparé en classification binaire qui est le cas spécial de distinguer exactement deux classes (oui/non) et en classification multiclasse qui est la classification entre plus de deux classes. Dans l'exemple du cancer, c'est une classification binaire parce qu'il s'agit de dire oui ou non si un patient a du cancer. L'exemple d'iris \footnote{page de wikipedia sur iris : https://en.wikipedia.org/wiki/Iris\_flower\_data\_set} qui est un jeu de données basé sur 50 échantillons d'espèces est un exemple typique de la classification multiclasse. \cite{key41, key42}
+
+\paragraph{Problème de régression.} 
   
 
 
