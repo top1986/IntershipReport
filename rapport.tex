@@ -330,7 +330,7 @@ Pour continuer nous allons passer en revue les différents types de techniques d
 
 \subsection{Apprentissage supervisé}
 
-L'apprentissage supervisé est formellement défini comme une fonction $h:x \rightarrow y $ où $h \in \mathcal{H} $ est la fonction d'hypothèse produite par un apprenant qui est un algorithme d'apprentissage, et $\mathcal{H}$ est l'espace des hypothèses d'apprentissage; $x$ représente l'ensemble de données d'entrée de la fonction et $y$ détermine l'ensemble de données de sortie. Une autre définition possible de l'apprentissage supervisé est un couple d'échantillons d'entrée-sortie de la forme $(x^{(i)}, y^{(i)})$ où $x^{(i)}$ est la description d'un objet \footnote{Un objet est considéré comme une instance d'un ensemble de données, il peut être appelé aussi individu, observation, échantillon ou ligne.} dans un espace de représentation \footnote{L'espace de représentation est l'ensemble de données.}; $y^{(i)}$ est la sortie ou la variable cible\footnote{Une variable qu'on souhaite prédire} désirée de l'objet et $i$ est un index  défini sur l'intervalle  $1 \leq i \leq m$, où $m$ le nombre d'échantillons ou d'observations dans l'ensemble de données. Le nombre de variables prédictives \footnote{ L'ensemble de variables à partir desquelles on espère faire des prédictions} associées à une observation est noté comme un vecteur $\vec{x}=(x_1, \cdots, x_j)$ où $j$ est un index compris entre $1 \leq i \leq n$ et $n$ représente la taille des variables. \cite{key38, key40, key39}. Les $n$ variables décrivant les $m$ individus d'ensemble de données sont représentés dans ce qu'on appelle une matrice $X$ de dimensions $(m,n)$ définie de la manière suivante :   
+L'apprentissage supervisé est formellement défini comme une fonction $h:x \rightarrow y $ où $h \in \mathcal{H} $ est la fonction d'hypothèse produite par un apprenant qui est un algorithme d'apprentissage, et $\mathcal{H}$ est l'espace des hypothèses d'apprentissage; $x$ représente l'ensemble de données d'entrée de la fonction et $y$ détermine l'ensemble de données de sortie. Une autre définition possible de l'apprentissage supervisé est un couple d'échantillons d'entrée-sortie de la forme $(x^{(i)}, y^{(i)})$ où $x^{(i)}$ est la description d'un objet dans un espace de représentation; $y^{(i)}$ est la sortie ou la variable cible\footnote{Une variable qu'on souhaite prédire} désirée de l'objet et $i$ est un index  défini sur l'intervalle  $1 \leq i \leq m$, où $m$ le nombre d'échantillons ou d'observations dans l'ensemble de données. Le nombre de  variables prédictives associées à une observation est noté comme un vecteur $\vec{x}=(x_1, \cdots, x_j)$ où $j$ est un index compris entre $1 \leq i \leq n$ et $n$ représente la taille des variables. \cite{key38, key40, key39}. Les $n$ variables décrivant les $m$ individus d'ensemble de données sont représentés dans ce qu'on appelle une matrice $X$ de dimensions $(m,n)$ définie de la manière suivante :   
 
 $$ 
 	X=
@@ -355,6 +355,12 @@ y_m
 \end{pmatrix}
 $$ 
 
+Nous estimons qu'il est important de définir certaines terminologies à partir de cette définition :
+\begin{itemize}
+	\item \textbf{Objet.} Un objet est une instance d'un ensemble de données, on le nomme aussi individu, observation, échantillon ou ligne.
+	\item \textbf{Espace de représentation.} L'espace de représentation est l'ensemble de données.
+	\item \textbf{Variables prédictives.} L'ensemble de variables à partir desquelles on espère faire des prédictions.
+\end{itemize}
 
 Pour expliquer en clair cette définition, laissons-nous l'illustrer à travers un exemple en prenant un échantillon de l'ensemble de données \guillemotleft California Housing Prices \footnote{Cet ensemble de données est disponible sur ce site : https://www.kaggle.com/camnugent/california-housing-prices} \guillemotright. Cet ensemble de données original est développé par R. Kelley Pace et Ronald Barry \cite{key43}, il contient des informations sur un ensemble de districts à Californie aux États-Unis. Il a 10 colonnes et 20640 lignes de données, nous l'avons utilisé dans notre stage pour mettre en pratique les différents concepts appris de ML.  Pour illustrer notre exemple, nous choisissons seulement 5 enregistrements de cette base de données, 3 variables prédictives qui sont \textit{longitude, latitude, median\_income} et la variable cible qui est \textit{median\_house\_value}. Le but est de prédire le prix moyen du logement dans un nouveau district de Californie c'est-à-dire qui ne fait pas partie de cet ensemble de données. L'ensemble de données de la table \ref{tab:CaliforniaHousingPricesTrain} est considéré comme un ensemble d'entrainement car toutes les valeurs \textit{median\_house\_value} sont connues. Tandis que les données la table \ref{tab:CaliforniaHousingPricesTest} est l'ensemble de test puisque les valeurs de  \textit{median\_house\_value} sont inconnues.
    
@@ -447,7 +453,7 @@ Ce qui peut être écrit sous forme d'équations linéaires de la façon suivant
 	-122.25x_1 + 37.84x_2 + 3.8462x_3  = 342200
 \end{align*}
 
-La plupart des algorithmes supervisés sont linéaires c'est-à-dire leurs fonctions d'hypothèse $h$ sont une combinaison linéaire des variables prédictives qui est écrite de la forme: $\theta_1x_1 + \cdots + \theta_nx_n \equiv \Theta \cdot X$. $\vec{\Theta} $ est une vecteur défini de la façon suivante : $\vec{\Theta} = \theta_1, \cdots, \theta_n$ qui sont les différentes valeurs possibles de chaque variable. \\
+La plupart des algorithmes supervisés sont linéaires c'est-à-dire leurs fonctions d'hypothèse $h$ sont une combinaison linéaire des variables prédictives qui est écrite de la forme: $\theta_1x_1 + \cdots + \theta_nx_n \equiv \theta \cdot X$. Le vecteur $\vec{\theta} $ est défini de la façon suivante : $\vec{\theta} = \theta_1, \cdots, \theta_n$ qui sont les différentes valeurs possibles de chaque variable. \\
 La régression logistique et la classification logistique sont des algorithmes linéaires.    
 
 %Les données de la table \ref{tab:CaliforniaHousingPricesTrain} peuvent utilisées pendant la phase d'entrainement puisque les valeurs de la variable sont toutes connues. Tandis que les données de la table \ref{tab:CaliforniaHousingPricesTest} doivent utilisés pendant la phase de prédiction car les valeurs cibles sont inconnues. \\
@@ -515,6 +521,7 @@ Voyons comment  calculer quelques métriques de classification à partir de la m
 
 
 \subsubsection{Problème de régression.} 
+
   
 
 
