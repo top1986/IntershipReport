@@ -296,7 +296,7 @@ Pour conclure la section sur les sciences de données, la chose la plus importan
 
 Dans la section qui suit nous allons voir une brève introduction sur ce quoi le machine learning, ensuite un survol sur les concepts fondamentaux du ML et finalement nous nous concentrerons sur un sous-ensemble de concepts qui touchent notre projet, principalement le problème de classification. Nous n'aborderons pas dans ce rapport, la théorie sur l'exploration des données \textit{(data mining en anglais)}. Nous supposons que ceux qui lisent ce rapport ont déjà des notions élémentaires sur cette question, sinon vous pouvez consulter des documents les livres suivants : \guillemotleft Data mining and statistics for decision making \guillemotright écrit par Stephane Tuffery; \guillemotleft Principles of data mining \guillemotright  écrit par David Hand, Heikki Mannila et Padhraic Smyth.
 
-\section{Vue d'ensemble sur Machine Learning}
+\section{Vue d'ensemble sur Machine Learning} \label{section:ml}
 
 Dans la section précédente, nous avons pu y voir plus clair sur le cycle global de travail du data scientist. Nous allons maintenant parler du machine learning dans cette section, c'est à dire la modélisation des données. Nous utilisons le machine learning probablement des dizaines de fois par jour sans même le savoir. Chaque fois que nous effectuons une recherche Web sur Google ou Bing, cela fonctionne si bien c'est parce que leur logiciel de machine learning a trouvé comment classer les pages. Lorsque Facebook ou l'application photo d'Apple reconnaît nos amis dans nos images, c'est aussi du machine learning. Chaque fois que nous lisons notre courrier électronique et qu'un filtre anti-spam nous évite d'avoir à parcourir des tonnes de spam, c'est parce que nos ordinateurs ont appris à distinguer le spam du courrier non-spam. Donc, c'est du machine learning. En 1997, Tom Mitchell, dans son livre \guillemotleft Machine Learning \guillemotright a proposé une définition plus précise : 
 
@@ -330,7 +330,7 @@ Pour continuer nous allons passer en revue les différents types de techniques d
 
 \subsection{Apprentissage supervisé}
 
-L'apprentissage supervisé est formellement défini comme une fonction $h:x \rightarrow y $ où $h \in \mathcal{H} $ est la fonction d'hypothèse produite par un apprenant qui est un algorithme d'apprentissage, et $\mathcal{H}$ est l'espace des hypothèses d'apprentissage; $x$ représente l'ensemble de données d'entrée de la fonction et $y$ détermine l'ensemble de données de sortie. Une autre définition possible de l'apprentissage supervisé est un couple d'échantillons d'entrée-sortie de la forme $(x^{(i)}, y^{(i)})$ où $x^{(i)}$ est la description d'un objet dans un espace de représentation; $y^{(i)}$ est la sortie ou la variable cible\footnote{Une variable qu'on souhaite prédire} désirée de l'objet et $i$ est un index  défini sur l'intervalle  $1 \leq i \leq m$, où $m$ le nombre d'échantillons ou d'observations dans l'ensemble de données. Le nombre de  variables prédictives associées à une observation est noté comme un vecteur $\vec{x}=(x_1, \cdots, x_j)$ où $j$ est un index compris entre $1 \leq i \leq n$ et $n$ représente la taille des variables. \cite{key38, key40, key39}. Les $n$ variables décrivant les $m$ individus d'ensemble de données sont représentés dans ce qu'on appelle une matrice $X$ de dimensions $(m,n)$ définie de la manière suivante :   
+L'apprentissage supervisé est formellement défini comme une fonction $h:x \rightarrow y $ où $h \in \mathcal{H} $ est la fonction d'hypothèse produite par un apprenant qui est un algorithme d'apprentissage, et $\mathcal{H}$ est l'espace des hypothèses d'apprentissage; $x$ représente l'ensemble de données d'entrée de la fonction et $y$ détermine l'ensemble de données de sortie. La fonction d'hypothèse peut être aussi appelée fonction de prédiction, elle est sélectionnée de telle sorte qu'elle soit très rapprochée de l'ensemble de données.  Une autre définition possible de l'apprentissage supervisé est un ensemble de couples d'échantillons d'entrée-sortie de la forme $(x^{(i)}, y^{(i)})$ où $x^{(i)}$ est la description d'un objet dans un espace de représentation; $y^{(i)}$ est la variable cible désirée de l'objet; et $i$ est un index  défini sur l'intervalle  $1 \leq i \leq m$, où $m$ le nombre d'échantillons ou d'observations dans l'ensemble de données. Le nombre de  variables prédictives associées à une observation est noté comme un vecteur $\vec{x}=(x_1, \cdots, x_j)$ où $j$ est un index compris entre $1 \leq i \leq n$ et $n$ représente la taille des variables \cite{key38, key40, key39}. Les $n$ variables décrivant les $m$ individus de l'ensemble de données sont représentés sous la forme d'une matrice nommée $X$ de dimensions $(m,n)$ qui est définie de la manière suivante :   
 
 $$ 
 	X=
@@ -355,14 +355,15 @@ y_m
 \end{pmatrix}
 $$ 
 
-Nous estimons qu'il est important de définir certaines terminologies à partir de cette définition :
+Dans le but de faciliter la compréhension nous estimons qu'il est important de définir certains concepts utilisés dans cette définition :
 \begin{itemize}
 	\item \textbf{Objet.} Un objet est une instance d'un ensemble de données, on le nomme aussi individu, observation, échantillon ou ligne.
-	\item \textbf{Espace de représentation.} L'espace de représentation est l'ensemble de données.
-	\item \textbf{Variables prédictives.} L'ensemble de variables à partir desquelles on espère faire des prédictions.
+	\item \textbf{Espace de représentation.} L'espace de représentation représente l'ensemble de données.
+	\item \textbf{Variables prédictives.} L'ensemble de variables à partir desquelles on peut faire des prédictions.
+	\item \textbf{Variable cible.} C'est une variable  qu'on souhaite prédire.
 \end{itemize}
 
-Pour expliquer en clair cette définition, laissons-nous l'illustrer à travers un exemple en prenant un échantillon de l'ensemble de données \guillemotleft California Housing Prices \footnote{Cet ensemble de données est disponible sur ce site : https://www.kaggle.com/camnugent/california-housing-prices} \guillemotright. Cet ensemble de données original est développé par R. Kelley Pace et Ronald Barry \cite{key43}, il contient des informations sur un ensemble de districts à Californie aux États-Unis. Il a 10 colonnes et 20640 lignes de données, nous l'avons utilisé dans notre stage pour mettre en pratique les différents concepts appris de ML.  Pour illustrer notre exemple, nous choisissons seulement 5 enregistrements de cette base de données, 3 variables prédictives qui sont \textit{longitude, latitude, median\_income} et la variable cible qui est \textit{median\_house\_value}. Le but est de prédire le prix moyen du logement dans un nouveau district de Californie c'est-à-dire qui ne fait pas partie de cet ensemble de données. L'ensemble de données de la table \ref{tab:CaliforniaHousingPricesTrain} est considéré comme un ensemble d'entrainement car toutes les valeurs \textit{median\_house\_value} sont connues. Tandis que les données la table \ref{tab:CaliforniaHousingPricesTest} est l'ensemble de test puisque les valeurs de  \textit{median\_house\_value} sont inconnues.
+Pour expliquer en clair cette définition, laissons-nous l'illustrer à travers un exemple en prenant un échantillon de l'ensemble de données \guillemotleft \textit{California Housing Prices} \footnote{Cet ensemble de données est disponible sur ce site : https://www.kaggle.com/camnugent/california-housing-prices} \guillemotright. Cet ensemble de données a été implémenté par R. Kelley Pace et Ronald Barry \cite{key43}, il contient des informations sur les prix de plusieurs milliers de logements dans toutes les villes de Californie aux États-Unis. Il a 10 colonnes et 20640 lignes de données, nous l'avons utilisé dans notre stage pour mettre en pratique les différents concepts appris de ML.  Pour expliquer la définition, nous choisissons seulement 5 instances de cet ensemble de données, 3 variables prédictives ( \textit{longitude, latitude et median\_income}) et la variable cible qui est \textit{median\_house\_value}. Le problème d'apprentissage est de prédire le prix moyen d'un logement dans une ville de Californie. L'ensemble de données de la table \ref{tab:CaliforniaHousingPricesTrain} est considéré comme un ensemble d'entrainement car toutes les valeurs de la variable cible sont connues. Tandis que les données la table \ref{tab:CaliforniaHousingPricesTest} est l'ensemble de test puisque les valeurs de  \textit{median\_house\_value} sont inconnues.
    
 
 \begin{table}[h]
@@ -398,7 +399,7 @@ Pour expliquer en clair cette définition, laissons-nous l'illustrer à travers 
 	\label{tab:CaliforniaHousingPricesTest}
 \end{table}
 
-En suivant la définition que nous avons de l'apprentissage supervisé et en considérant les données de la table \ref{tab:CaliforniaHousingPricesTrain}, la matrice de données est écrite de la façon suivante :
+En suivant la définition de l'apprentissage supervisé et en considérant les données de la table \ref{tab:CaliforniaHousingPricesTrain}, la matrice de données peut être écrite de la façon suivante :
 $$ X=
 	\begin{pmatrix}
 		-122.23x_1 & 37.88x_2 & 8.3252x_3\\
@@ -409,7 +410,7 @@ $$ X=
 	\end{pmatrix}	
 $$
 
-et le vecteur $ \vec{y}$ de la façon suivante 
+et le vecteur $ \vec{y}$ de la façon suivante :
 
 $$
 	\vec{y}=
@@ -442,7 +443,6 @@ $$
 	342200 \\
 	\end{bmatrix}
 $$
-
 Ce qui peut être écrit sous forme d'équations linéaires de la façon suivante : 
 
 \begin{align*}
@@ -453,8 +453,8 @@ Ce qui peut être écrit sous forme d'équations linéaires de la façon suivant
 	-122.25x_1 + 37.84x_2 + 3.8462x_3  = 342200
 \end{align*}
 
-La plupart des algorithmes supervisés sont linéaires c'est-à-dire leurs fonctions d'hypothèse $h$ sont une combinaison linéaire des variables prédictives qui est écrite de la forme: $\theta_1x_1 + \cdots + \theta_nx_n \equiv \theta \cdot X$. Le vecteur $\vec{\theta} $ est défini de la façon suivante : $\vec{\theta} = \theta_1, \cdots, \theta_n$ qui sont les différentes valeurs possibles de chaque variable. \\
-La régression logistique et la classification logistique sont des algorithmes linéaires.    
+La plupart des algorithmes supervisés sont linéaires c'est-à-dire leurs fonctions d'hypothèse $h$ sont une combinaison linéaire des variables prédictives et elle est écrite de la forme: $\theta_1x_1 + \cdots + \theta_nx_n \equiv \theta \cdot X$. Le vecteur $\vec{\theta} $ est défini de la façon suivante : $\vec{\theta} = \theta_1, \cdots, \theta_n$ qui sont les différentes valeurs possibles de chaque variable prédictive. \\
+La régression logistique et la classification logistique sont des exemple d'algorithmes linéaires.    
 
 %Les données de la table \ref{tab:CaliforniaHousingPricesTrain} peuvent utilisées pendant la phase d'entrainement puisque les valeurs de la variable sont toutes connues. Tandis que les données de la table \ref{tab:CaliforniaHousingPricesTest} doivent utilisés pendant la phase de prédiction car les valeurs cibles sont inconnues. \\
 
@@ -521,57 +521,47 @@ Voyons comment  calculer quelques métriques de classification à partir de la m
 
 
 \subsubsection{Problème de régression.} 
-
-  
-
-
-
-
-
-
-
+Dans un problème de régression l'espace de sortie est formé par des valeurs continues. C'est le cas où l'espace de représentation $\mathcal{H}$ est un ensemble de fonctions $h$ à valeurs réelles. L'exemple que nous avons pris pour expliquer l'apprentissage supervisé est un problème de régression car les prix des logements sont des valeurs réelles. Établir la relation entre l'augmentation du prix d'un produit et sa demande, évaluer l'impact d'une campagne publicitaire en fonction des frais engagés sont d'autres exemples d'utilisation de la régression. La différence entre les problèmes de classification et de régression est la suivante: Dans la classification, la variable cible est qualitative c'est-à-dire c'est une variable à valeurs discrètes ou catégorielles tandis que dans la régression la variable cible est quantitative c'est une variable à valeurs continues. 
 
 \subsection{Apprentissage non supervisé}
  
-Quand le système ou l'opérateur ne disposent que d'exemples, mais non d'étiquettes, et que le nombre de classes et leur nature n'ont pas été prédéterminés, on parle d'apprentissage non supervisé ou clustering. Aucun expert n'est requis. L'algorithme doit découvrir par lui-même la structure plus ou moins cachée des données. Le partitionnement de données, data clustering en anglais, est un algorithme d'apprentissage non supervisé.\\
-Le système doit ici — dans l'espace de description (la somme des données) — cibler les données selon leurs attributs disponibles, pour les classer en groupe homogènes d'exemples. La similarité est généralement calculée selon une fonction de distance entre paires d'exemples. C'est ensuite à l'opérateur d'associer ou déduire du sens pour chaque groupe et pour les motifs (patterns en anglais) d'apparition de groupes, ou de groupes de groupes, dans leur « espace ». Divers outils mathématiques et logiciels peuvent l'aider. On parle aussi d'analyse des données en régression (ajustement d'un modèle par une procédure de type moindres carrés ou autre optimisation d'une fonction de coût). Si l'approche est probabiliste (c'est-à-dire que chaque exemple, au lieu d'être classé dans une seule classe, est caractérisé par un jeu de probabilités d'appartenance à chacune des classes), on parle alors de « soft clustering » (par opposition au « hard clustering »).\\
-Cette méthode est souvent source de sérendipité(le fait de réaliser une découverte scientifique ou une invention technique de façon inattendue à la suite d'un concours de circonstances fortuit )\\
-ex. : Pour un épidémiologiste qui voudrait dans un ensemble assez large de victimes de cancer du foie tenter de faire émerger des hypothèses explicatives, l'ordinateur pourrait différencier différents groupes, que l'épidémiologiste chercherait ensuite à associer à divers facteurs explicatifs, origines géographique, génétique, habitudes ou pratiques de consommation, expositions à divers agents potentiellement ou effectivement toxiques (métaux lourds, toxines telle que l'aflatoxine, etc.) \cite{key13}.
-
-\subsection{Training Set and Test Set}
-Dans l'apprentissage automatique, un jeu de données universel inconnu est supposé exister, qui contient toutes les paires de données possibles ainsi que leur distribution de probabilité d'apparition dans le monde réel. Alors que dans les applications réelles, ce que nous avons observé est seulement un sous-ensemble de l'ensemble de données universel en raison du manque de mémoire ou d'un autre inévitable les raisons. Cet ensemble de données acquises s'appelle l'ensemble d'apprentissage \textbf{(Training Set)} et est utilisé pour apprendre les propriétés et la connaissance de l'ensemble de données universel. Afin d'examiner la performance de l'apprentissage, un autre ensemble de données peut être réservé pour le test, appelé ensemble de test ou données de test \textbf{(Test Set)} \cite{key15}.\\
-%\begin{itemize}
-%\item Dataset étiqueté: $\mathbb{D}: X = \{x^{(n)} \in \mathbb{R}^ $ 
-%\end{itemize}
-
-
-Le machine learning est un champ d'études vaste, c'est un domaine de recherche. Dans ce rapport nous ne pouvons pas aborder tous les concepts découlant du machine learning mais nous allons considérer un sous-ensemble de concepts que nous avons utilisés pour le développement de notre projet. Dans notre cas, c'est un problème de classification qui fait partie de l'apprentissage supervisé. C'est comme l'exemple des courriers spam et anti-spam que nous avons pris dans l'introduction de cette section. Le problème est de décider est-ce que le patient doit retourner chez lui ou s'il doit rester à l'hôpital après une arthoplastie. Si la réponse est vraie le patient reste à l'hôpital sinon il retourne chez lui. Il faut toujours garder en esprit que cette décision est importante pour un centre orthopédique car elle peut réduire ou augmenter le coût budgétaire.   
+ L'apprentissage supervisé est une tache de machine learning qui consiste à inférer une fonction qui décrit la structure des données à variables non-étiquetées c'est-à-dire il n'y a pas de variable cible, toutes les données sont équivalentes (il n'y a que de variables d'entrées, pas de sortie); dans ce cas les algorithmes cherchent à organiser les données en groupes (\textbf{Clusters en anglais}). Chaque groupe doit comprendre des données similaires et les données distincts doivent se retrouver dans des groupes distincts. S'il existe la possibilité de trouver un partitionnement (\textbf{Clustering en anglais}) tel que les similarités des objets dans un groupe sont beaucoup plus grands que les autres groupes, on peut considérer que l'ensemble d'entrainement peut être représenté par un seul groupe structuré.  La similarité entre les objets est généralement calculée selon une fonction de distance entre les couples d'échantillons. Les possibilités d'application de l'apprentissage non-supervisé sont nombreuses, par exemple on peut analyser une base de données marketing pour grouper les clients qui ont des comportements similaires auxquels on pourrait adresser des campagnes commerciales personnalisées. D'autres cas d'application serait le traitement des images, la segmentation des textes, la détection d'une anomalie dans les systèmes de contrôle entre autres.  \cite{key41, key44}\\
+ 
+ Deux approches sont proposées pour partitionner un ensemble de données de façon automatique :
+ \begin{enumerate}
+ 	\item \textbf{Partitionnement hiérarchique.} C'est une approche qui consiste à repartir un ensemble de données dans une suite de groupes emboités les uns dans les autres; dans ce cas les relations entre les groupes sont représentés dans une structure arborescente. Plus on est plus bas dans l'arbre, plus les objets se ressemblent. Cette méthode est applicable lorsqu'on ne connait pas à l'avance le nombre de groupes à former.
+ 	\item \textbf{Partitionnement non-hiérarchique.} Les instances de l'ensemble des données sont réparties en un nombre $k$ de classes. $k$ étant une valeur fixée à l'avance. 
+ \end{enumerate}  
+ 
+ Dans les deux approches une bonne classification (\textbf{clustering en anglais}) est réussie quand les groupes ont une forte similarité intraclasses (c'est-à-dire les objets d'un même groupe doivent se ressembler) et une fiable similarité interclasses (c'est-à-dire les objets d'un groupe distinct ne doivent pas se ressembler). \cite[p.~86]{key44}
 
 
-\section{Classes déséquilibrées}
+   
+\subsection{Classes déséquilibrées}
 
-Nous terminerons le chapitre sur la classification en abordant un sujet très important en machine learning, surtout dans le problème de la classification qui est "\textit{Jeux de données déséquilibré}" \textbf{(Imbalanced datasets or Imbalanced Classification or Imbalanced Classes, ses appellations en anglais)}. C'est un problème très commun en machine learning, spécialement en classification. Nous abordons ce sujet parce que c'était l'une des principales difficultés de notre projet. \\
+Nous terminerons la section \ref{section:ml} sur le machine learning en abordant un sujet très important en machine learning, surtout dans un problème de la classification qui est "\textit{Jeux de données déséquilibré}" \textbf{(Imbalanced datasets or Imbalanced Classification or Imbalanced Classes, ses différentes appellations en anglais)}. C'est un problème très commun en machine learning, spécialement en classification. Nous abordons ce sujet parce que c'était l'une des principales difficultés de notre projet. \\
 
 Une distribution de classe déséquilibrée est un scénario où le nombre d'observations appartenant à une classe est significativement inférieur à celui des autres classes. 
 Ce problème prédomine dans les cas où la détection d'anomalies est cruciale comme le vol d'électricité, les transactions frauduleuses dans les banques, l'identification de maladies rares, etc. Dans ce cas, le modèle prédictif développé avec des algorithmes conventionnels pourrait être biaisé et inexact.\\
-Cela arrive parce que les algorithmes d'apprentissage automatique sont généralement conçus pour améliorer la précision en réduisant l'erreur. Ainsi, ils ne tiennent pas compte de la répartition / proportion des classes ou de l'équilibre des classes \cite{key19}.\\
+Cela arrive parce que les algorithmes d'apprentissage automatique sont généralement conçus pour améliorer la précision en réduisant l'erreur. Ainsi, ils ne tiennent pas compte de la répartition / proportion des classes ou de l'équilibre des classes .\\
 
-Plusieurs techniques ont été proposées pour manipuler les classes déséquilibrées. Voyons un bref résumé de quelques-unes d'entre elles  \cite{key19}:
-\subsection{Random Under-Sampling:}
-Le Random Under-Sampling vise à équilibrer la distribution des classes en éliminant de manière aléatoire les exemples de classes majoritaires. Ceci est fait jusqu'à ce que les instances de la majorité et de la classe minoritaire soient équilibrées.
-\subsection{Random Over-Sampling:}
-Le Random Over-Sampling augmente le nombre d'instances dans la classe minoritaire en les reproduisant aléatoirement afin de présenter une représentation plus élevée de la classe minoritaire dans l'échantillon.
-\subsection{Cluster-Based Over Sampling:}
-Dans ce cas, l'algorithme de clustering K-means est appliqué indépendamment aux instances de classe minoritaire et majoritaire. Cela permet d'identifier les clusters dans l'ensemble de données. Par la suite, chaque grappe est suréchantillonnée de sorte que tous les clusters de la même classe ont un nombre égal d'instances et toutes les classes ont la même taille.
-\subsection{Synthetic Minority Over-sampling Technique(SMOTE):}
+Jason V. Hulse et al. \cite{key45} ont proposé plusieurs techniques permettant de manipuler les classes déséquilibrées. Voyons un bref résumé de quelques-unes d'entre elles:
+
+\begin{itemize}
+\item \textbf{Sous-échantillonnage aléatoire.} Le sous-échantillonnage aléatoire (\textbf{Random Undersampling, en anglais})  vise à équilibrer la distribution des classes en éliminant de manière aléatoire les exemples de classes majoritaires. Ceci est fait jusqu'à ce que les instances de la majorité et de la classe minoritaire soient équilibrées.
+\item \textbf{Sur-échantillonnage aléatoire.} Le sur-échantillonnage aléatoire (\textbf{Random Over-Sampling, en anglais}) augmente le nombre d'instances dans la classe minoritaire en les reproduisant aléatoirement afin de présenter une représentation plus élevée de la classe minoritaire dans l'échantillon.
+\item \textbf{Suréchantillonnage en groupe (Cluster-Based Over Sampling, en anglais).}
+Dans cette technique, l'algorithme de clustering K-means est appliqué indépendamment aux instances de classe minoritaire et majoritaire. Cela permet d'identifier les clusters dans l'ensemble de données. Par la suite, chaque grappe est suréchantillonnée de sorte que tous les clusters de la même classe ont un nombre égal d'instances et toutes les classes ont la même taille.
+\item \textbf{Synthetic Minority Over-sampling Technique(SMOTE):}
 Cette technique est suivie pour éviter le surapprentissage qui se produit lorsque des répliques exactes d'instances minoritaires sont ajoutées à l'ensemble de données principal. Un sous-ensemble de données est pris à partir de la classe minoritaire à titre d'exemple, puis de nouvelles instances similaires synthétiques sont créées. Ces instances synthétiques sont ensuite ajoutées à l'ensemble de données d'origine. Le nouvel ensemble de données est utilisé comme un échantillon pour former les modèles de classification.
-\subsection{Modified synthetic minority oversampling technique (MSMOTE):}
-C'est une version modifiée de SMOTE. SMOTE ne tient pas compte de la distribution sous-jacente de la classe minoritaire et des bruits latents dans l'ensemble de données. Pour améliorer les performances de SMOTE, une méthode modifiée MSMOTE est utilisée.\\
+\item \textbf{Modified synthetic minority oversampling technique (MSMOTE):}
+C'est une version modifiée de SMOTE. SMOTE ne tient pas compte de la distribution sous-jacente de la classe minoritaire et des bruits latents dans l'ensemble de données. Pour améliorer les performances de SMOTE, une méthode modifiée MSMOTE est utilisée.
+\end{itemize}
 
-Dans notre projet nous avons opté pour la technique de SMOTE parce qu'elle permet d'atténuer le problème de sur-adaptation \textbf{(overfitting en anglais)} causé par le sur-échantillonnage aléatoire \textbf{(random oversampling, en anglais)} \\
+
 
 \section{Conclusion}
-Le chapitre 2 a présenté une vue générale sur les différents concepts utilisés en sciences de données et en machine learning. On a donné une brève définition de chaque concept tout en essayant d'être le plus clair et précis possible. Nous avons vu un sous-ensemble de ces concepts car ces champs d'études sont très vastes et contiennent beaucoup de choses intéressantes, mais nous avons mis accent sur ce qui nous intéresse pour notre projet. Par exemple notre projet est un problème de classification en machine learning, pour cela nous avons dédié une section à l'étude brève de classification. Aussi notre dataset est déséquilibré, par conséquent nous avons eu une section qui montre comment manipuler les classes déséquilibrées et les différentes techniques de manipulation. Le chapitre 3 qui suit présentera les détails techniques de notre projet, le but est de faire sortir les différentes étapes que nous avons suivies pour arriver à un produit fini et utilisable.
+Le chapitre 2 a présenté une vue approche théorique de quelques grands concepts de machine learning et de sciences de données, ceux que nous jugeons être importants pour la réalisation de notre projet. Nous avons donné une brève définition de chaque concept tout en essayant d'être le plus clair et précis possible. Nous avons vu un sous-ensemble de sujets importants des différents concepts puisque ces champs d'études sont très vastes et contiennent beaucoup de choses intéressantes, mais nous avons mis accent sur ce qui nous intéresse pour notre projet. Par exemple notre projet est un problème de classification en machine learning, pour cela nous avons dédié une section à une étude brève du problème de classification Tout en ayant le soin de définir et d'expliquer les thèmes les plus pertinents. Aussi notre dataset est déséquilibré, par conséquent nous avons mis l'accent sur c'est quoi les classes déséquilibrées et les différentes techniques permettant de les manipuler. Le chapitre 3 qui suit présentera les détails techniques de notre projet, le but est de faire sortir les différentes étapes que nous avons suivies pour arriver à un produit fini et utilisable.
 
  
 
@@ -604,32 +594,37 @@ Le chapitre 2 a présenté une vue générale sur les différents concepts utili
 \chapter{Approche: Construction du modèle machine learning}
 \section{Introduction}
 
-Le développement du modèle est la première grande phase de l'implémentation de notre solution. Le modèle estimateur (meilleur modèle entrainé en fonction de notre ensemble de données) va être utilisé pour introduire la deuxième phase, celle de la création de l'API Ortho. Comme nous avons déjà vu dans l'introduction le diagramme de cas d'utilisation du système machine learning. Nous proposons maintenant un diagramme de classe (figure \ref{MLClassDiag}) qui répond aux différentes exigences que nous avons décrites. Nous tenons à souligner que dans notre diagramme de classe nous ne prenons pas en compte les classes prédéfinies dans les librairies de Python. Par exemple le \textbf{DataFrame} est une classe prédéfinie dans la librairie \textbf{pandas}. Nous l'utilisons dans notre classe \textbf{Gather} mais elle n'est pas définie dans notre diagramme de classe.  \\ 
+La construction d'un modèle de machine learning est la première grande phase dans l'implémentation de notre solution. Le modèle estimateur (meilleur modèle entrainé en fonction d'un ensemble de données) va être utilisé pour introduire la deuxième phase, celle de la création de l'API \textit{Ortho}. Comme nous avons déjà vu dans l'introduction le diagramme de cas d'utilisation du système machine learning. Nous proposons maintenant un diagramme de classe (figure \ref{MLClassDiag}) qui répond aux différentes exigences que nous avons décrites. Nous tenons à souligner que dans notre diagramme de classe nous ne prenons pas en compte les classes prédéfinies dans les librairies de Python. Par exemple le \textbf{DataFrame} est une classe prédéfinie dans la librairie \textbf{pandas}. Nous l'utilisons dans notre classe \textbf{Gather} mais elle n'est pas définie dans notre diagramme de classe.  \\ 
 
-Dans notre projet, le problème est un problème de classification binaire parce qu'on doit décider si oui ou non le patient reste à l'hôpital après une intervention chirurgicale. Si le patient reste, la valeur de la classe est positive (c'est-à-dire 1), s'il ne reste pas ou il est renvoyé, la valeur de la classe est négative (c'est-à-dire 0).
+Dans notre projet, le problème d'apprentissage est un problème de classification parce que notre variable cible est une étiquette discrète et c'est binaire parce qu'on doit décider si oui ou non le patient reste à l'hôpital après une intervention chirurgicale. Si le patient reste, la valeur de la classe est positive (c'est-à-dire 1), s'il ne reste pas ou il est renvoyé, la valeur de la classe est négative (c'est-à-dire 0). Puisque dans la majorité des cas les médecins ne gardent pas les patients à l'hôpital après l'arthroplastie, alors notre ensemble de données est déséquilibré. Plus de 80\% des patients sont retournés à la maison. C'est normal parce que s'ils restent, les coûts sont couverts par l'hôpital. Constatant ce déséquilibre, nous sommes obligés d'appliquer une technique de re-échantillonnage afin d'éviter que notre modèle soit biaisé.  Nous avons opté d'équilibrer notre ensemble de données en appliquant la technique \textit{SMOTE} parce qu'elle a l'avantage d'atténuer le problème de sur-adaptation causé par le sur-échantillonnage aléatoire. Ce dernier est une technique traditionnelle qui a beaucoup d'inconvénients dont nous ne traitons pas dans ce rapport. Si vous voulez avoir plus de connaissances sur ces techniques, vous pouvez lire ces articles \cite{key45, key23, key29}. \\
 
 %Pour développer notre projet, nous avons fait le cycle complet d'un data scientist. Depuis l'obtention des données jusqu'au déploiement d'un système en production. Dans ce chapitre nous allons parcourir toutes les étapes du développement de notre projet. Chaque section représente une étape du projet. Il peut y avoir de petites définitions pour éclairer certains thèmes que nous n'avons pa pu aborder dans le chapitre sur le \textbf{Contexte Théorique}.
 
 
-Dans les sections qui suivent nous allons voir les différentes étapes d'implémentation de notre système machine learning. Nous commençons d'abord par l'obtention des données, pour ensuite les explorer, ensuite les nettoyer, les transformer et enfin les modéliser. 
+Dans les sections qui suivent nous allons voir les différentes étapes d'implémentation de notre modèle machine learning. Nous commençons d'abord par l'obtention des données, pour ensuite continuer avec la visualisation, le nettoyage, la transformation et enfin la modélisation. Ce qui donne quasiment le cycle complet d'un travail de scientifique de données.
 
 \begin{figure}[p]
 \includegraphics[width=13cm, height=19cm]{images/MLClassDiag.png}
-\caption{Class diagram of our machine learning system}
+\caption{Diagramme de classe de notre modèle machine learning}
 \label{MLClassDiag}
 \end{figure}
 \newpage
 
 
 \section{Obtention des données}
-Nos données proviennent du département orthopédique de l'université de Seattle, Washington, États-Unis. Elles sont au nombre de 2718 files et 92 colonnes. Nous les utilisons comme données historiques (\textit{historical data, en anglais}) dans le cadre du développement de notre modèle de machine learning. 
-Une fois qu'on décide à attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant.\\ 
+Une fois qu'on décide d'attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant. D'après la définition de machine learning de Tom Mitchell qu'on a vue à la section \ref{section:ml}, l'expérience $E$ constitue la source des connaissance. Suivant cette définition pour qu'il y ait l'apprentissage, il faut disposer d'une source de données.\\   
 
-Les données que nous utilisons dans ce projet proviennent de la compagnie pour laquelle nous faisons le stage. Cette dernière les avait obtenues de l'université Seattle, Washington, USA. Les données sont disponibles dans un fichier d'extension csv et hébergées sur le serveur de la compagnie. Par conséquent, nous avons un accès direct aux données sans avoir besoin de les télécharger à partir d'un dépôt de Machine Learning. \\
+Nos données proviennent du département orthopédique de l'université de Seattle, Washington, États-Unis. Elles sont au nombre de 2718 lignes et 92 colonnes. C'est un ensemble de données orthopédique très sensible. Ces données ne sont pas accessibles au public, elles sont hautement confidentielles; pour avoir accès à ces données nous avons signé un contrat de confidentialité dont la clause est de sauvegarder secrètement ces données. En général les bases de données médicales sont des données privées et extrêmement sensibles; d'après la loi sur la protection des informations privées, on ne peut pas accéder à ces données sans l'autorisation des ses propriétaires. \\
 
-Comme vous pouvez remarquer dans la classe diagramme du machine learning (figure \ref{MLClassDiag}), on a implémenté un classe nommant \textbf{Gather}. Celle-ci nous permet d'obtenir les données brutes à travers la méthode \textbf{read} qui prend en paramètre un nom de fichier (\textbf{filename}) et un séparateur (\textbf{sep}). Le fichier contient toutes les données disponibles pour la construction du modèle et le séparateur permet de préciser comment les colonnes sont séparées entre elles, dans notre cas c'est un point virgule (\textbf{;}) qui les sépare.
+Avant de nous donner accès à ces données, on a supprimé toutes les informations personnelles du patient sauf son âge qui est une donnée pertinent pour l'analyse prédictive. Les données personnelles qu'on a supprimées sont entre autres : le nom, le prénom et l'adresse complète. L'objectif est de protéger le plus possible les informations des patients. \\
 
-Après avoir obtenu les données, il faut maintenant les explorer pour avoir des idées claires sur l'ensemble des données. La section suivante est l'étape d'exploration des données, les données obtenues à la classe Exploration de données. 
+L'ensemble de données est hébergé sur le serveur de la compagnie pour laquelle je fais mon stage et il est disponible dans un fichier de format \textit{csv}. La compagnie les a obtenues de l'université Seattle, assurément après une entente entre les deux entités. Nous avons eu un accès direct au serveur pour pouvoir télécharger ces données et les utiliser pour construire notre modèle.\\
+
+Nous avons divisé notre ensemble de données en deux parties : un ensemble d'entrainement et un ensemble de test. 80\% de l'ensemble des données est conservé pour la phase d'entrainement et 20\% pour la phase de prédiction. La plus grande difficulté c'est que l'ensemble de données est peu nombreux pour construire un modèle prédictif hautement performant. En ML plus les données sont nombreuses, plus on est capable de construire de bon modèle. \\
+
+Comme vous pouvez remarquer dans la classe diagramme du machine learning (figure \ref{MLClassDiag}), on a implémenté un classe nommant \textit{Gather}. Celle-ci nous permet d'obtenir les données brutes à travers la méthode \textit{read} qui prend en paramètre une chaine qui contient le chemin et nom de fichier (\textit{filename}) et un séparateur (\textbf{sep}). Le fichier contient toutes les données disponibles pour la construction du modèle et le séparateur permet de préciser comment les colonnes sont séparées entre elles, dans notre cas c'est un point virgule (\textit{;}) qui les sépare.\\
+
+Après avoir obtenu ces données, nous devons maintenant les explorer pour avoir des idées claires sur l'ensemble des données. La section suivante est l'étape d'exploration des données, les données obtenues sont transférées à la classe Exploration de données. 
 
 \section{Exploration des données}
 
