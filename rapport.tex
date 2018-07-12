@@ -679,7 +679,7 @@ Variable cible & Discharge\\
 
 \paragraph*{ Variables discrètes.} Ce sont les variables qui viennent sous forme de texte. Plus loin dans la section de la transformation, nous convertirons ces variables en données numériques car la majorité des algorithmes de machine learning ne reconnaissent pas les données discrètes ou textuelles.
 
-\paragraph*{ Variable cible.} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. \\
+\paragraph*{ Variable cible.} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. Comme nous avons vu l'étiquette est une variable très importante pour les algorithmes supervisés car elle permet d'évaluer la valeur de sortie d'une décision. Dans notre cas c'est le \textit{Discharge} qui est notre variable cible, elle permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. \\
 
 \begin{table}[h]
 \centering
@@ -706,11 +706,9 @@ Variable cible & Discharge\\
 La table \ref{tab:target}, quant à elle, c'est la représentation de notre variable target value. Dans le dataset, elle s'appelle \textit{Discharge}. On peut remarquer que les classes positives sont significativement plus nombreuses que les classes négatives, ce qui produit un déséquilibre au niveau du dataset. Nous avons déjà discuté dans la section\textit{ "Classes déséquilibrées"}, les différentes techniques pour équilibrer les classes déséquilibrées.
 
 \subsection{Correlation entre les données}
-Nous terminons la section d'exploration de données avec les corrélations. Les corrélations nous permettent d'examiner les relations entre les entités numériques et d'autres entités numériques \textbf{(Numerical features en anglais)}. La corrélation est une valeur comprise entre -1 et 1 qui représente à quel point deux entités se déplacent à l'unisson \cite{key20}. \\
+Nous terminons la section d'exploration de données avec les corrélations. Les corrélations nous permettent d'examiner les relations entre les variables numériques de notre ensemble de données. La corrélation est une valeur comprise entre -1 et 1 qui représente à quel point deux entités se déplacent à l'unisson. Deux variables sont positivement corrélés lorsque l'une augmente et l'autre augmente aussi. Par exemple, Le BMI d'un patient et son poids\textbf{ (Weight dans le dataset)} sont positivement corrélés, ce qui veut dire le BMI n'augmente que lorsque son poids augmente.\\
 
-Une corrélation positive signifie que lorsqu'une caractéristique augmente, l'autre augmente. Par exemple. Le BMI d'un patient et son poids\textbf{ (Weight dans le dataset)}.\\
-
-La corrélation négative signifie que lorsqu'une caractéristique augmente, l'autre diminue. Par exemple. heures consacrées à l'étude et nombre de participants. Les corrélations proches de -1 ou 1 indiquent une relation forte. Les plus proches de 0 indiquent une relation faible. 0 indique aucune relation.
+Dans la corrélation négative, lorsqu'une variable augmente, l'autre diminue. Par exemple, quand l'âge du patient augmente son poids diminue. Les corrélations proches de -1 ou 1 indiquent une relation forte entre les variables. Les plus proches de 0 indiquent qu'il y a une relation faible. 0 indique qu'il n'y aucune relation.
 
 \begin{figure}[h]
 \includegraphics[width=17.5cm, height =7cm]{images/correlation.png}
@@ -718,11 +716,11 @@ La corrélation négative signifie que lorsqu'une caractéristique augmente, l'a
 \label{fig:correlation}
 \end{figure}
 
-La figure \ref{fig:correlation} nous donne une idée comment nos variables sont corrélées entre elles. Par exemple, le poids \textbf{ (Weight dans le dataset)} et le \textbf{BMI} ont une correlation de 0.81 très proche de 1. On peut déduire que les patients qui ont leur BMI plus élevé sont les plus pesants. L'objectif de la correlation est de gagner en intuition sur les données, ce qui nous aidera tout au long du flux de travail.\\ 
+La figure \ref{fig:correlation} nous donne une idée comment nos variables sont corrélées entre elles. Par exemple, le poids \textbf{ (Weight dans le dataset)} et le \textbf{BMI} ont une corrélation de 0.81 très proche de 1, c'est-à-dire qu'ils sont fortement relationnés. Nous pouvons déduire que les patients qui ont leur BMI plus élevé sont les plus pesants. L'objectif de la correlation est de gagner en intuition sur les données, ce qui nous aidera tout au long du flux de travail.\\ 
 
-Pour calculer la correlation, nous avons utilisé la méthode \textbf{corr} de  la classe \textbf{Explore}. Nous avons passé un peu de style comme paramètre pour avoir les couleurs.  \\
+Pour calculer la corrélation, nous avons utilisé la méthode \textbf{corr} de  la classe \textbf{Explore} de notre diagramme de classes. Nous avons passé un peu de style en paramètre pour avoir les couleurs.  \\
  
-Après avoir exploré les données et acquérir suffisamment de connaissance sur notre ensemble de données, c'est le temps maintenant de les nettoyer. La section qui suit montre comment nous avons procédé pour nettoyer notre dataset.
+Après avoir exploré les données et acquérir suffisamment de connaissance sur notre ensemble de données, c'est le temps maintenant de les nettoyer. La section qui suit montre comment nous avons procédé pour nettoyer notre ensemble de données.
 
 \section{Nettoyage des données}
 Le nettoyage des données \textbf{(Data cleaning en anglais)} est l'une de ces choses que tout le monde fait mais dont personne ne parle vraiment. Bien sûr, ce n'est pas la partie la plus intéressante de l'apprentissage automatique. Et non, il n'y a pas de trucs cachés et de secrets à découvrir.
