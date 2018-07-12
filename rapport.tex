@@ -525,7 +525,15 @@ Dans un problème de régression l'espace de sortie est formé par des valeurs c
 
 \subsection{Apprentissage non supervisé}
  
- L'apprentissage supervisé est une tache de machine learning qui consiste à inférer une fonction qui décrit la structure des données à variables non-étiquetées c'est-à-dire il n'y a pas de variable cible, toutes les données sont équivalentes (il n'y a que de variables d'entrées, pas de sortie); dans ce cas les algorithmes cherchent à organiser les données en groupes (\textbf{Clusters en anglais}). Chaque groupe doit comprendre des données similaires et les données distincts doivent se retrouver dans des groupes distincts. S'il existe la possibilité de trouver un partitionnement (\textbf{Clustering en anglais}) tel que les similarités des objets dans un groupe sont beaucoup plus grands que les autres groupes, on peut considérer que l'ensemble d'entrainement peut être représenté par un seul groupe structuré.  La similarité entre les objets est généralement calculée selon une fonction de distance entre les couples d'échantillons. Les possibilités d'application de l'apprentissage non-supervisé sont nombreuses, par exemple on peut analyser une base de données marketing pour grouper les clients qui ont des comportements similaires auxquels on pourrait adresser des campagnes commerciales personnalisées. D'autres cas d'application serait le traitement des images, la segmentation des textes, la détection d'une anomalie dans les systèmes de contrôle entre autres.  \cite{key41, key44}\\
+ L'apprentissage supervisé est une tache de machine learning qui consiste à inférer une fonction qui décrit la structure des données à variables non-étiquetées c'est-à-dire il n'y a pas de variable cible, toutes les données sont équivalentes (il n'y a que de variables d'entrées, pas de sortie); dans ce cas les algorithmes cherchent à organiser les données en groupes (\textbf{Clusters en anglais}). Chaque groupe doit comprendre des données similaires et les données distincts doivent se retrouver dans des groupes distincts. S'il existe la possibilité de trouver un partitionnement (\textbf{Clustering en anglais}) tel que les similarités des objets dans un groupe sont beaucoup plus grands que les autres groupes, on peut considérer que l'ensemble d'entrainement peut être représenté par un seul groupe structuré.  La similarité entre les objets est généralement calculée selon une fonction de distance entre les couples d'échantillons. La distance communément utilisée est la distance euclidienne définie de la cette manière:
+ \begin{align*}
+ \text{Soit une matrice } X  \text{ à } n \text{ variables quantitatives } \\
+ \text{Soient deux échantillons } (x_1, x_2) \\
+ \text{La distance euclidienne est calculée par la formule suivante:}\\
+ d(x_1,x_2) = \sqrt{\sum_{j=1}^{n} (x_{1n}-x_{2n})}
+ \end{align*} 
+ 
+ Les possibilités d'application de l'apprentissage non-supervisé sont nombreuses, par exemple on peut analyser une base de données marketing pour grouper les clients qui ont des comportements similaires auxquels on pourrait adresser des campagnes commerciales personnalisées. D'autres cas d'application serait le traitement des images, la segmentation des textes, la détection d'une anomalie dans les systèmes de contrôle entre autres.  \cite{key41, key44}\\
  
  Deux approches sont proposées pour partitionner un ensemble de données de façon automatique :
  \begin{enumerate}
@@ -628,18 +636,13 @@ Après avoir obtenu ces données, nous devons maintenant les explorer pour avoir
 
 \section{Exploration des données}
 
-Le but de l'analyse exploratoire est de «connaître» l'ensemble de données. Si vous le faites à l'avance, le reste du projet sera beaucoup plus fluide, de trois façons principales \cite{key20}:
-\begin{enumerate}
-\item Vous obtiendrez des conseils précieux pour le nettoyage des données \textbf{(Data Cleaning en anglais)} qui peuvent faire ou défaire vos modèles.
-\item Vous penserez à des idées pour l'ingénierie des fonctionnalités \textbf{(Feature Engineering en anglais)} qui peuvent prendre vos modèles de bonne à grande.
-\item Vous obtiendrez une «idée» de l'ensemble de données, ce qui vous aidera à communiquer les résultats et à avoir un impact plus important.
-\end{enumerate}
+L'analyse exploratoire est une technique permettant de visualiser l'ensemble de données dans le but d'en prendre connaissance. Elles permettent de déterminer les relations qui existent entre les variables de notre ensemble de données.  L'intérêt de la visualisation est de détecter les valeurs aberrantes et vérifier certaines hypothèses avant de choisir notre modèle comme la linéarité de certaines valeurs. Nous faisons cette démarche à l'avance parce que nous voulons obtenir de précieux conseils pour le nettoyage de données et aussi avoir des idées claires pour l'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)}.  \\
 
-Pour l'analyse exploratoire de nos données, Tout d'abord, nous commençons par une analyse basique de l'ensemble de nos données \textbf{(dataset in english)}. La table \ref{tab:dataset} donne une description de notre dataset utilisé pour notre projet et la figure \ref{fig:samplesdataset} donne une vue de notre ensemble de données, leur représentation, et leurs valeurs possibles. Si nous nous référons à notre classe diagramme \ref{MLClassDiag}), c'est l'attribut info de la classe Explore qui nous fournit les informations sur notre dataset. La méthode head nous retourne les cinq premières lignes du jeu de données.
+Pour l'analyse exploratoire de notre ensemble données, Tout d'abord, nous commençons par une analyse basique de l'ensemble de nos données. La table \ref{tab:dataset} donne une description de notre ensemble de nos données utilisé pour notre projet et la figure \ref{fig:samplesdataset} donne une vue de notre ensemble de données, leur représentation, et leurs valeurs possibles. Si nous nous référons à notre classe diagramme \ref{MLClassDiag}), c'est l'attribut info de la classe Explore qui nous fournit les informations sur notre dataset. La méthode head nous retourne les cinq premières lignes du jeu de données.
 
-Voyons une brève description de chaque composante du dataset après une analyse basique de notre exploration:
+Voyons une brève description de chaque composante de notre ensemble de données après une analyse basique de notre exploration:
 
-\paragraph*{Number of Features :} Représente le nombre totale de features ou colonnes de notre dataset. Les features sont importants pour un modèle de machine learning puisque le modèle les utilise pour prédire des événements. Dans l'annexe A, La table \ref{tab:dt} donne une description de tous les features de notre dataset. Le nombre total des features est 92.  La colonne \textbf{Feature name} représente le nom de chaque colonne. La colonne \textbf{datatype} représente le type de données et les colonnes. Et les colonnes \textbf{non-null} et \textbf{null} représentent respectivement le nombre d'échantillons non-nulls et le nombre d'échantillons nulls. Référez-vous à la table \ref{tab:dt}, pour prendre connaissance des nom de colonnes car nous allons les utiliser plus tard. 
+\paragraph*{Nombre de variables.} Représente le nombre totale de variables ou colonnes de notre ensemble de données. Les variables prédictives sont importantes pour un modèle de machine learning puisque le modèle les utilise pour prédire des événements. Dans l'annexe A, La table \ref{tab:dt} donne une description de tous les variables de notre ensemble de données. Le nombre total des variables est 92.  La colonne \textbf{Feature name} représente le nom de chaque colonne. La colonne \textbf{datatype} représente le type de données et les colonnes. Et les colonnes \textbf{non-null} et \textbf{null} représentent respectivement le nombre d'échantillons non-nulls et le nombre d'échantillons nulls. Référez-vous à la table \ref{tab:dt}, pour prendre connaissance des nom de colonnes car nous allons les utiliser plus tard. 
 
 
 
@@ -647,36 +650,36 @@ Voyons une brève description de chaque composante du dataset après une analyse
 \centering
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
-Number of Features & 92 \\
+Nombre de variables & 92 \\
 \hline
-Number of Observations & 2718\\
+Nombre d'observations & 2718\\
 \hline
-Number of Numerical Features & 87\\
+Nombre de variables numériques & 87\\
 \hline
-Number of Categorical Features & 5\\
+Nombre de variables discrètes ou catégorielles & 5\\
 \hline
-Target value & Discharge\\
+Variable cible & Discharge\\
 \hline
 
 \end{tabular}
-\caption{Gives a description of our dataset}
+\caption{Exploration basique de notre ensemble de données}
 \label{tab:dataset}
 \end{table}
 
 \begin{figure}[h]
 \includegraphics[width=18cm]{images/examplesfeatures.png}
-\caption{An overview of raw data from our dataset}
+\caption{Présentation réelle de notre ensemble de données}
 \label{fig:samplesdataset}
 \end{figure}
 
 
-\paragraph*{Number of Observations :} Représente le nombre d'échantillons \textbf{(samples or rows en anglais)} de notre ensemble de données. 
+\paragraph*{Nombre d'observations.} Représente le nombre d'échantillons \textbf{(samples or rows en anglais)} de notre ensemble de données. 
 
-\paragraph*{ Numerical Features :} Ce sont les caractéristiques numériques de notre dataset. Les valeurs continues de notre dataset.
+\paragraph*{ Variables numériques.} Ce sont les variables dont les valeurs sont numériques ou continues dans notre ensemble de données.
 
-\paragraph*{ Categorical Features :} Ce sont les features qui viennent sous forme de texte. Plus loin dans la section de la transformation, nous convertirons ces features en données numériques car la plupart des algorithmes de machine learning ne reconnaissent pas les données discrètes ou textuelles.
+\paragraph*{ Variables discrètes.} Ce sont les variables qui viennent sous forme de texte. Plus loin dans la section de la transformation, nous convertirons ces variables en données numériques car la majorité des algorithmes de machine learning ne reconnaissent pas les données discrètes ou textuelles.
 
-\paragraph*{ Target value :} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. \\
+\paragraph*{ Variable cible.} C'est l'étiquette (\textbf{label or target en anglais)} de notre ensemble de données. L'étiquette est une valeur très importante pour les algorithmes de classification car elle permet d'évaluer la valeur booléenne d'une décision. Dans notre cas c'est le \textit{Discharge} qui permet de dire si oui ou non le patient doit rester à l'hôpital pour une réadaptation. \\
 
 \begin{table}[h]
 \centering
