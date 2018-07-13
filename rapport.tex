@@ -545,7 +545,7 @@ Dans un problème de régression l'espace de sortie est formé par des valeurs c
 
 
    
-\subsection{Classes déséquilibrées}
+\subsection{Classes déséquilibrées} \label{subsec:imbalancedclasses}
 
 Nous terminerons la section \ref{section:ml} sur le machine learning en abordant un sujet très important en machine learning, surtout dans un problème de la classification qui est "\textit{Jeux de données déséquilibré}" \textbf{(Imbalanced datasets or Imbalanced Classification or Imbalanced Classes, ses différentes appellations en anglais)}. C'est un problème très commun en machine learning, spécialement en classification. Nous abordons ce sujet parce que c'était l'une des principales difficultés de notre projet. \\
 
@@ -619,8 +619,8 @@ Dans les sections qui suivent nous allons voir les différentes étapes d'implé
 \newpage
 
 
-\section{Obtention des données}
-Une fois qu'on décide d'attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant. D'après la définition de machine learning de Tom Mitchell qu'on a vue à la section \ref{section:ml}, l'expérience $E$ constitue la source des connaissance. Suivant cette définition pour qu'il y ait l'apprentissage, il faut disposer d'une source de données.\\   
+\section{Collecte de notre ensemble de données}
+Une fois qu'on décide d'attaquer un problème de machine learning, la première chose à faire est d'explorer toutes les pistes possibles pour récupérer les données. En effet, les données constituent l'expérience, les exemples qu'on va fournir à notre algorithme de machine learning afin qu'il puisse apprendre et devenir plus performant. D'après la définition de machine learning de Tom Mitchell qu'on a vue à la section \ref{section:ml}, l'expérience $E$ constitue la source des connaissance ou la source des données. Suivant cette définition pour qu'il y ait l'apprentissage, il faut disposer d'une source de données.\\   
 
 Nos données proviennent du département orthopédique de l'université de Seattle, Washington, États-Unis. Elles sont au nombre de 2718 lignes et 92 colonnes. C'est un ensemble de données orthopédique très sensible. Ces données ne sont pas accessibles au public, elles sont hautement confidentielles; pour avoir accès à ces données nous avons signé un contrat de confidentialité dont la clause est de sauvegarder secrètement ces données. En général les bases de données médicales sont des données privées et extrêmement sensibles; d'après la loi sur la protection des informations privées, on ne peut pas accéder à ces données sans l'autorisation des ses propriétaires. \\
 
@@ -634,7 +634,7 @@ Comme vous pouvez remarquer dans la classe diagramme du machine learning (figure
 
 Après avoir obtenu ces données, nous devons maintenant les explorer pour avoir des idées claires sur l'ensemble des données. La section suivante est l'étape d'exploration des données, les données obtenues sont transférées à la classe Exploration de données. 
 
-\section{Exploration des données}
+\section{Exploration de notre ensemble de données}
 
 L'analyse exploratoire est une technique permettant de visualiser l'ensemble de données dans le but d'en prendre connaissance. Elles permettent de déterminer les relations qui existent entre les variables de notre ensemble de données.  L'intérêt de la visualisation est de détecter les valeurs aberrantes et vérifier certaines hypothèses avant de choisir notre modèle comme la linéarité de certaines valeurs. Nous faisons cette démarche à l'avance parce que nous voulons obtenir de précieux conseils pour le nettoyage de données et aussi avoir des idées claires pour l'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)}.  \\
 
@@ -685,82 +685,69 @@ Variable cible & Discharge\\
 \centering
 \begin{tabular}{| l | c |}
 \hline
-\textbf{Target's name} & Discharge \\
+\textbf{Nom d'étiquète} & Discharge \\
 \hline
-\textbf{Total positive classes} & 2421 \\
+\textbf{Nombre de classes positives} & 2421 \\
 \hline
-\textbf{Percentage positive classes} & 89.072848 \% \\
+\textbf{Pourcentage de classes positives} & 89.072848 \% \\
 \hline
-\textbf{Negative classes} & 297 \\
+\textbf{Nombre de  classes négatives} & 297 \\
 \hline
-\textbf{Percentage negative classes} & 10.927152 \% \\
+\textbf{Pourcentage de classes négatives} & 10.927152 \% \\
 \hline
-\textbf{Total classes} & 2718 \\
+\textbf{Nombre total classes} & 2718 \\
 
 \hline
 \end{tabular}
-\caption{Important details about target value}
+\caption{Description de notre variable cible}
 \label{tab:target}
 \end{table}
 
-La table \ref{tab:target}, quant à elle, c'est la représentation de notre variable target value. Dans le dataset, elle s'appelle \textit{Discharge}. On peut remarquer que les classes positives sont significativement plus nombreuses que les classes négatives, ce qui produit un déséquilibre au niveau du dataset. Nous avons déjà discuté dans la section\textit{ "Classes déséquilibrées"}, les différentes techniques pour équilibrer les classes déséquilibrées.
+La table \ref{tab:target}, quant à elle, c'est la description de notre variable target value. Dans l'ensemble de données, elle s'appelle \textit{Discharge}. On peut remarquer que les classes positives sont significativement plus nombreuses que les classes négatives, ce qui produit un déséquilibre au niveau de l'ensemble de données. Nous avons déjà discuté des classes déséquilibrées dans la sous-section \ref{subsec:imbalancedclasses} et les différentes techniques pour les équilibrer.
 
-\subsection{Correlation entre les données}
-Nous terminons la section d'exploration de données avec les corrélations. Les corrélations nous permettent d'examiner les relations entre les variables numériques de notre ensemble de données. La corrélation est une valeur comprise entre -1 et 1 qui représente à quel point deux entités se déplacent à l'unisson. Deux variables sont positivement corrélés lorsque l'une augmente et l'autre augmente aussi. Par exemple, Le BMI d'un patient et son poids\textbf{ (Weight dans le dataset)} sont positivement corrélés, ce qui veut dire le BMI n'augmente que lorsque son poids augmente.\\
+\subsection{Corrélation entre nos variables}
+Nous terminons la section d'exploration de données avec les corrélations. Ces dernières nous permettent d'examiner les relations entre les variables numériques de notre ensemble de données. La corrélation est une valeur comprise entre -1 et 1 qui représente à quel point deux entités se déplacent à l'unisson. Deux variables sont positivement corrélés lorsque l'une augmente et l'autre augmente aussi. Par exemple, Le BMI d'un patient et son poids\textbf{ (Weight dans le dataset)} sont positivement corrélés, ce qui veut dire le BMI n'augmente que lorsque son poids augmente.\\
 
 Dans la corrélation négative, lorsqu'une variable augmente, l'autre diminue. Par exemple, quand l'âge du patient augmente son poids diminue. Les corrélations proches de -1 ou 1 indiquent une relation forte entre les variables. Les plus proches de 0 indiquent qu'il y a une relation faible. 0 indique qu'il n'y aucune relation.
 
 \begin{figure}[h]
-\includegraphics[width=17.5cm, height =7cm]{images/correlation.png}
-\caption{General view of the correlation between some features of our dataset}
-\label{fig:correlation}
+	\begin{center}
+		\includegraphics[width=19cm, height =7cm,angle=90]{images/correlation.png}
+		\caption{Vue générale de la corrélation nos variables}
+		\label{fig:correlation}
+	\end{center}
 \end{figure}
 
-La figure \ref{fig:correlation} nous donne une idée comment nos variables sont corrélées entre elles. Par exemple, le poids \textbf{ (Weight dans le dataset)} et le \textbf{BMI} ont une corrélation de 0.81 très proche de 1, c'est-à-dire qu'ils sont fortement relationnés. Nous pouvons déduire que les patients qui ont leur BMI plus élevé sont les plus pesants. L'objectif de la correlation est de gagner en intuition sur les données, ce qui nous aidera tout au long du flux de travail.\\ 
+La figure \ref{fig:correlation} nous donne une idée comment nos variables sont corrélées entre elles. Par exemple, le poids \textbf{ (Weight dans notre ensemble de données)} et le \textbf{BMI} ont une corrélation de 0.81 très proche de 1, c'est-à-dire qu'ils sont fortement relationnés. Nous pouvons déduire que les patients qui ont leur BMI plus élevé sont les plus pesants. L'objectif de la corrélation est de gagner en intuition sur les données, ce qui nous aidera tout au long du flux de travail.\\ 
 
 Pour calculer la corrélation, nous avons utilisé la méthode \textbf{corr} de  la classe \textbf{Explore} de notre diagramme de classes. Nous avons passé un peu de style en paramètre pour avoir les couleurs.  \\
- 
-Après avoir exploré les données et acquérir suffisamment de connaissance sur notre ensemble de données, c'est le temps maintenant de les nettoyer. La section qui suit montre comment nous avons procédé pour nettoyer notre ensemble de données.
 
-\section{Nettoyage des données}
-Le nettoyage des données \textbf{(Data cleaning en anglais)} est l'une de ces choses que tout le monde fait mais dont personne ne parle vraiment. Bien sûr, ce n'est pas la partie la plus intéressante de l'apprentissage automatique. Et non, il n'y a pas de trucs cachés et de secrets à découvrir.
+L'exploration nous donne une idée générale de notre ensemble de données, elle nous rend capable de poursuivre les autres étapes avec une marge d'erreur très faible. Nous avons vu l'exploration basique et la corrélation entre nos variables. Nous poursuivons donc avec la phase de nettoyage. La prochaine section est consacrée au nettoyage de notre ensemble de données.
 
-Cependant, un nettoyage correct des données peut faire ou défaire notre projet. Les spécialistes des données professionnelles consacrent généralement une très grande partie de leur temps à cette étape. En fait, si vous avez un jeu de données correctement nettoyé, même des algorithmes simples peuvent apprendre des informations impressionnantes à partir des données! \cite{key21}.
+\section{Nettoyage de notre ensemble de données}
+Une fois l'étape exploratoire des données est terminée et que nous ayons suffisamment de connaissances des données, c'est le temps maintenant de les nettoyer. Le nettoyage des données \textbf{(Data cleaning en anglais)} consiste à éliminer les observations qu'on ne souhaite pas conserver pour la suite de l'analyse prédictive. Ce sont des informations qui peuvent être erronées, inexactes ou sans intérêt pour la phase de modélisation. Les scientifiques de données consacrent habituellement une très grande partie de leur temps au nettoyage des données  parce que même les algorithmes simples peuvent apprendre des informations impressionnantes à partir d'un jeu de données correctement nettoyé. \\
 
-\subsection{Observations indésirables} La première étape du nettoyage des données consiste à supprimer les observations indésirables de votre jeu de données. Cela inclut des observations en double \textbf{(Duplicate observations)} ou non pertinentes \textbf{(Irrelevant observations)} \cite{key21}.
+Nous avons suivi les étapes suivantes pour nettoyer notre ensemble de données :
 
-\subsection{Duplicate observations :} Les observations en double surviennent le plus souvent lors de la collecte de données, notamment lorsque vous combinez des ensembles de données provenant de plusieurs endroits, capturez les données et recevez des données de clients / autres départements \cite{key21}.
+\begin{itemize}
+	\item \textbf{Suppression des observations indésirables.} Les observations indésirables (\textbf{Irrelevant observations, en anglais}) sont celles qui ne sont pas pertinentes pour une analyse prédictive c'est-à-dire elles n'ont aucune influence sur la prédiction, on suggère de les supprimer afin que notre modèle ne soit pas biaisé. Dans notre ensemble de données, nous n'avons pas constaté d'observations indésirables parce que chaque observation est un patient qui a fait l'objet d'une décision de retour. Toutes les observation étaient importantes pour notre analyse.
+	\item \textbf{Observations en double.} Les observations en double (\textbf{Duplicate observations, en anglais}) surviennent le plus souvent lors de la collecte des informations, plus précisément lorsque les données proviennent de plusieurs endroits différents et qu'on essaye de les combiner pour avoir un seul ensemble de données. Dans notre cas, l'ensemble de données provient d'un seul endroit (université de Seattle), par conséquent il n'y avait pas de doublons. En plus c'est très difficile de constater des doublons dans un jeu de données médical parce que c'est très dangereux d'avoir deux instances pour un même patient.
+	\item \textbf{Données manquantes.} Dans la vie réelle, un ensemble de données contient toujours des instances où un élément particulier peut être absent, ceci est dû parce que les administrateurs de base de données, en raison de conception, admettent que certains attributs peuvent être vides ou nulles. Pour des raisons très pratiques, la plupart des algorithmes d'apprentissage ne fonctionnent pas avec des valeurs nulles, il faut, d'une manière ou d'une autre, trouver un moyen de les gérer. Deux stratégies sont couramment recommandées pour traiter les valeurs manquantes:
+	\begin{enumerate}
+		\item Suppression des observations qui ont des valeurs manquantes \textbf{(Dropping en anglais)}. On élimine toutes les instances qui ont des données vides ou nulles.
+		\item Imputation des valeurs manquantes en fonction d'autres observations où toutes les valeurs sont présentes \textbf{(Imputing en anglais)}. Dans l'imputation, il y a plusieurs méthodes de remplissage: On peut remplir en remplaçant les valeurs nulles soit par "\textbf{zéro (0})", soit par la valeur moyenne "\textbf{mean}" ou par la valeur moyenne "\textbf{median}". 
+	\end{enumerate}
+	Après avoir essayé les deux techniques de traitement des valeurs manquantes, nous nous rendons compte que la stratégie d'\textbf{imputation} nous donne de meilleurs résultats. Pour arriver à cette affirmation, nous avons essayé plusieurs modèles avec leurs différentes évaluations, puis nous comparons les résultats pour décider lequel est meilleur.\\ 
+\end{itemize}
 
-\subsection{Irrelevant observations :} Les observations non pertinentes sont celles qui ne correspondent pas vraiment au problème spécifique que vous essayez de résoudre \cite{key21}. \\
+En résumé pour nettoyer notre ensemble de données nous avons rempli les valeurs vides et nulles en utilisant la méthode du calcul de la moyenne car elle nous donne de meilleurs résultats  toujours en comparant les différents résultats de chaque méthode en vue de sélectionner le meilleur. Nous avons développé une fonction qui fait automatiquement le choix du meilleur résultat. Nous tenons à souligner que notre ensemble de données a eu beaucoup de valeurs nulles, c'est la deuxième difficulté de notre projet après les classes déséquilibrées. La méthode \textbf{fiilna} de la classe \textbf{Clean} a été utilisée pour remplir les données manquantes de notre ensemble de données. Elle prend en paramètres un jeu de données et la stratégie de remplissage et retourne un jeu de données sans données manquantes. Une fois qu'on a un ensemble de données correctement nettoyé, on peut poursuivre avec la phase de transformation de données.
 
-Dans notre projet, nous avons trouvé beaucoup de données impertinentes. Par exemple. pendant la phase d'exploration nous avons trouvé que le "\textbf{Weight}" est une donnée impertinente car elle très corrélée avec le "\textbf{BMI}". On a décidé de maintenir le \textbf{BMI} et de laisser tomber le \textbf{"Weight"}.  De la même manière nous nous rendons compte que le \textbf{"RawDX"} et \textbf{"GHOA}" étaient les mêmes données sauvegardées sous des formes différentes. Et on a maintenu le \textbf{"RawDX"} et laissé tomber le \textbf{"GHOA"}. La méthode \textbf{drop} de la classe \textbf{Clean} est utilisée pour supprimer les features non pertinents.  
+\section{Transformation de notre ensemble de données}
+La transformation de données se repose sur l'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)} qui est une technique qui consiste à créer de nouvelles variables prédictives à partir de celles qui sont déjà disponibles ou à supprimer des variables impertinentes. La transformation permet soit l'ajout ou la suppression de variables non-étiquetées, mais généralement elle consiste en la création de nouvelles variables surtout quand on dispose d'une petite quantité de variables. La transformation est aussi une tâche précieuse qui permet au scientifique de données d'améliorer la performance d'un modèle puisqu'elle permet de mettre en évidence les informations clés, de se concentrer sur ce qui est important et d'apporter une certaine expertise au domaine. \\
 
-\subsection{Données manquantes}
-Les données manquantes \textbf{(Missing data en anglais)} sont un problème trompeur dans l'apprentissage automatique appliqué. Tout d'abord, juste pour être clair, vous ne pouvez pas simplement ignorer les valeurs manquantes dans un ensemble de données. Vous devez les gérer d'une manière ou d'une autre pour la raison très pratique que la plupart des algorithmes n'acceptent pas les valeurs manquantes.\\
+Dans notre projet, nous avons trouvé beaucoup de variables impertinentes. Par exemple, pendant la phase d'exploration nous avons remarqué que le "\textbf{Weight}" est une variable impertinente car elle très corrélée avec le "\textbf{BMI}". La raison est parce que deux variables prédictives ne doivent pas avoir une trop grande corrélation, cela peut biaisé le modèle et nous donne des résultats trompeurs. Pour cette raison, on a décidé de maintenir le \textbf{"BMI"} et supprimer le \textbf{"Weight"}. Du même coup nous nous sommes rendus compte que le \textbf{"RawDX"} et \textbf{"GHOA}" stockent des données similaires sauvegardées dans des formes différentes. Et on a maintenu le \textbf{"RawDX"} et laissé tomber le \textbf{"GHOA"}. La méthode \textbf{drop} de la classe \textbf{Clean} est utilisée pour supprimer les features non pertinents.  
 
-Les deux stratégies les plus couramment recommandées pour traiter les données manquantes sont les suivantes \cite{key21}:
-\begin{enumerate}
-\item Suppression des observations qui ont des valeurs manquantes \textbf{(Dropping en anglais)}
-\item Imputation des valeurs manquantes en fonction d'autres observations \textbf{(Imputing en anglais)}
-\end{enumerate}
-
-Après avoir essayé les deux recommandations, nous avons constaté que le \textbf{"imputing"} nous donne de meilleurs résultats. Pour arriver à cette affirmation, nous avons essayé plusieurs modèles avec leurs différentes évaluations. Il faut souligner que notre dataset a de beaucoup de valeurs nulles. C'est la deuxième difficulté du projet après le déséquilibre au niveau du dataset. \\
-
-Il est important de préciser que dans le  \textbf{"imputing"}, il y a plusieurs méthodes de remplissage. On peut remplir avec la valeur "\textbf{zéro (0})", la valeur moyenne "\textbf{mean}" ou la valeur moyenne "\textbf{median}". Encore, nous avons opté de remplir avec la valeur moyenne "\textbf{mean}", car elle nous a donné de meilleurs résultats. La méthode \textbf{fiilna} de la classe \textbf{Clean} est utilisée pour remplir les données manquantes. Elle prend un jeu de données et la stratégie de remplissage en paramètres et elle retourne un jeu données sans données manquantes. \\
-
-La prochaine section va être l'étape de transformation ou le feature engineering. Une fois que nos données sont nettoyées et il n'y a pas de données vides, on peut les transformer pour en avoir de nouvelles beaucoup plus pertinentes. 
-
-\section{Feature Engineering}
-
-L'ingénierie des caractéristiques \textbf{(Feature Engineering en anglais)} consiste à créer de nouvelles entités en entrée à partir de celles qui existent déjà. En général, vous pouvez considérer le nettoyage des données comme un processus de soustraction et l'ingénierie des fonctionnalités comme un processus d'ajout. C'est souvent l'une des tâches les plus précieuses qu'un data scientist puisse faire pour améliorer les performances du modèle, et ce, pour trois grandes raisons \cite{key22}:
-
-\begin{enumerate}
-\item Vous pouvez isoler et mettre en évidence les informations clés, ce qui aide vos algorithmes à se concentrer sur ce qui est important.
-\item Vous pouvez apporter votre propre expertise de domaine.
-\item Plus important encore, une fois que vous comprenez le «vocabulaire» de l'ingénierie des caractéristiques, vous pouvez apporter l'expertise de domaine d'autres personnes!
-\end{enumerate}
-
-Le feature engineering est l'étape qui précède la modélisation. Il prend en entrée le jeux de données brutes et produit en sortie un jeux de données préparé pour l'étape de la modélisation. Le modèle prend en entrée le jeux de données produit par le processus du feature engineering. \\ 
+L'ingénierie des caractéristiques est l'étape qui précède la modélisation. Il prend en entrée le jeu de données nettoyé et retourne un jeu de données préparé pour la phase de modélisation. Les algorithmes d'apprentissage prennent en entrée le jeu de données produit par le processus de transformation. \\ 
 
 Nous avons fait notre feature engineering en deux étapes: 
 \begin{enumerate}
