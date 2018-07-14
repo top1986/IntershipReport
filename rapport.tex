@@ -17,9 +17,11 @@
 
 \usepackage{amsmath} %Add matrices
 
-\usepackage{longtable} 
+\usepackage{longtable} %for creating long table
 
 \usepackage{makecell}%using for thead
+
+\usepackage{enumitem}%for roman list 
 
 \renewcommand\theadalign{bc}
 \renewcommand\theadfont{\bfseries}
@@ -188,7 +190,7 @@ Les compagnies d'assurance santé américaines ne couvrent pas les coûts associ
 
 D'autres part, l'arthrose (maladie qui touche les articulations et caractérisée par la douleur et la difficulté à effectuer des mouvements articulaires \cite{key12}) touche environ 27 millions d'adultes aux États-Unis \cite{key11}.  Ce qui augmente considérablement le nombre d'arthroplastie dans les hôpitaux, et aussi le poids de travail des médecins à savoir quand est-ce qu'il ya une réadaptation ou non.\\
 
-Il est un travail fastidieux pour les spécialistes orthopédistes de vérifier manuellement les données médicales d'un patient pour pouvoir décider s'il doit être renvoyé ou non. Ce travail consiste en ce que les données médicales d'un dossier patient sont très volumineuses. Seulement pour déterminer les conditions médicales antécédentes du patient, quarante six (46) colonnes pré-opératoires (C'est-à-dire les conditions de santé du patient avant une opération arthroplastie) doivent être prises en compte. Pour calculer les conditions médicales, le médecin orthopédiste doit additionner toutes les valeurs des colonnes pré-opératoires après avoir substitué ces valeurs soit par un(1), soit par deux(2) ou par trois(3) comme expliqué à la section de feature engineering. En plus de calculer les conditions médicales, il y a d'autres calculs à faire comme déterminer le niveau diagnostique du patient en se basant sur  les trois niveaux diagnostiques existant dans l'ensemble de données. Toutes ces démarches sont expliquées en détail dans la section de feature engineering. \\
+Il est un travail fastidieux pour les spécialistes orthopédistes de vérifier manuellement les données médicales d'un patient pour pouvoir décider s'il doit être renvoyé ou non. Ce travail consiste en ce que les données médicales d'un dossier patient sont très volumineuses. Seulement pour déterminer les conditions médicales antécédentes du patient, quarante-six colonnes pré-opératoires (conditions de santé du patient avant l'opération) sont prises en compte. Plus tard nous verrons tous les calculs qu'il faut faire avant de prendre cette décision. Dans notre travail nous avons créé des processus automatisés pour faire toutes ces vérifications.  \\
 
 Considérant le nombre grandissant d'arthroplastie dans les hôpitaux américains et tous les travaux manuels qu'un orthopédiste doit réaliser avant de décider le retour ou non d'un patient à la maison, nous estimons que créer un outil pour automatiser cette tâche est un projet pertinent. Le but de notre stage consiste à développer cet outil-là qui aidera les orthopédistes américains à prendre cette décision de façon automatique et sans perdre de temps.  \\
 
@@ -242,7 +244,7 @@ La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a 
 
 \newpage
 
-\chapter{Contexte théorique}
+\chapter{Contexte théorique} \label{chap:background}
 \section{Introduction}
 
 Tout projet informatique suppose qu'on doit délivrer un produit fini et utilisable accomplissant un certain nombre d'objectifs. Il y a toujours une équipe qui travaille durement pour réaliser ou implémenter ces genres de projets. Tout développement informatique passe nécessairement par la pratique ce qui exige souvent l'application de beaucoup de concepts étudiés en théorie. Dans tout rapport portant sur la réalisation d'un projet scientifique et technique, il s'avère utile et important d'établir un contexte théorique dans le but de faire ressortir les différents cadres théoriques. Nous allons, dans ce chapitre, présenter quelques concepts théoriques importants abordés dans le cadre de notre projet.\\
@@ -566,10 +568,27 @@ Cette technique est suivie pour éviter le surapprentissage qui se produit lorsq
 C'est une version modifiée de SMOTE. SMOTE ne tient pas compte de la distribution sous-jacente de la classe minoritaire et des bruits latents dans l'ensemble de données. Pour améliorer les performances de SMOTE, une méthode modifiée MSMOTE est utilisée.
 \end{itemize}
 
+\subsection{Méthodes d'ensemble} \label{subsect:ensemblemethod}
 
+L'objectif principal de la méthodologie d'ensemble \textbf{(Ensemble methods en anglais)} est d'améliorer la performance des classificateurs uniques. L'idée de base de l'apprentissage d'ensemble est de combiner plusieurs algorithmes simples afin d'obtenir un qui soit plus complexe dans le but de générer de meilleurs résultats. Ces résultats sont beaucoup mieux que lorsqu'on utilise un seul algorithme.  L'approche consiste à construire plusieurs classificateurs à deux étapes à partir d'un ensemble de données original, puis à agréger leurs prédictions \cite{key1, key39}. Les méthodes ensemblistes fonctionnent aussi bien sur de petit ensemble de données que sur de grand volume de données.
+
+Les méthodes d'ensemble sont nombreuses, mais nous allons brièvement définis les trois plus importantes: Bagging, Boosting et Random Forest. 
+
+\paragraph{Bagging}
+Bagging (Bootstrap aggregating) est une approche de construction d'ensemble qui 
+utilise différents sous-ensembles de données d’apprentissage avec une  méthode  de classification unique.  Étant  donné  un  ensemble  d’apprentissage  de  taille \textbf{t}, Bagging attire des instances aléatoires \textbf{t} de l'ensemble de données avec remplacement (à l'aide d'une distribution uniforme). Ces \textbf{t} instances sont apprises, et ce processus est répété plusieurs fois. Étant donné que le tirage au sort est effectué avec remplacement, les   instances   tirées   contiendront des   doublons   et   des   omissions   par   rapport   à l'ensemble  d'apprentissage initial.  Chaque  cycle  à  travers  le  processus  aboutit  à  un classificateur.  Après  la  construction  de  plusieurs  classificateurs,  les  sorties  de  chaque classificateur sont combinés pour produire la prédiction finale \cite{key27}. 
+%Méthodes parallèles (ensachage, forêt aléatoire) dont le principe est de faire la moyenne de plusieurs prédictions dans l'espoir d'un meilleur résultat suite à la réduction de la variance de l'estimateur moyen.
+\paragraph{Boosting.}
+Une  autre  approche  appelée  «Boosting»  utilise  également une  méthode d'apprentissage  unique  avec  différents  sous-ensembles  de  données  d’apprentissage. Sa structure globale est similaire à celle de la méthode Bagging, à la différence qu’elle  conserve  la  trace  de  la  performance  de  l'algorithme  d'apprentissage  et  se concentre  sur  les  cas  qui  ne  sont  pas  correctement  appris.  Au  lieu  de  choisir  les instances \textbf{t} d’apprentissage à l'aide d'une distribution uniforme de manière aléatoire, les exemples d’apprentissage sont sélectionnés en favorisant les instances quine sont pas  bien  classées.  Après  plusieurs  cycles,  la  prédiction  est  réalisée  selon  un  vote pondéré des prédictions de chaque classificateur. Ainsi, les poids sont proportionnels à la précision de chaque classificateur sur son ensemble d'apprentissage. L’algorithme le plus connu de l’approche Boosting, appelée « AdaBoost » \cite{key27}.
+\paragraph{Stacking.}
+Le stacking est similaire aux boosting et bagging: le but est de combiner également plusieurs modèles à un ensemble données d'origine. La différence est que le stacking permet d'explorer différents modèles pour le même problème. Il est possible d'entrainner différents types d'apprenants simultanément. Le stacking divise l'ensemble de données en deux sous-ensembles, le premier est utilisé durant la phase d'entrainement et le deuxième est conservé pour le test. Le mécanisme est que la sortie d'un classifier est utilisé comme données d'entrainement pour un autre classifier.  
+
+%cependant, que vous n'avez pas juste une formule empirique pour votre fonction de poids, plutôt que vous introduisez un méta-niveau et utilisez un autre modèle / approche pour estimer l'entrée avec les sorties de chaque modèle pour estimer les poids ou , en d'autres termes, pour déterminer quels modèles fonctionnent bien et ce qui est mal donné ces données d'entrée \cite{key28}. 
+\paragraph{Random Forest.}
+Les forêts aléatoires(plus connus sous \textbf{Random Forest}) sont une combinaison d'arbres  de  décision,  où  chaque  arbre  dépend  des  valeurs  d'un  vecteur  aléatoire indépendamment échantillonné et avec la même distribution pour tous les arbres de la forêt.L'erreur  de  généralisation  d'une  forêt  d'arbres  dépend  de  la  force  des  arbres individuels  dans  la  forêt  et  de  la  corrélation  entre  eux.  L'utilisation d'une  sélection aléatoire  de  caractéristiques  pour  diviser  chaque nœud donne des  taux  d'erreur  qui se comparent favorablement à AdaBoost. \cite{key1}\\
 
 \section{Conclusion}
-Le chapitre 2 a présenté une vue approche théorique de quelques grands concepts de machine learning et de sciences de données, ceux que nous jugeons être importants pour la réalisation de notre projet. Nous avons donné une brève définition de chaque concept tout en essayant d'être le plus clair et précis possible. Nous avons vu un sous-ensemble de sujets importants des différents concepts puisque ces champs d'études sont très vastes et contiennent beaucoup de choses intéressantes, mais nous avons mis accent sur ce qui nous intéresse pour notre projet. Par exemple notre projet est un problème de classification en machine learning, pour cela nous avons dédié une section à une étude brève du problème de classification Tout en ayant le soin de définir et d'expliquer les thèmes les plus pertinents. Aussi notre dataset est déséquilibré, par conséquent nous avons mis l'accent sur c'est quoi les classes déséquilibrées et les différentes techniques permettant de les manipuler. Le chapitre 3 qui suit présentera les détails techniques de notre projet, le but est de faire sortir les différentes étapes que nous avons suivies pour arriver à un produit fini et utilisable.
+Le chapitre 2 a présenté une vue approche théorique de quelques grands concepts de machine learning et de sciences de données, ceux que nous jugeons être importants pour la réalisation de notre projet. Nous avons donné une brève définition de chaque concept tout en essayant d'être le plus clair et précis possible. Nous avons vu un sous-ensemble de sujets importants des différents concepts puisque ces champs d'études sont très vastes et contiennent beaucoup de choses intéressantes, mais nous avons mis accent sur ce qui nous intéresse pour notre projet. Par exemple notre projet est un problème de classification en machine learning, pour cela nous avons dédié une section à une étude brève du problème de classification Tout en ayant le soin de définir et d'expliquer les thèmes les plus pertinents. Aussi notre dataset est déséquilibré, par conséquent nous avons mis l'accent sur c'est quoi les classes déséquilibrées et les différentes techniques permettant de les manipuler. Et en dernier lieu nous avons passé en revue les méthodes ensemblistes puisque les algorithmes d'ensemble sont utilisés pour attaquer le problème de classes déséquilibrées. Le chapitre 3 qui suit présentera les détails techniques de notre projet, le but est de faire sortir les différentes étapes que nous avons suivies pour arriver à un produit fini et utilisable.
 
  
 
@@ -667,9 +686,11 @@ Variable cible & Discharge\\
 \end{table}
 
 \begin{figure}[h]
-\includegraphics[width=18cm]{images/examplesfeatures.png}
-\caption{Présentation réelle de notre ensemble de données}
-\label{fig:samplesdataset}
+	\begin{center}
+		\includegraphics[width=18cm,angle=90]{images/examplesfeatures.png}
+		\caption{Échantillon de notre ensemble de données}
+		\label{fig:samplesdataset}
+	\end{center}
 \end{figure}
 
 
@@ -713,7 +734,7 @@ Dans la corrélation négative, lorsqu'une variable augmente, l'autre diminue. P
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=19cm, height =7cm,angle=90]{images/correlation.png}
-		\caption{Vue générale de la corrélation nos variables}
+		\caption{Corrélation entre certaines de nos variables}
 		\label{fig:correlation}
 	\end{center}
 \end{figure}
@@ -749,60 +770,44 @@ Dans notre projet, nous avons trouvé beaucoup de variables impertinentes. Par e
 
 L'ingénierie des caractéristiques est l'étape qui précède la modélisation. Il prend en entrée le jeu de données nettoyé et retourne un jeu de données préparé pour la phase de modélisation. Les algorithmes d'apprentissage prennent en entrée le jeu de données produit par le processus de transformation. \\ 
 
-Nous avons fait notre feature engineering en deux étapes: 
+Pour faire l'ingénierie de caractéristiques nous avons procédé de deux manières: 
+\begin{enumerate}[label=\Roman*.]
+\item Premièrement, les variables \textbf{Dx1, Dx2, Dx3 } qui sont déjà disponibles dans notre ensemble de données, sont combinés entre elles pour créer un nouvelle variable appelée \textbf{degree\_dx} (le niveau de diagnostique général du patient). Nous soulignons que  \textbf{Dx1, Dx2, Dx3} représentent respectivement: premier niveau de diagnostique, deuxième niveau de diagnostique et troisième niveau de diagnostique du patient. En combinant ces trois diagnostiques, nous créons un diagnostique général du patient. \\
+\textbf{Logique de création : } Pour chaque ligne de l'ensemble de données on regroupe les colonnes \textbf{Dx1, Dx2} et \textbf{Dx3} de telle sorte qu'elles suivent les quatre logiques suivantes :
 \begin{enumerate}
-\item Premièrement, les features \textbf{Dx1, Dx2, Dx3 } qui existent déjà dans notre dataset doivent être combinés entre eux pour créer un nouveau feature appelé \textbf{degree\_dx} qui est le niveau général diagnostique du patient. Nous soulignons que  \textbf{Dx1, Dx2, Dx3} représentent respectivement: premier niveau diagnostique, deuxième niveau diagnostique et troisième niveau diagnostique du patient. En combinant ces trois diagnostiques, nous créons un niveau général  diagnostique du patient. \\
-\textbf{Logique de création : } On regroupe ces colonnes (\textbf{Dx1, Dx2, Dx3 }) suivants la logique si les 3 sont presents (c'est-à-dire si les 3 ont valeurs non-null), on donne la valeur de 3; si uniquement DX2 et DX1 sont présents, on donne la valeur de 2; si uniquement DX1 on donne la valeur de 1 si aucune valeur n'est présente, on donne la valeur 0. Le feature résultant se nomme  \textbf{degree\_dx}
-\item Deuxièment, nous créons un nouvel autre feature appelé \textbf{medcond} qui détermine les conditions médicales du patient. Nous nous basons sur l'ensemble de caractéristiques pré-opératoires du patient. Par exemple son niveau de glucose, les quantités d'hémoglobine blanches et d'hémoglobines rouges. Ces features sont au nombre de 46 au total.\\
-\textbf{Logique de création : } On prend toutes les colonnes de conditions médicales (\textbf{PreOpHgb}  à \textbf{Depression}, ils sont au nombre de 46 dans le dataset) : On donne la valeur 1 lorsqu'on trouve une valeur non-nulle à chacune des conditions sauf pour les colonnes suivantes :
+	\item Si les trois sont présentes (c'est-à-dire si leurs valeurs ne sont pas nulles ou vides), alors la nouvelle variable \textbf{degree\_dx} prend la valeur 3;
+	\item  si seulement les diagnostiques \textbf{Dx1} et \textbf{Dx2} sont présentes et la troisième est absente \footnote{Absente veut dire valeur nulle ou vide}, alors \textbf{degree\_dx} prend la valeur 2;
+	\item  si seulement \textbf{Dx1} est présente et les deux autres sont absentes, alors \textbf{degree\_dx} prend la valeur 1; 
+	\item  si les trois diagnostiques sont absentes, alors \textbf{degree\_dx} prend la valeur 2.
+\end{enumerate}
+ À la fin de ce processus, nous conservons la variable résultante \textbf{degree\_dx} dans notre ensemble de données et nous supprimons \textbf{Dx1, Dx2} et \textbf{Dx3}.
+  
+\item Deuxièmement, nous créons une autre nouvelle  variable nommée \textbf{medcond} qui détermine les conditions médicales du patient après une arthroplastie. Nous nous basons sur l'ensemble des variables pré-opératoires du patient qui sont au nombre de 46 colonnes (Les lignes 30 à 76 de la table \ref{tab:dt}). Ces variables déterminent les conditions pré-médicales du patient. Par exemple la ligne 30 représente les quantités d'hémoglobine blanches, la ligne 33  son niveau de glucose et la ligne 56 s'il est obèse. Référez-vous à la table \ref{tab:dt} si vous voulez avoir plus de connaissances sur les préopératoires.\\
+\textbf{Logique de création : }  On attribue la valeur 1 à une colonne pré-opératoire lorsqu'on trouve une valeur non-nulle sinon la valeur zéro est attribuée. à chacune des conditions sauf pour les colonnes suivantes :
 \begin{itemize}
-\item On donne la valeur 2 pour les colonnes suivantes: [\textbf{PreOpHgb, PreOpGlucose, pulm circ, other neuro, chronic pulm}]
-\item On donne la valeur 3 pour les colonnes suivantes [\textbf{PreOpC, Paralysis, renal failure, liver failure}]
+\item \textbf{[PreOpHgb, PreOpGlucose, pulm circ, other neuro, chronic pulm]} pour lesquelles on attribue la valeur 2.
+\item \textbf{[PreOpC, Paralysis, renal failure, liver failure]}  pour lesquelles on attribue la valeur 3.
 \end{itemize}
-
-
+À la fin de ce processus, on fait la somme de toutes les valeurs pré-opératoires, on attribue le résultat à la nouvelle variable \textbf{medcond} et on supprime toutes les colonnes pré-opératoires.
 \end{enumerate}
 
-La classe Transform de notre diagramme de classe fait toutes les transformations que nous venons de décrire dans cette section. La méthode \textbf{transform} prend en paramètre le jeu de données nettoyé et les attributs à transformer et elle retourne un jeu de données transformé lequel nous allons utiliser comme entrée de l'étape suivante sur la modélisation. 
+À la fin de l'étape de transformation, deux nouvelles variables sont créées et quarante-huit sont supprimées. La classe \textbf{Transform} de notre diagramme de classe fait toutes les transformations que nous venons de décrire dans cette section. La méthode \textbf{transform} prend en paramètre le jeu de données nettoyé et les attributs à transformer et elle retourne un jeu de données transformé lequel nous allons utiliser comme entrée dans la phase modélisation. 
 
+\section{Modélisation de notre ensemble données}
 
- 
+La modélisation est une technique qui consiste à choisir un algorithme d'apprentissage pour notre ensemble de données. Il consiste à décrire comment choisir le meilleur modèle qui s'adapte à la problématique qu'on étudie et les raisons pour lesquelles le modèle choisi est meilleur. Ici, meilleur modèle ne veut pas dire qu'un algorithme est meilleur qu'un autre mais tout dépend du cas qu'on étudie.\\
 
-
-\section{Modélisation des données}
-
-La modélisation est un processus d'entrainement de modèles. Il consiste à décrire comment choisir le meilleur modèle qui s'adapte à la problématique qu'on étudie et les raisons pour lesquelles le modèle choisi est meilleur. Ici, meilleur modèle ne veut pas dire qu'un algorithme est meilleur qu'un autre mais tout dépend du cas qu'on étudie.\\
-
-Toutes les étapes que nous venons de détailler dans les sections précédentes constituent des étapes préparatoires pour la modélisation. Dans l'étape d'exploration de données, nous nous sommes rendus compte que notre ensemble de données était déséquilibré. \\ 
-
-Puisque notre ensemble de données est déséquilibré, nous ne pouvons pas utiliser les algorithmes de classification simples tel que LogisticRegression, TreeDecisionClassifier, LinearClassifier etc. Nous avons utilisé l'approche des méthodes d'ensemble qui consiste à combiner plusieurs classificateurs simples pour donner un classificateur fort. L'image \ref{ensemble} donne une approche générale sur le fonctionnement et la construction des méthodes d'ensemble. \textbf{Data} représente l'ensemble de données d'origine, (\textbf{C1, C2, ... , Cn}) sont les différents algorithmes de classification faibles qu'on combine pour donner en entrée à \textbf{Vote Classifier}. \textbf{Strong Classifier} est l'algorithme de classification fort qu'on obtient. \\
-
-Dans le chapitre sur \textit{"Contexte théorique"} nous avons vu comment manipuler les données déséquilibrées en ré-échantillonnant \textbf{(resampling en anglais)} les données d'origine pour fournir des classes équilibrées. Nous avons vu toutes les avantages à utiliser les techniques SMOTE que les autres. Dans la sous-section qui suit sur la modélisation, nous allons brièvement examiner une autre approche, à savoir la modification des algorithmes de classification existants pour les rendre appropriés aux ensembles de données déséquilibrés. 
-
-
-
-\subsection{Méthodes d'ensemble}
-
-L'objectif principal de la méthodologie d'ensemble \textbf{(Ensemble methods en anglais)} est d'améliorer la performance des classificateurs uniques. L'approche consiste à construire plusieurs classificateurs à deux étapes à partir des données originales, puis à agréger leurs prédictions \cite{key1}. Les méthodes d'ensemble sont nombreuses, mais nous allons brièvement définis les trois plus importantes: Bagging, Boosting et Random Forest. 
+Toutes les étapes que nous venons de détailler dans les sections précédentes constituent des étapes préparatoires pour la modélisation. Dans l'étape d'exploration de données, nous nous sommes rendus compte que notre ensemble de données était déséquilibré. Par conséquent, nous ne pouvons pas utiliser les algorithmes de classification simples tel que \textbf{LogisticRegression}, \textbf{TreeDecisionClassifier}, \textbf{LinearClassifier} etc. Nous avons utilisé l'approche des méthodes ensembliste qui consiste à combiner plusieurs classificateurs simples pour donner un classificateur fort comme nous avons vu à la sous-section \ref{subsect:ensemblemethod} . L'image \ref{ensemble} donne une approche générale sur le fonctionnement et la construction des méthodes d'ensemble. \textbf{Data} représente l'ensemble de données d'origine, (\textbf{C1, C2, ... , Cn}) sont les différents algorithmes de classification faibles qu'on combine pour donner en entrée à \textbf{Vote Classifier}. \textbf{Strong Classifier} est l'algorithme de classification fort qu'on obtient. \\
 
 \begin{figure}[h]
 	\includegraphics{images/ensemble.png}
-	\caption{Approach to Ensemble based Methodologies \cite{key19} }
+	\caption{Approche basée sur la méthodologie des ensemble \cite{key19} }
 	\label{ensemble}
 \end{figure}
 
-\subsubsection{Bagging}
-Bagging (Bootstrap aggregating) est une approche de construction d'ensemble qui 
-utilise différents sous-ensembles de données d’apprentissage avec une  méthode  de classification unique.  Étant  donné  un  ensemble  d’apprentissage  de  taille \textbf{t}, Bagging attire des instances aléatoires \textbf{t} de l'ensemble de données avec remplacement (à l'aide d'une distribution uniforme). Ces \textbf{t} instances sont apprises, et ce processus est répété plusieurs fois. Étant donné que le tirage au sort est effectué avec remplacement, les   instances   tirées   contiendront des   doublons   et   des   omissions   par   rapport   à l'ensemble  d'apprentissage initial.  Chaque  cycle  à  travers  le  processus  aboutit  à  un classificateur.  Après  la  construction  de  plusieurs  classificateurs,  les  sorties  de  chaque classificateur sont combinés pour produire la prédiction finale \cite{key27}. 
-%Méthodes parallèles (ensachage, forêt aléatoire) dont le principe est de faire la moyenne de plusieurs prédictions dans l'espoir d'un meilleur résultat suite à la réduction de la variance de l'estimateur moyen.
-\subsubsection{Boosting}
-Une  autre  approche  appelée  «Boosting»  utilise  également une  méthode d'apprentissage  unique  avec  différents  sous-ensembles  de  données  d’apprentissage. Sa structure globale est similaire à celle de la méthode Bagging, à la différence qu’elle  conserve  la  trace  de  la  performance  de  l'algorithme  d'apprentissage  et  se concentre  sur  les  cas  qui  ne  sont  pas  correctement  appris.  Au  lieu  de  choisir  les instances \textbf{t} d’apprentissage à l'aide d'une distribution uniforme de manière aléatoire, les exemples d’apprentissage sont sélectionnés en favorisant les instances quine sont pas  bien  classées.  Après  plusieurs  cycles,  la  prédiction  est  réalisée  selon  un  vote pondéré des prédictions de chaque classificateur. Ainsi, les poids sont proportionnels à la précision de chaque classificateur sur son ensemble d'apprentissage. L’algorithme le plus connu de l’approche Boosting, appelée « AdaBoost » \cite{key27}.
-\subsubsection{Stacking}
-Le stacking est similaire au boosting: vous appliquez également plusieurs modèles à vos données d'origine. La différence ici est, cependant, que vous n'avez pas juste une formule empirique pour votre fonction de poids, plutôt que vous introduisez un méta-niveau et utilisez un autre modèle / approche pour estimer l'entrée avec les sorties de chaque modèle pour estimer les poids ou , en d'autres termes, pour déterminer quels modèles fonctionnent bien et ce qui est mal donné ces données d'entrée \cite{key28}. 
-\subsubsection{Random Forest}
-Les forêts aléatoires(plus connus sous \textbf{Random Forest}) sont une combinaison d'arbres  de  décision,  où  chaque  arbre  dépend  des  valeurs  d'un  vecteur  aléatoire indépendamment échantillonné et avec la même distribution pour tous les arbres de la forêt.L'erreur  de  généralisation  d'une  forêt  d'arbres  dépend  de  la  force  des  arbres individuels  dans  la  forêt  et  de  la  corrélation  entre  eux.  L'utilisation d'une  sélection aléatoire  de  caractéristiques  pour  diviser  chaque nœud donne des  taux  d'erreur  qui se comparent favorablement à AdaBoost. \cite{key1}\\
+Au chapitre \ref{chap:background} traitant le \textit{Contexte théorique}, nous avons vu comment manipuler les données déséquilibrées en appliquant l'une des différentes techniques de ré-échantillonnage \textbf{(resampling en anglais)} sur l'ensemble de données d'origine. Nous avons vu les avantages à utiliser la technique de \textit{SMOTE} que les autres. Aussi nous avons brièvement examiner une autre approche, à savoir la méthodologie d'ensemble qui est une manière de combiner les algorithmes de classification faibles pour les rendre forts en vue de les approprier à notre ensemble de données déséquilibrés. 
 
-Pour notre projet nous avons entrainé quatre algorithmes ensemblistes comme on peut constater dans notre classe diagramme \ref{MLClassDiag}; deux d'entre eux sont des algorithmes de boosting, un algorithme stacking et le random forest classification. La table \ref{tab:ensemble} présente une comparaison des différents résultats obtenus en entrainant ces quatre types d'algorithmes ensemblistes différents. Pour sélectionner le meilleur algorithme, nous avons développé des processus automatiques en nous basant sur les scores de chaque modèle. Le meilleur modèle va être celui du meilleur score obtenu.     
+Pour notre projet nous avons entrainé quatre algorithmes ensemblistes comme on peut constater dans notre classe diagramme \ref{MLClassDiag}; deux d'entre eux sont des algorithmes de boosting, un algorithme stacking et le random forest classification. La table \ref{tab:ensemble} présente une comparaison des différents résultats obtenus en entrainant ces quatre types d'algorithmes ensemblistes différents. Pour sélectionner le meilleur algorithme, nous avons développé des processus automatisés en nous basant sur les scores de chaque modèle. Le meilleur modèle va être celui du meilleur score obtenu.     
 
 \begin{table}[h]
 	\centering
@@ -822,11 +827,11 @@ Pour notre projet nous avons entrainé quatre algorithmes ensemblistes comme on 
 	\label{tab:ensemble}
 \end{table}
 
-Nous tenons compte aussi des metrics d'évaluation comme "Precision and Recall".Ces derniers nous permettent de déterminer la performance de notre modèle à classifier les classes positives et celles qui sont négatives. Le but de notre projet était d'obtenir la précision en dessus de 90\%. Généralement, dans la pratique une telle précision est acceptable pour pouvoir fier le modèle.\\
+Nous tenons compte aussi des métriques d'évaluation comme "Precision and Recall". Ces derniers nous permettent de déterminer la performance de notre modèle à classifier les classes positives et celles qui sont négatives. Le but de notre projet était d'obtenir la précision en dessus de 90\%. Généralement, dans la pratique une telle précision est acceptable pour pouvoir avoir un modèle performant.\\
 
-Vous pouvez constater à la table \ref{tab:ensemble} que nous obtenons des résultats différents pour chaque algorithme. Pour faire le choix du bon algorithme, notre API machine learning est capable d'évaluer chaque algorithme de façon indépendante et itérativement pour déterminer le meilleur modèle, tout en combinant les différents résultats de chaque metric. Dans ce cas, c'est l'\textbf{AdaBoostClassifier} qui serait le modèle estimé meilleur.  \\
+La table \ref{tab:ensemble} nous montre les différents résultats obtenus  pour chaque algorithme. Pour faire le choix du bon algorithme, notre système machine learning est capable d'évaluer chaque algorithme de façon indépendante et itérative pour déterminer quel est le modèle estimateur, tout en combinant les différents résultats de chaque métrique de classification. Dans ce cas, c'est l'algorithme \textbf{AdaBoostClassifier} est le modèle estimé meilleur.  \\
 
-Après avoir déterminé le meilleur modèle à partir des processus automatiques. La dernière étape qui nous reste à faire est la sérialisation de notre modèle pour son utilisation future soit dans la phase de déploiement. Parce qu'un modèle doit être capable de prédire de nouvelles données (\textbf{online data}). La section qui vient expliquera en détail comment nous avons procédé pour déployer notre modèle c'est-à-dire le rendre accessible à des utilisateurs qui ne connaissent rien en machine learning.  \\ 
+Après avoir déterminé le meilleur modèle à partir des fonctions automatisées. La dernière étape qui nous reste à faire est la sérialisation de notre modèle pour son utilisation future soit dans la phase de déploiement. Parce qu'un modèle doit être capable de prédire de nouvelles données (\textbf{online data}). La section qui vient expliquera en détail comment nous avons procédé pour déployer notre modèle c'est-à-dire le rendre accessible à des utilisateurs qui ne connaissent rien en machine learning.  \\ 
 
 
 
@@ -865,7 +870,7 @@ Pour communiquer avec notre modèle, nous avons construit un API en Django frame
 
 \begin{figure}[h]
 	\includegraphics[ ]{images/APICD.png}
-	\caption{Class diagram of our Ortho API }
+	\caption{Diagramme de classe de notre Ortho API }
 	\label{ortho}
 \end{figure} 
 
@@ -875,17 +880,16 @@ Pour communiquer avec notre modèle, nous avons construit un API en Django frame
 %	\label{ortho}
 %\end{figure} 
 
-Notre API prend un formulaire web de Django en entrée et retourne un message de décision. Le framework django fait la validation du formulaire avant d'appeler l'API. Si tous les champs du formulaire sont bien validés et toutes les valeurs obligatoires sont présentes, alors l'API prend le formulaire et fait un pré-traitement des données. S'il trouve des données optionnelles qui sont vides ou nulles, il les remplace par ``\textbf{NaN}'' et s'il trouve des champs booléens, il les remplace par \textbf{0} si c'est \textbf{No} et par \textbf{1} si c'est \textbf{Yes}. \\
+Notre API prend un formulaire web de Django en entrée et retourne un message de décision. Le framework django fait la validation du formulaire avant d'appeler l'API. Si tous les champs du formulaire sont bien validés et toutes les valeurs obligatoires sont présentes, alors l'API prend le formulaire et fait un pré-traitement des données. S'il trouve des données optionnelles qui sont vides ou nulles, il les remplace par \textbf{NaN} et s'il trouve des champs booléens, il les remplace par \textbf{0} si c'est \textbf{No} et par \textbf{1} si c'est \textbf{Yes}. \\
 
-Le diagramme de classe présenté dans la figure \ref{ortho} permet de répondre à deux des cas d'utilisation que nous avons défini dans le diagramme de cas d'utilisation. Mais nous allons voir brièvement le fonctionnement de ce diagramme dans l'API:
+Le diagramme de classe présenté dans la figure \ref{ortho} permet de répondre à deux des cas d'utilisation que nous avons défini dans le diagramme de cas d'utilisation. Il nous reste encore deux cas d'utilisation à traiter, nous les laissons comme travaux futurs; par contre notre système peut fonctionner normalement dans la pratique sans ces deux fonctionnalités. Voyons brièvement ce que font les deux classes dans ce diagramme de notre API:
 
 \paragraph{Predict. } La classe qui répond à l'exigence \textbf{Predict} défini à l'introduction. Elle trois attributs et quatre méthodes. L'attribut \textbf{model} est le modèle machine learning désérialisé. L'attribut \textbf{args} est un dictionnaire qui stocke la décision rendue par le modèle et un message de prédiction. La méthode \textbf{predicit} calcule la prédiction en fonction des données du formulaire. La méthode \textbf{save} permet de sauvegarder les prédictions après avoir rendu une décision. 
 \paragraph{Evaluation. } La classe d'évaluation permet de répondre à l'exigence \textbf{evaluate} défini dans le diagramme de cas d'utilisation à l'introduction générale. Elle contient deux attributs et trois méthodes. L'attribut \textbf{model} obtient le modèle du machine learning construit. L'attribut \textbf{predictions} est une liste de toutes les prédictions qui ont déjà traitées par le modèle. L'opération \textbf{evaluate} permet de d'évaluer le modèle en fonction de l'ensemble de \textbf{prédictions}. L'opération save sauvegarde le résultat de l'évaluation. \\
 
-
 \begin{figure}[p]
 	\includegraphics[ ]{images/ortho.png}
-	\caption{Connexion between our API and machine learning system }
+	\caption{Connexion entre notre API et notre système machine learning }
 	\label{ortho}
 \end{figure} 
 
@@ -928,7 +932,7 @@ Le système que nous développons a eu deux grandes phases de développement com
 
 \begin{figure}[h]
 	\includegraphics[width=17cm, height=24cm ]{images/deploymentdiag.png}
-	\caption{A deployment diagram of our tool}
+	\caption{Diagramme de déploiement de notre système complet}
 	\label{deployment}
 \end{figure} 
 
@@ -1095,7 +1099,7 @@ Puisque nous soutenons que nous avons rencontré des problèmes dans le dévelop
 \item \textbf{Technologies apprises.}  Au début de ce projet, nous ne savions rien ni en machine learning ni en python. Maintenant nous savons utiliser toutes les librairies de machine learning de python telles que sckit-learn, mlxtend, pandas, matplotlib, numpy, scipy etc. Nous avons appris à développer en Django un framework web de python dont nous avons utilisé pour le développement de notre API. 
 \end{itemize}
 
-Notre outil va être déployé sur le serveur web de la compagnie pour laquelle je fais le stage (ML+). L'outil va être en ligne et son utilisation sera gratuite pour tous les orthopédistes américains qui veulent uniquement prédire un retour. Mais ceux qui veulent veulent évaluer, suivre et gérer un modèle doivent être d'abord administrateur du système. Pour être administrateur, il faut contacter de ML+ et vous aurez un compte qui vous donnera accès; néanmoins certaines conditions peuvent être appliquées tel que un frais unique. Le code de source de notre projet est disponible sur Github et le lien pour y accéder est le suivant : https://github.com/top1986/NewIntershipProject.   
+Notre outil va être déployé sur le serveur web de la compagnie pour laquelle nous faisons le stage (ML+). L'outil va être en ligne et son utilisation sera gratuite pour tous les orthopédistes américains qui veulent uniquement prédire un retour. Mais ceux qui veulent veulent évaluer, suivre et gérer un modèle doivent être d'abord administrateur du système. Pour être administrateur, il faut contacter l'équipe de ML+ et vous aurez un compte qui vous donnera accès; néanmoins certaines conditions peuvent être appliquées tel que un frais unique. Le code de source de notre projet est disponible sur Github et le lien pour y accéder est le suivant : https://github.com/top1986/NewIntershipProject.   
 
 
 \newpage
@@ -1112,104 +1116,106 @@ Notre outil va être déployé sur le serveur web de la compagnie pour laquelle 
 
 
 
-\begin{longtable}{ | p{.25\textwidth} | p{.15\textwidth} | p{.10\textwidth}  | p{.10\textwidth} | p{.40\textwidth} |  } 
+\begin{longtable}{| p{.02\textwidth} | p{.25\textwidth} | p{.13\textwidth} | p{.10\textwidth}  | p{.10\textwidth} | p{.40\textwidth} |  } 
 \hline
-\textbf{Feature name} & \textbf{datatype} & \textbf{non-null }& \textbf{ null } & \textbf{Comments}\\ \hline
+\textbf{ID} & \textbf{Feature name} & \textbf{datatype} & \textbf{non-null }& \textbf{ null } & \textbf{Comments}\\ \hline
 
-Side & Categorical & 2718 & 0 & Détermine si c'est à gauche ou à droite du patient a eu son arthroplastie. Deux valeurs possibles : R (pour Right en anglais) et  L (Pour Left en anglais) \\ \hline 
-Procedure & Boolean & 2718 & 0& On veut savoir si oui ou non le patient a eu une procédure dans le passé \\ \hline 
-RawDx & Categorical & 2718 & 0 & Diagnostique brute du patient  \\ \hline 
-PriorContralateral & Boolean & 2703 & 15& On veut savoir si oui ou non le patient est atteint de \textit{PriorContralateral} \\ \hline 
-TSA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{TSA} \\ \hline 
-RTSA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{RTSA} \\ \hline 
-Tendon Transfer & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{Tendon Transfer} \\ \hline 
-Dx1 & Categorical & 2718 & 0 & Représente diagnostique 1 \\ \hline 
-Dx2 & Categorical & 176 & 2542 & Représente diagnostique 2 \\ \hline 
-Dx3 & Categorical & 2 & 2716 & Représente diagnostique 3 \\ \hline 
-GHOA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{GHOA} \\ \hline 
-AVN & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{AVN} \\ \hline 
-RCT & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{RCT} \\ \hline 
-FailedRCR & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{FailedRCR} \\ \hline 
-ComboRCT & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{ComboRCT} \\ \hline 
-RCTA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{RCTA} \\ \hline 
-IA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{IA} \\ \hline 
-PTA & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{PTA} \\ \hline 
-PHFx & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{PHFx} \\ \hline 
-PHFxSequelae & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{PHFxSequelae} \\ \hline 
-Other & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est atteint de \textit{Other} \\ \hline 
-AGE\_AT\_ADMIT & Numerical & 2718 & 0 & L'âge du patient \\ \hline 
-ASA\_SCORE & Numerical & 2716 & 2 & Les commentaires sont à venir \\ \hline 
-Gender & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est un \textit{Gender} \\ \hline 
-Female & Boolean & 2718 & 0& On veut savoir si oui ou non le patient est un \textit{Female} \\ \hline 
-Discharge & Boolean & 2718 & 0& On veut savoir si oui ou non le patient doit retourner chez lui \\ \hline 
-Height & Numerical & 2293 & 425 & La hauteur du patient \\ \hline 
-Weight & Numerical & 2301 & 417 & Le poids du patient \\ \hline 
-BMI & Numerical & 2283 & 435 & L'indice de masse corporelle (IMC)- BMI en anglais \\ \hline 
-PreOpHgb & Numerical & 272 & 2446 & Hémoglobines blanches du patient \\ \hline 
-PreOpCr & Numerical & 255 & 2463 & Conditions pré-opératoires du patient \\ \hline 
-PreOpALC & Numerical & 157 & 2561 &  Conditions pré-opératoires du patient \\ \hline 
-PreOpGlucose & Numerical & 253 & 2465 & Glucose du patient \\ \hline 
-arrhythmias & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{arrhythmias} \\ \hline 
-valvular & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{valvular} \\ \hline 
-pulm circ & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{pulm circ} \\ \hline 
-PVD & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{PVD} \\ \hline 
-HTNw/oCx & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{HTNw/oCx} \\ \hline 
-HTNw/Cx & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{HTNw/Cx} \\ \hline 
-Paralysis & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Paralysis} \\ \hline 
-other neuro & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{other neuro} \\ \hline 
-chronic pulm & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{chronic pulm} \\ \hline 
-DMw/oCx & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{DMw/oCx} \\ \hline 
-DMw/Cx & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{DMw/Cx} \\ \hline 
-hypothyroid & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{hypothyroid} \\ \hline 
-renal failure & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{renal failure} \\ \hline 
-liver failure & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{liver failure} \\ \hline 
-PUD & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{PUD} \\ \hline 
-AIDS & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{AIDS} \\ \hline 
-L0oma & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{L0oma} \\ \hline 
-Mets & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Mets} \\ \hline 
-solidCaw/oMets & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{solidCaw/oMets} \\ \hline 
-RA/CVD & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{RA/CVD} \\ \hline 
-coagulopathy & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{coagulopathy} \\ \hline 
-obesity & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{obesity} \\ \hline 
-weightLoss & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{weightLoss} \\ \hline 
-fluidElectrolyte & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{fluidElectrolyte} \\ \hline 
-bloodLossAnemia & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{bloodLossAnemia} \\ \hline 
-DeficiencyAnemia & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{DeficiencyAnemia} \\ \hline 
-EtOH & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{EtOH} \\ \hline 
-Drugs & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Drugs} \\ \hline 
-Psychosis & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Psychosis} \\ \hline 
-Depression & Boolean & 2092 & 626& On veut savoir si oui ou non le patient est atteint de \textit{Depression} \\ \hline 
-Plavix & Numerical & 2482 & 236 & Les commentaires sont à venir \\ \hline 
-Dabigatran & Boolean & 2482 & 236& On veut savoir si oui ou non le patient est atteint de \textit{Dabigatran} \\ \hline 
-Enoxaparin & Numerical & 2482 & 236 & Les commentaires sont à venir \\ \hline 
-Rivaroxaban & Numerical & 2482 & 236 & Les commentaires sont à venir \\ \hline 
-Warfarin & Numerical & 2482 & 236 & Les commentaires sont à venir \\ \hline 
-PreOpNarcotic & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpNarcotic} \\ \hline 
-PreOpBloodThinner & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpBloodThinner} \\ \hline 
-PreOpSteroids & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpSteroids} \\ \hline 
-PreOpInsulin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpInsulin} \\ \hline 
-PreOpDMMeds & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{PreOpDMMeds} \\ \hline 
-Oxycodone & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Oxycodone} \\ \hline 
-Hydrocodone & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Hydrocodone} \\ \hline 
-Vicodin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Vicodin} \\ \hline 
-percocet & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{percocet} \\ \hline 
-Oxycontin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Oxycontin} \\ \hline 
-Dilaudid & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Dilaudid} \\ \hline 
-Aspirin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Aspirin} \\ \hline 
-Warfarin.1 & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Warfarin.1} \\ \hline 
-Coumadin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Coumadin} \\ \hline 
-Plavix.1 & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Plavix.1} \\ \hline 
-Clopidogrel & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Clopidogrel} \\ \hline 
-Prednisone & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{Prednisone} \\ \hline 
-insulin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{insulin} \\ \hline 
-humulin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{humulin} \\ \hline 
-lantus & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{lantus} \\ \hline 
-lispro & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{lispro} \\ \hline 
-aspart & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{aspart} \\ \hline 
-metformin & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{metformin} \\ \hline 
-glipizide & Boolean & 900 & 1818& On veut savoir si oui ou non le patient est atteint de \textit{glipizide} \\ \hline
+1 &	Side & Categorical & 2718 & 0 & Détermine si c'est à gauche ou à droite du patient a eu son arthroplastie. Deux valeurs possibles : R (pour Right en anglais) et  L (Pour Left en anglais) \\ \hline 
+2 &	Procedure & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient  a eu une procédure dans le passé \\ \hline 
+3 &	RawDx & Categorical & 2718 & 0 & Diagnostique brute du patient  \\ \hline 
+4 &	PriorContralateral & Boolean & 2703 & 15& Colonne de type booléen qui indique si le patient souffre  de \textit{PriorContralateral} \\ \hline 
+5 &	TSA & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{TSA} \\ \hline 
+6 &	RTSA & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{RTSA} \\ \hline 
+7 &	Tendon Transfer & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{Tendon Transfer} \\ \hline 
+8 &	Dx1 & Categorical & 2718 & 0 & Représente diagnostique 1 \\ \hline 
+9 &	Dx2 & Categorical & 176 & 2542 & Représente diagnostique 2 \\ \hline 
+10 &	Dx3 & Categorical & 2 & 2716 & Représente diagnostique 3 \\ \hline 
+11 &	GHOA & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{GHOA} \\ \hline 
+12 &	AVN & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{AVN} \\ \hline 
+13 &	RCT & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{RCT} \\ \hline 
+14 &	FailedRCR & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{FailedRCR} \\ \hline 
+15 &	ComboRCT & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{ComboRCT} \\ \hline 
+16 &	RCTA & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{RCTA} \\ \hline 
+17 &	IA & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{IA} \\ \hline 
+18 &	PTA & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{PTA} \\ \hline 
+19 &	PHFx & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{PHFx} \\ \hline 
+20 &	PHFxSequelae & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{PHFxSequelae} \\ \hline 
+21 &	Other & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient souffre  de \textit{Other} \\ \hline 
+22 &	AGE\_AT\_ADMIT & Numerical & 2718 & 0 & L'âge du patient \\ \hline 
+23 &	ASA\_SCORE & Numerical & 2716 & 2 & Nous n’avons pas trouvé l’explication de ces colonnes \\ \hline 
+24 &	Gender & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient  est un \textit{Gender} \\ \hline 
+25 &	Female & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient  est un \textit{Female} \\ \hline 
+26 &	Discharge & Boolean & 2718 & 0& Colonne de type booléen qui indique si le patient  doit retourner chez lui \\ \hline 
+27 &	Height & Numerical & 2293 & 425 & La hauteur du patient \\ \hline 
+28 &	Weight & Numerical & 2301 & 417 & Le poids du patient \\ \hline 
+29 &	BMI & Numerical & 2283 & 435 & L'indice de masse corporelle (IMC)- BMI en anglais \\ \hline 
+30 &	PreOpHgb & Numerical & 272 & 2446 & Hémoglobines blanches du patient \\ \hline 
+31 &	PreOpCr & Numerical & 255 & 2463 & Conditions pré-opératoires du patient \\ \hline 
+32 &	PreOpALC & Numerical & 157 & 2561 &  Conditions pré-opératoires du patient \\ \hline 
+33 &	PreOpGlucose & Numerical & 253 & 2465 & Glucose du patient \\ \hline 
+34 &	arrhythmias & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{arrhythmias} \\ \hline 
+35 &	valvular & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{valvular} \\ \hline 
+36 &	pulm circ & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{pulm circ} \\ \hline 
+37 &	PVD & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{PVD} \\ \hline 
+38 &	HTNw/oCx & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{HTNw/oCx} \\ \hline 
+39 &	HTNw/Cx & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{HTNw/Cx} \\ \hline 
+40 &	Paralysis & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{Paralysis} \\ \hline 
+41 &	other neuro & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{other neuro} \\ \hline 
+42 &	chronic pulm & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{chronic pulm} \\ \hline 
+43 &	DMw/oCx & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{DMw/oCx} \\ \hline 
+44 &	DMw/Cx & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{DMw/Cx} \\ \hline 
+45 &	hypothyroid & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{hypothyroid} \\ \hline 
+46 &	renal failure & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{renal failure} \\ \hline 
+47 &	liver failure & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{liver failure} \\ \hline 
+48 &	PUD & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{PUD} \\ \hline 
+49 &	AIDS & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{AIDS} \\ \hline 
+50 &	L0oma & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{L0oma} \\ \hline 
+51 &	Mets & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{Mets} \\ \hline 
+52 &	solidCaw/oMets & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{solidCaw/oMets} \\ \hline 
+53 &	RA/CVD & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{RA/CVD} \\ \hline 
+54 &	coagulopathy & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{coagulopathy} \\ \hline 
+55 &	obesity & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{obesity} \\ \hline 
+56 &	weightLoss & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{weightLoss} \\ \hline 
+57 &	fluidElectrolyte & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{fluidElectrolyte} \\ \hline 
+58 &	bloodLossAnemia & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{bloodLossAnemia} \\ \hline 
+59 &	DeficiencyAnemia & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{DeficiencyAnemia} \\ \hline 
+60 &	EtOH & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{EtOH} \\ \hline 
+61 &	Drugs & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{Drugs} \\ \hline 
+62 &	Psychosis & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{Psychosis} \\ \hline 
+63 &	Depression & Boolean & 2092 & 626& Colonne de type booléen qui indique si le patient souffre  de \textit{Depression} \\ \hline 
+64 &	Plavix & Numerical & 2482 & 236 & Nous n’avons pas trouvé l’explication de ces colonnes \\ \hline 
+65 &	Dabigatran & Boolean & 2482 & 236& Colonne de type booléen qui indique si le patient souffre  de \textit{Dabigatran} \\ \hline 
+66 &	Enoxaparin & Numerical & 2482 & 236 & Nous n’avons pas trouvé l’explication de ces colonnes \\ \hline 
+67 &	Rivaroxaban & Numerical & 2482 & 236 & Nous n’avons pas trouvé l’explication de ces colonnes \\ \hline 
+68 &	Warfarin & Numerical & 2482 & 236 & Nous n’avons pas trouvé l’explication de ces colonnes \\ \hline 
+69 &	PreOpNarcotic & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{PreOpNarcotic} \\ \hline 
+70 &	PreOpBloodThinner & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{PreOpBloodThinner} \\ \hline 
+71 &	PreOpSteroids & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{PreOpSteroids} \\ \hline 
+72 &	PreOpInsulin & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{PreOpInsulin} \\ \hline 
+73 &	PreOpDMMeds & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{PreOpDMMeds} \\ \hline 
+74 &	Oxycodone & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Oxycodone} \\ \hline 
+75 &	Hydrocodone & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Hydrocodone} \\ \hline 
+76 &	Vicodin & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Vicodin} \\ \hline 
+77 &	percocet & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{percocet} \\ \hline 
+78 &	Oxycontin & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Oxycontin} \\ \hline 
+79 &	Dilaudid & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Dilaudid} \\ \hline 
+80 &	Aspirin & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Aspirin} \\ \hline 
+81 &	Warfarin.1 & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Warfarin.1} \\ \hline 
+82 &	Coumadin & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Coumadin} \\ \hline 
+83 &	Plavix.1 & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Plavix.1} \\ \hline 
+84 &	Clopidogrel & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Clopidogrel} \\ \hline 
+85 &	Prednisone & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{Prednisone} \\ \hline 
+86 &	insulin & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{insulin} \\ \hline 
+87 &	humulin & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{humulin} \\ \hline 
+88 &	lantus & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{lantus} \\ \hline 
+89 &	lispro & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{lispro} \\ \hline 
+90 &	aspart & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{aspart} \\ \hline 
+91 &	metformin & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{metformin} \\ \hline 
+92 &	glipizide & Boolean & 900 & 1818& Colonne de type booléen qui indique si le patient souffre  de \textit{glipizide} \\ \hline
 
-\caption{Our whole dataset}
+
+
+\caption{Notre ensemble de données complet}
 \label{tab:dt}
 \end{longtable}
 
