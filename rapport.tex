@@ -200,7 +200,7 @@ Nous supposons qu'il existe déjà un jeu de données disponibles contenant tout
 
 Les technologies de la science de données sont conçues pour développer des outils qui permettent de prendre des décisions à partir d'un ensemble de données existantes. Le machine learning qui est un sous-ensemble de la science de données permet de modéliser à partir du même ensemble de données. Dans le chapitre 2, nous expliquons le cycle de vie du travail du data scientist en détail. Ce que nous proposons comme solution dans notre projet. Nous avons réalisé ce cycle complet pour implémenter notre système d'aide à la décision. \\
 
-Il y a deux grandes phases impliquées dans le processus de développement de notre projet. La première phase est la construction d'un modèle machine learning et la deuxième est le déploiement du modèle construit, cette phase consiste en la création d'un API nommé Ortho, c'est une phase d'ingénierie de logiciels. Pour les deux phases, nous avons crée deux diagrammes, un diagramme de cas d'utilisation qui donne une vision globale du comportement fonctionnel de notre notre système et un diagramme d'états qui explique le processus du développement du modèle. Nous donnons une brève explication de chaque diagramme et leurs différents composants. \\
+Il y a deux grandes phases impliquées dans le processus de développement de notre projet: la première phase est la construction d'un modèle machine learning et la deuxième est le déploiement du modèle construit. Pour construire le modèle nous avons utilisé plusieurs techniques de machine learning telles que le re-échantillonnage et l'optimisation.  La deuxième phase consiste en la création d'un API nommé Ortho, c'est surtout une phase d'ingénierie de logiciels. Pour les deux phases, nous avons crée deux diagrammes, un diagramme de cas d'utilisation qui donne une vision globale du comportement fonctionnel de notre notre système et un diagramme d'états qui explique le processus du développement du modèle. Nous donnons une brève explication de chaque diagramme et leurs différents composants. \\
 
 Nous commençons d'abord par le diagramme de cas d'utilisation. Il consiste en la phase de déploiement du modèle. Ce diagramme explique comment les orthopédistes peuvent utiliser notre système. la figure \ref{usecase} représente une vue de notre diagramme, chaque cas représente une unité discrète d'interaction entre un utilisateur (Orthopédiste ou administrateur) et notre système. Voici une brève explication des acteurs et de chaque cas:
 \begin{enumerate}
@@ -215,7 +215,7 @@ Nous commençons d'abord par le diagramme de cas d'utilisation. Il consiste en l
 
 \begin{figure}[h]
 	\includegraphics[width=17cm, height =9cm]{images/UseCaseDiag.png}
-	\caption{A use-case diagram for describing our API Ortho}
+	\caption{Diagramme cas d'utilisation de notre API Ortho}
 	\label{usecase}
 \end{figure}  
 
@@ -235,7 +235,7 @@ Nous poursuivons avec le diagramme d'états présenté dans la figure \ref{MLUse
 
 \begin{figure}[h]
 	\includegraphics[width=13cm, height =13cm]{images/APIML.png}
-	\caption{A use-case diagram for describing our Machine Learning System}
+	\caption{Diagramme d'utilisation qui décrit notre système ML}
 	\label{MLUseCase}
 \end{figure} 
 
@@ -823,7 +823,7 @@ Pour notre projet nous avons entrainé quatre algorithmes ensemblistes comme on 
 		RandomForestClassifier & 0.82 & 0.91 & 0.90 \\
 		\hline
 	\end{tabular}
-	\caption{Comparison of ensemble methods algorithms used in our project}
+	\caption{Algorithmes ensemblistes utilisés dans notre projet}
 	\label{tab:ensemble}
 \end{table}
 
@@ -964,7 +964,7 @@ Pour évaluer notre modèle, nous avons séparé notre ensemble de données en d
 		  \thead{F1 score} & 0.914466737064414\\
 		\hline
 	\end{tabular}
-	\caption{Gives different results of our model evaluation}
+	\caption{Résultats de l'évaluation de notre modèle}
 	\label{tab:eval}
 \end{table}
 
@@ -989,7 +989,7 @@ Nous allons décrire brièvement les différents messages qui permettent à un o
  
 \begin{figure}[p]
 	\includegraphics[width=17cm, height=10cm ]{images/SequenceDiag.png}
-	\caption{Sequence diagram for evaluating our API tool}
+	\caption{Diagramme séquence de notre API tool}
 	\label{SequenceDiag}
 \end{figure} 
 
@@ -1095,8 +1095,8 @@ Les développements des projets de machine learning peuvent avoir des problèmes
 Puisque nous soutenons que nous avons rencontré des problèmes dans le développement de notre projet, il est primordial de faire ressortir les différentes leçons que nous avons apprises à partir de ces difficultés. Voici deux grandes leçons que j'ai apprises au cours du développement de ce projet : 
 
 \begin{itemize}
-\item \textbf{Combinaison de plusieurs spécialités.} Nous avons appris que toutes les spécialités informatiques peuvent se combiner les unes avec les autres. Par exemple un API développé en Software engineering peut être utilisé pour connecter à des modèles développés en machine learning. On peut aussi utiliser les diagrammes UML pour décrire un système de machine learning ou n'importe quel autre système en général. De même que les sciences ne sont pas isolées entre elles, de même aussi les spécialités informatiques ne sont pas isolées entre elles;
-\item \textbf{Technologies apprises.}  Au début de ce projet, nous ne savions rien ni en machine learning ni en python. Maintenant nous savons utiliser toutes les librairies de machine learning de python telles que sckit-learn, mlxtend, pandas, matplotlib, numpy, scipy etc. Nous avons appris à développer en Django un framework web de python dont nous avons utilisé pour le développement de notre API. 
+\item \textbf{Combinaison de plusieurs spécialités.} Nous avons appris qu'il est possible de combiner plusieurs spécialités en informatique dans la réalisation d'un même projet. Par exemple un API développé en Software engineering peut être utilisé pour connecter à des modèles développés en machine learning. On peut aussi utiliser les diagrammes UML pour décrire un système de machine learning ou n'importe quel autre système en général. De même que les sciences ne sont pas isolées entre elles, de même aussi les spécialités informatiques ne sont pas isolées entre elles;
+\item \textbf{Technologies apprises.}  Au commencement de notre stage, nous ne connaissions rien ni en machine learning ni en langage Python. Maintenant nous savons utiliser la majorité des librairies de machine learning développées en Python telles que \textbf{sckit-learn}, \textbf{mlxtend}, \textbf{pandas}, \textbf{matplotlib}, \textbf{numpy}, \textbf{scipy} etc. Nous avons appris aussi à développer des Web API en Django, un framework web en Python. 
 \end{itemize}
 
 Notre outil va être déployé sur le serveur web de la compagnie pour laquelle nous faisons le stage (ML+). L'outil va être en ligne et son utilisation sera gratuite pour tous les orthopédistes américains qui veulent uniquement prédire un retour. Mais ceux qui veulent veulent évaluer, suivre et gérer un modèle doivent être d'abord administrateur du système. Pour être administrateur, il faut contacter l'équipe de ML+ et vous aurez un compte qui vous donnera accès; néanmoins certaines conditions peuvent être appliquées tel que un frais unique. Le code de source de notre projet est disponible sur Github et le lien pour y accéder est le suivant : https://github.com/top1986/NewIntershipProject.   
