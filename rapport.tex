@@ -200,7 +200,7 @@ Nous supposons qu'il existe déjà un jeu de données disponibles contenant tout
 
 Les technologies de la science de données sont conçues pour développer des outils qui permettent de prendre des décisions à partir d'un ensemble de données existantes. Le machine learning qui est un sous-ensemble de la science de données permet de modéliser à partir du même ensemble de données. Dans le chapitre 2, nous expliquons le cycle de vie du travail du data scientist en détail. Ce que nous proposons comme solution dans notre projet. Nous avons réalisé ce cycle complet pour implémenter notre système d'aide à la décision. \\
 
-Il y a deux grandes phases impliquées dans le processus de développement de notre projet: la première phase est la construction d'un modèle machine learning et la deuxième est le déploiement du modèle construit. Pour construire le modèle nous avons utilisé plusieurs techniques de machine learning telles que le re-échantillonnage et l'optimisation.  La deuxième phase consiste en la création d'un API nommé Ortho, c'est surtout une phase d'ingénierie de logiciels. Pour les deux phases, nous avons crée deux diagrammes, un diagramme de cas d'utilisation qui donne une vision globale du comportement fonctionnel de notre notre système et un diagramme d'états qui explique le processus du développement du modèle. Nous donnons une brève explication de chaque diagramme et leurs différents composants. \\
+Il y a deux grandes phases impliquées dans le processus de développement de notre projet: la première phase est la construction d'un modèle machine learning et la deuxième est le déploiement du modèle construit. Pour construire le modèle nous avons utilisé plusieurs techniques de machine learning telles que le re-échantillonnage et l'optimisation.  La deuxième phase consiste en la création d'un API nommé Ortho, c'est surtout une phase d'ingénierie de logiciels. Pour les deux phases, nous avons crée deux diagrammes UML qui permettent de visualiser la conception de notre système. Le premier est un diagramme de cas d'utilisation qui donne une vision globale du comportement fonctionnel de notre système et le deuxième est un diagramme d'états qui explique le processus du développement du modèle. Nous donnons une brève explication de chaque diagramme et leurs différents composants. \\
 
 Nous commençons d'abord par le diagramme de cas d'utilisation. Il consiste en la phase de déploiement du modèle. Ce diagramme explique comment les orthopédistes peuvent utiliser notre système. la figure \ref{usecase} représente une vue de notre diagramme, chaque cas représente une unité discrète d'interaction entre un utilisateur (Orthopédiste ou administrateur) et notre système. Voici une brève explication des acteurs et de chaque cas:
 \begin{enumerate}
@@ -219,7 +219,7 @@ Nous commençons d'abord par le diagramme de cas d'utilisation. Il consiste en l
 	\label{usecase}
 \end{figure}  
 
-Nous poursuivons avec le diagramme d'états présenté dans la figure \ref{MLUseCase}.  Il décrit les différents états qui constituent le développement de notre modèle ML. Voici un bref résumé de ce fait chaque état: 
+Nous poursuivons avec le diagramme d'états présenté dans la figure \ref{sdml}.  Il décrit les différents états qui constituent le développement de notre modèle machine learning. Voici un bref résumé de ce fait chaque état: 
 
 \begin{enumerate}
 \item \textbf{API Ortho.} L'API fait la connexion entre le système du machine learning et le système du déploiement. Il accède au modèle qui a été sérialisé. 
@@ -234,9 +234,9 @@ Nous poursuivons avec le diagramme d'états présenté dans la figure \ref{MLUse
 
 
 \begin{figure}[h]
-	\includegraphics[width=13cm, height =13cm]{images/APIML.png}
-	\caption{Diagramme d'utilisation qui décrit notre système ML}
-	\label{MLUseCase}
+	\includegraphics[width=11.53cm, height =10.42cm]{images/sdml.png}
+	\caption{Diagramme d'états de notre système ML}
+	\label{sdml}
 \end{figure} 
 
 La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a des sections, subsections etc. Le chapitre 2 donne un contexte théorique des différents éléments qui sont importants pour notre projet. Le chapitre 3 décrit en détail la construction de notre modèle machine learning. Le chapitre 4 décrit la création de l'outil Ortho qui fait la connexion avec le modèle machine learning. Le chapitre 5 montre comment nous évaluons les différents évaluations morceaux de notre système. Le chapitre 6 détaille les travaux connexes liés au développement d'API machine learning, la technique de re-échantillonnage, aux algorithmes ensemblistes etc. Le chapitre 7 fait la conclusion de notre projet.
