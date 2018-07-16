@@ -200,7 +200,7 @@ Nous supposons qu'il existe déjà un jeu de données disponibles contenant tout
 
 Les technologies de la science de données sont conçues pour développer des outils qui permettent de prendre des décisions à partir d'un ensemble de données existantes. Le machine learning qui est un sous-ensemble de la science de données permet de modéliser à partir du même ensemble de données. Dans le chapitre 2, nous expliquons le cycle de vie du travail du data scientist en détail. Ce que nous proposons comme solution dans notre projet. Nous avons réalisé ce cycle complet pour implémenter notre système d'aide à la décision. \\
 
-Il y a deux grandes phases impliquées dans le processus de développement de notre projet: la première phase est la construction d'un modèle machine learning et la deuxième est le déploiement du modèle construit. Pour construire le modèle nous avons utilisé plusieurs techniques de machine learning telles que le re-échantillonnage et l'optimisation.  La deuxième phase consiste en la création d'un API nommé Ortho, c'est surtout une phase d'ingénierie de logiciels. Pour les deux phases, nous avons crée deux diagrammes UML qui permettent de visualiser la conception de notre système. Le premier est un diagramme de cas d'utilisation qui donne une vision globale du comportement fonctionnel de notre système et le deuxième est un diagramme d'états qui explique le processus du développement du modèle. Nous donnons une brève explication de chaque diagramme et leurs différents composants. \\
+Il y a deux grandes phases impliquées dans le processus de développement de notre projet: la première phase est la construction d'un modèle machine learning et la deuxième est le déploiement du modèle construit. Pour construire le modèle nous avons utilisé plusieurs techniques de machine learning telles que le re-échantillonnage et l'optimisation.  La deuxième phase consiste en la création d'un API nommé Ortho, c'est surtout une phase d'ingénierie de logiciels. Pour les deux phases, nous avons crée deux diagrammes UML qui permettent de visualiser la conception de notre système. Le premier est un diagramme de cas d'utilisation qui donne une vision globale du comportement fonctionnel de notre système et le deuxième est un diagramme d'états qui explique le processus du développement du modèle. Nous donnons une brève explication de chaque diagramme et leurs différents composants. Pour plus de commodité dans nos schémas, nous choisissons d'écrire les textes en anglais car les textes français sont souvent beaucoup plus longs pour exprimer les idées. Mais dans toutes les explications nous prenons le soin de donner une traduction française pour faciliter la compréhension.\\
 
 Nous commençons d'abord par le diagramme de cas d'utilisation. Il consiste en la phase de déploiement du modèle. Ce diagramme explique comment les orthopédistes peuvent utiliser notre système. la figure \ref{usecase} représente une vue de notre diagramme, chaque cas représente une unité discrète d'interaction entre un utilisateur (Orthopédiste ou administrateur) et notre système. Voici une brève explication des acteurs et de chaque cas:
 \begin{enumerate}
@@ -219,17 +219,22 @@ Nous commençons d'abord par le diagramme de cas d'utilisation. Il consiste en l
 	\label{usecase}
 \end{figure}  
 
-Nous poursuivons avec le diagramme d'états présenté dans la figure \ref{sdml}.  Il décrit les différents états qui constituent le développement de notre modèle machine learning. Voici un bref résumé de ce fait chaque état: 
+Nous poursuivons avec le diagramme d'états présenté dans la figure \ref{sdml}.  Il décrit les différents états qui constituent le développement de notre modèle machine learning. Voici un bref résumé de ce que fait chaque état: 
 
 \begin{enumerate}
-\item \textbf{API Ortho.} L'API fait la connexion entre le système du machine learning et le système du déploiement. Il accède au modèle qui a été sérialisé. 
-\item \textbf{Gather.} Permet de récupérer les données du dataset;
-\item \textbf{Clean.} Permet de nettoyer les données en imputant les données nulles et en supprimant les variables que ne sont pas pertinentes;
-\item \textbf{Explore.} Permet d'explorer les données pour voir les différentes corrélations qui existent entre les variables et l'étiquette;
-\item \textbf{Transform.} Création de nouvelles variables en fonction de celles qui existent déjà dans l'ensemble des données. 
-\item \textbf{Preprocess.} Un pré-traitement des données avant de les envoyer à l'algorithme de machine learning. Par exemple, les algorithmes de machine learning ne traitent pas les textes, il faut les convertir en valeurs numériques avant de les envoyer aux algorithmes. 
-\item \textbf{Train.} C'est la phase d'entrainement de modèles pour déterminer lequel est meilleur pour notre ensemble de données.
-\item \textbf{Serialize.} Sauvegarde le meilleur modèle pour son utilisation future. 
+\item \textbf{Initial state.} C'est le point de départ du système. Il annonce la construction d'un modèle ML. 
+\item \textbf{Getting historical data.} Permet de récupérer les données à partir d'un fichier \textit{csv}. Les données historiques sont un jeu de données disponible avec des valeurs correctes pour entrainer les modèles;
+\item \textbf{Explore raw data.} Permet d'explorer les données afin de prendre connaissance de l'ensemble de données. A cet état nous pouvons entre autres voir les données impertinentes, différentes corrélations qui existent entre les variables et l'étiquette;
+\item \textbf{Cleaning data.} Dans cet état nous nettoyons nos données en imputant les données nulles et supprimant les variables que ne sont pas pertinentes;
+\item \textbf{Transformation data.} Création de nouvelles variables en fonction de celles qui existent déjà dans l'ensemble des données. 
+\item \textbf{Modeling data.} C'est le fait d'appliquer les algorithmes de machine learning sur un ensemble de données bien préparé. C'est un état composé de quatre états: 
+\begin{enumerate}
+	\item \textbf{Training data.} C'est la phase d'entrainement de modèles pour déterminer lequel est meilleur pour notre ensemble de données;
+	\item \textbf{Choosing model.} Sélectionner le meilleur modèle après une évaluation de chaque modèle entrainé;
+	\item \textbf{Prediction.} Utilisation du meilleur modèle sur un ensemble de données de test;
+	\item \textbf{Serialize.} Sauvegarde le meilleur modèle pour son utilisation future.
+\end{enumerate} 
+\item \textbf{État final.} Le modèle construit est sérialisé pour le système de déploiement. 
 \end{enumerate}
 
 
@@ -239,7 +244,7 @@ Nous poursuivons avec le diagramme d'états présenté dans la figure \ref{sdml}
 	\label{sdml}
 \end{figure} 
 
-La suite de ce rapport est composé de plusieurs chapitres et chaque chapitre a des sections, subsections etc. Le chapitre 2 donne un contexte théorique des différents éléments qui sont importants pour notre projet. Le chapitre 3 décrit en détail la construction de notre modèle machine learning. Le chapitre 4 décrit la création de l'outil Ortho qui fait la connexion avec le modèle machine learning. Le chapitre 5 montre comment nous évaluons les différents évaluations morceaux de notre système. Le chapitre 6 détaille les travaux connexes liés au développement d'API machine learning, la technique de re-échantillonnage, aux algorithmes ensemblistes etc. Le chapitre 7 fait la conclusion de notre projet.
+La suite de ce rapport est structuré de la façon suivante : Le chapitre \ref{chap:background} donne un contexte théorique des différents concepts de la science de données et du machine learning qui sont importants pour notre projet. Le chapitre \ref{chap:modelml} décrit en détail la construction de notre modèle machine learning. Le chapitre \ref{chap:ortho} décrit la création de notre API \textit{Ortho} qui fait la connexion avec le modèle machine learning. Le chapitre \ref{chap:evaluation} montre comment nous évaluons les différents morceaux de notre système. Le chapitre \ref{chap:relatedworks} détaille les travaux connexes liés au développement d'API machine learning, la technique de re-échantillonnage, aux algorithmes ensemblistes etc. Le chapitre \ref{chap:conclusion} fait la conclusion générale de notre rapport.
 
 
 \newpage
@@ -618,7 +623,7 @@ Le chapitre 2 a présenté une vue approche théorique de quelques grands concep
 
 \newpage
 
-\chapter{Approche: Construction du modèle machine learning}
+\chapter{Approche: Construction du modèle machine learning} \label{chap:modelml}
 \section{Introduction}
 
 La construction d'un modèle de machine learning est la première grande phase dans l'implémentation de notre solution. Le modèle estimateur (meilleur modèle entrainé en fonction d'un ensemble de données) va être utilisé pour introduire la deuxième phase, celle de la création de l'API \textit{Ortho}. Comme nous avons déjà vu dans l'introduction le diagramme de cas d'utilisation du système machine learning. Nous proposons maintenant un diagramme de classe (figure \ref{MLClassDiag}) qui répond aux différentes exigences que nous avons décrites. Nous tenons à souligner que dans notre diagramme de classe nous ne prenons pas en compte les classes prédéfinies dans les librairies de Python. Par exemple le \textbf{DataFrame} est une classe prédéfinie dans la librairie \textbf{pandas}. Nous l'utilisons dans notre classe \textbf{Gather} mais elle n'est pas définie dans notre diagramme de classe.  \\ 
@@ -839,7 +844,7 @@ Après avoir déterminé le meilleur modèle à partir des fonctions automatisé
 %produire un meilleur mélange.
  
 
-\chapter{Implémentation de l'outil Ortho}
+\chapter{Implémentation de l'outil Ortho} \label{chap:ortho}
 \section{Introduction}
 
 Les systèmes modernes d'apprentissage automatique facilitent la construction d'un système de décision de base. Cette facilité, cependant, est un peu décevante. Construire et déployer un premier système de décision a tendance à bien fonctionner, et les résultats peuvent être assez impressionnants pour les bonnes applications. L'ajout d'un autre système se passe généralement aussi bien. Cependant, d'étranges interactions peuvent commencer à apparaître d'une manière qui serait impossible du point de vue de l'ingénierie logicielle. Changer une partie du système affecte une autre partie du système, même si des tests isolés peuvent suggérer que cela est impossible. \\
@@ -943,7 +948,7 @@ Le système que nous développons a eu deux grandes phases de développement com
 
 
 
-\chapter{Évaluation}
+\chapter{Évaluation} \label{chap:evaluation}
 \section{Évaluation du modèle machine learning}
 L'évaluation des algorithmes d'apprentissage automatique est une partie essentielle de tout projet. Le modèle peut nous donner des résultats satisfaisants lorsqu'il est évalué à l'aide d'une métrique, par exemple \textbf{precision\_score}, mais il peut donner de mauvais résultats lorsqu'il est évalué par rapport à d'autres mesures, telles que \textbf{logarithmic\_loss} ou toute autre mesure de ce type. Évaluer un projet de machine learning est différent d'évaluer les projets de génie logiciels traditionnels. La différence est que pour évaluer de tels projets, il faut tenir compte des différentes théories de machine learning permettant de faire des évaluations sur des modèles. Ce que nous avons déjà dans la sous-section 2.3.1 portant sur la "\textbf{Mesure de performance des algorithmes de classification}" au chapitre "\textbf{Contexte théorique}". \\
 
@@ -999,7 +1004,7 @@ Notre projet est loin d'être exhaustif, il reste beaucoup de choses à faire ma
 Comme travaux futurs, nous prévoyons inclure les modules qui gèrent le monitoring et management du modèle. Et aussi la gestion des sessions puisque tout le monde peut avoir accès au module de prédictions mais les modules monitoring et management sont réservés aux administrateurs du système.    
 \newpage
 
-\chapter{Travaux connexes}
+\chapter{Travaux connexes} \label{chap:relatedworks}
 Nous n'avons pas trouvé de travaux connexes directement liés à notre domaine c'est-à-dire aucun organisme n'a encore développé de systèmes liés au risque de retour des patients après une arthroplastie. Par contre nous avons trouvé des projets qui ont des points similaires par rapport à notre projet tels que les classes déséquilibrées, la technique SMOTE, le problème de classification et les algorithmes ensemblistes. Aussi nous avons trouvé des APIs conçus pour être utilisés dans l'apprentissage automatique.\\
 
 MLlib, une bibliothèque d'apprentissage automatique distribuée de Apache Spark (plateforme populaire adaptée aux tâches d'apprentissage machine itératives) a été présenté par Xiangrui Meng et al. \cite{key34}. La bibliothèque cible les paramètres d'apprentissage à grande échelle qui bénéficient du parallélisme des données ou du parallélisme des modèles pour stocker et exploiter des données ou des modèles. MLlib consiste en des implémentations rapides et évolutives d'algorithmes d'apprentissage standard pour les paramètres d'apprentissage communs, y compris la classification, la régression, le filtrage collaboratif, la mise en grappe et la réduction de la dimensionnalité. Il fournit également une variété de statistiques sous-jacentes, d'algèbre linéaire et de primitives d'optimisation. Écrit dans Scala et utilisant des bibliothèques d'algèbre linéaire (basées sur C ++) sur chaque nœud, MLlib inclut des API Java, Scala et Python, et est publié dans le cadre du projet Spark sous la licence Apache 2.0. MLlib  fournit une API de haut niveau qui exploite l'écosystème riche de Spark pour simplifier le développement de pipelines d'apprentissage automatique de bout en bout. Dans notre projet, nous avons conçu notre propre API spécifique à nos besoins. \\
@@ -1073,7 +1078,7 @@ Dans cette étude, les auteurs ont décrit les avantages d'utiliser SMOTE mais i
 
 \newpage
 
-\chapter{Conclusion générale}
+\chapter{Conclusion générale} \label{chap:conclusion}
 
 Nous avons développé un outil qui permet aux orthopédistes américains de déterminer de façon automatique quand un patient doit retourner chez lui après une arthroplastie et quand il doit reste à l'hôpital pour une réadaptation. Le projet était important parce que les compagnies d'assurance de santé américaine ne couvrent pas les frais relatifs à la réadaptation d'un patient qui sont très élevés soit environ \$ 30,000 par réadaptation. Ces coûts doivent être couverts par les hôpitaux et le compagnies d'assurance ne couvrent que les arthroplasties qui sont les opérations. Nous avons dit également, il est très fastidieux pour un médecin de vérifier manuellement un dossier patient compte tenu du volume des informations. Grâce à notre outil les docteurs orthopédistes américains peuvent prédire automatiquement la décision à prendre après une arthroplastie.  \\    
 
